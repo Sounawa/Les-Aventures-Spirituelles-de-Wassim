@@ -1,0 +1,295 @@
+'use client';
+
+import { useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { useApp } from '@/components/AppContext';
+import { tomes } from '@/data/tomes';
+import { badges } from '@/data/badges';
+import { Button } from '@/components/ui/button';
+import {
+  ArrowLeft, BookOpen, Trophy, Star, Brain,
+  Flame, Target, Calendar, TrendingUp,
+} from 'lucide-react';
+
+function StatCard({
+  icon, label, value, sub, color, delay,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string | number;
+  sub?: string;
+  color: string;
+  delay: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay }}
+      className="parchment-card rounded-xl p-4 flex items-start gap-3"
+    >
+      <div
+        className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+        style={{ backgroundColor: `${color}15` }}
+      >
+        <div style={{ color }}>{icon}</div>
+      </div>
+      <div className="min-w-0">
+        <p className="text-xs text-stone-400 font-medium">{label}</p>
+        <p className="text-xl font-bold text-stone-800 mt-0.5">{value}</p>
+        {sub && <p className="text-[10px] text-stone-400 mt-0.5">{sub}</p>}
+      </div>
+    </motion.div>
+  );
+}
+
+function ProgressRing({
+  progress, size = 80, strokeWidth = 6, color = '#D97706',
+}: {
+  progress: number;
+  size?: number;
+  strokeWidth?: number;
+  color?: string;
+}) {
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (progress / 100) * circumference;
+
+  return (
+    <div className="relative" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="-rotate-90">
+        <circle
+          cx={size / 2} cy={size / 2} r={radius}
+          fill="none" stroke="currentColor" strokeWidth={strokeWidth}
+          className="text-stone-100"
+        />
+        <motion.circle
+          cx={size / 2} cy={size / 2} r={radius}
+          fill="none" stroke={color} strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          initial={{ strokeDashoffset: circumference }}
+          animate={{ strokeDashoffset: offset }}
+          transition={{ duration: 1.5, delay: 0.3 }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-lg font-bold text-stone-700">{Math.round(progress)}%</span>
+      </div>
+    </div>
+  );
+}
+
+export function StatsScreen() {
+  const { navigateTo, completedChapters, earnedBadges, completedScenes, quizScores, journalEntries } = useApp();
+
+  const stats = useMemo(() => {
+    const totalChapters = tomes.reduce((s, t) => s + t.chapters.length, 0);
+    const totalScenes = tomes.reduce((s, t) => s + t.chapters.reduce((cs, c) => cs + c.scenes.length, 0), 0);
+    const completedTomes = tomes.filter(t =>
+      t.chapters.every(c => completedChapters.includes(c.id))
+    ).length;
+    const avgQuizScore = Object.keys(quizScores).length > 0
+      ? Math.round(Object.values(quizScores).reduce((a, b) => a + b, 0) / Object.keys(quizScores).length)
+      : 0;
+    const bestQuizScore = Object.values(quizScores).length > 0
+      ? Math.max(...Object.values(quizScores))
+      : 0;
+    const quizzesTaken = Object.keys(quizScores).length;
+
+    return {
+      totalChapters,
+      totalScenes,
+      completedTomes,
+      totalTomes: tomes.length,
+      avgQuizScore,
+      bestQuizScore,
+      quizzesTaken,
+      globalProgress: totalChapters > 0 ? (completedChapters.length / totalChapters) * 100 : 0,
+      badgeProgress: (earnedBadges.length / badges.length) * 100,
+      totalJournalEntries: journalEntries.length,
+      scenesProgress: totalScenes > 0 ? (completedScenes.length / totalScenes) * 100 : 0,
+    };
+  }, [completedChapters, earnedBadges, completedScenes, quizScores, journalEntries]);
+
+  // Tome-level breakdown
+  const tomeStats = useMemo(() =>
+    tomes.map(tome => {
+      const completed = tome.chapters.filter(c => completedChapters.includes(c.id)).length;
+      return {
+        id: tome.id,
+        number: tome.number,
+        title: tome.title,
+        total: tome.chapters.length,
+        completed,
+        progress: (completed / tome.chapters.length) * 100,
+      };
+    }), [completedChapters]);
+
+  const hasNoProgress = completedChapters.length === 0;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-teal-50">
+      {/* Header */}
+      <div className="sticky top-0 z-10 bg-amber-50/80 backdrop-blur-sm border-b border-amber-200/30">
+        <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
+          <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0">
+            <ArrowLeft className="w-4 h-4 mr-1" />
+            Retour
+          </Button>
+          <h1 className="text-lg font-bold text-stone-800 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-amber-600" />
+            Statistiques
+          </h1>
+        </div>
+      </div>
+
+      <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+        {hasNoProgress ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center py-12"
+          >
+            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-amber-100 flex items-center justify-center">
+              <BookOpen className="w-10 h-10 text-amber-400" />
+            </div>
+            <h2 className="text-lg font-bold text-stone-700 mb-2">Aucune progression</h2>
+            <p className="text-sm text-stone-500 mb-4">Commence ton aventure pour voir tes statistiques !</p>
+            <Button onClick={() => navigateTo('tome_select')} className="bg-amber-600 hover:bg-amber-700">
+              Commencer
+            </Button>
+          </motion.div>
+        ) : (
+          <>
+            {/* Main progress ring */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="parchment-card rounded-2xl p-6 flex items-center gap-6"
+            >
+              <ProgressRing progress={stats.globalProgress} size={100} strokeWidth={8} />
+              <div className="flex-1">
+                <h2 className="text-lg font-bold text-stone-800 mb-1">Progression globale</h2>
+                <p className="text-sm text-stone-500">
+                  {completedChapters.length} chapitres terminés sur {stats.totalChapters}
+                </p>
+                <div className="flex items-center gap-1 mt-2">
+                  <Flame className="w-4 h-4 text-orange-500" />
+                  <span className="text-xs font-medium text-orange-600">
+                    {stats.completedTomes > 0 ? `${stats.completedTomes} tome${stats.completedTomes > 1 ? 's' : ''} complété${stats.completedTomes > 1 ? 's' : ''}` : 'Continue ton chemin !'}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Stats grid */}
+            <div className="grid grid-cols-2 gap-3">
+              <StatCard
+                icon={<BookOpen className="w-5 h-5" />}
+                label="Chapitres"
+                value={completedChapters.length}
+                sub={`sur ${stats.totalChapters}`}
+                color="#D97706"
+                delay={0.1}
+              />
+              <StatCard
+                icon={<Star className="w-5 h-5" />}
+                label="Badges"
+                value={`${earnedBadges.length}/${badges.length}`}
+                sub="vertus spirituelles"
+                color="#7C3AED"
+                delay={0.15}
+              />
+              <StatCard
+                icon={<Brain className="w-5 h-5" />}
+                label="Quiz"
+                value={stats.quizzesTaken}
+                sub={`Moy: ${stats.avgQuizScore}%`}
+                color="#EC4899"
+                delay={0.2}
+              />
+              <StatCard
+                icon={<Trophy className="w-5 h-5" />}
+                label="Meilleur score"
+                value={`${stats.bestQuizScore}%`}
+                sub={stats.bestQuizScore >= 80 ? 'Excellent !' : 'Continue !'}
+                color="#059669"
+                delay={0.25}
+              />
+            </div>
+
+            {/* Scenes progress */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="parchment-card rounded-xl p-4 space-y-3"
+            >
+              <div className="flex items-center gap-2">
+                <Target className="w-4 h-4 text-teal-600" />
+                <h3 className="text-sm font-semibold text-stone-700">Scènes parcourues</h3>
+                <span className="ml-auto text-xs text-stone-400">{completedScenes.length}/{stats.totalScenes}</span>
+              </div>
+              <div className="w-full h-3 bg-stone-100 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-teal-400 to-emerald-400 rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${stats.scenesProgress}%` }}
+                  transition={{ duration: 1, delay: 0.4 }}
+                />
+              </div>
+            </motion.div>
+
+            {/* Tome breakdown */}
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+              className="space-y-3"
+            >
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-stone-400 flex items-center gap-2">
+                <BookOpen className="w-3 h-3" />
+                Progression par tome
+              </h2>
+              {tomeStats.map((ts, idx) => {
+                const colors = ['#D97706', '#E11D48', '#CA8A04', '#0D9488', '#7C3AED'];
+                return (
+                  <motion.div
+                    key={ts.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 + idx * 0.05 }}
+                    className="parchment-card rounded-xl p-3 flex items-center gap-3"
+                  >
+                    <div
+                      className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0"
+                      style={{ backgroundColor: colors[idx] }}
+                    >
+                      {ts.number}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-medium text-stone-700 truncate">{ts.title}</p>
+                      <div className="w-full h-1.5 bg-stone-100 rounded-full mt-1 overflow-hidden">
+                        <motion.div
+                          className="h-full rounded-full"
+                          style={{ backgroundColor: colors[idx] }}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${ts.progress}%` }}
+                          transition={{ duration: 0.8, delay: 0.5 + idx * 0.05 }}
+                        />
+                      </div>
+                    </div>
+                    <span className="text-xs font-medium text-stone-500 shrink-0">
+                      {ts.completed}/{ts.total}
+                    </span>
+                  </motion.div>
+                );
+              })}
+            </motion.section>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}

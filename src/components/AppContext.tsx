@@ -4,6 +4,13 @@ import { useState, useCallback } from 'react';
 import { createContext, useContext, type ReactNode } from 'react';
 import type { ScreenType } from '@/types/story';
 
+interface AppSettings {
+  darkMode: boolean;
+  fontSize: 'normal' | 'large' | 'xlarge';
+  typewriterSpeed: number;
+  soundEnabled: boolean;
+}
+
 interface AppState {
   screen: ScreenType;
   selectedTomeId: string | null;
@@ -13,6 +20,16 @@ interface AppState {
   completedScenes: string[];
   completedChapters: string[];
   quizScores: Record<string, number>;
+  settings: AppSettings;
+  journalEntries: JournalEntry[];
+}
+
+export interface JournalEntry {
+  id: string;
+  chapterId: string;
+  chapterTitle: string;
+  text: string;
+  createdAt: string;
 }
 
 interface AppContextType {
@@ -34,9 +51,23 @@ interface AppContextType {
   setQuizScore: (chapterId: string, score: number) => void;
   resetProgress: () => void;
   hydrate: () => void;
+  settings: AppSettings;
+  updateSettings: (s: Partial<AppSettings>) => void;
+  journalEntries: JournalEntry[];
+  addJournalEntry: (entry: Omit<JournalEntry, 'id' | 'createdAt'>) => void;
+  deleteJournalEntry: (id: string) => void;
+  screenHistory: ScreenType[];
+  navigateTo: (screen: ScreenType) => void;
 }
 
-const STORAGE_KEY = 'nawfel-save-v1';
+const STORAGE_KEY = 'nawfel-save-v2';
+
+const defaultSettings: AppSettings = {
+  darkMode: false,
+  fontSize: 'normal',
+  typewriterSpeed: 25,
+  soundEnabled: false,
+};
 
 const defaultState: AppState = {
   screen: 'home',
@@ -47,6 +78,8 @@ const defaultState: AppState = {
   completedScenes: [],
   completedChapters: [],
   quizScores: {},
+  settings: defaultSettings,
+  journalEntries: [],
 };
 
 function readStorage(): Partial<AppState> {
@@ -69,6 +102,8 @@ function writeStorage(state: AppState) {
       completedScenes: state.completedScenes,
       completedChapters: state.completedChapters,
       quizScores: state.quizScores,
+      settings: state.settings,
+      journalEntries: state.journalEntries,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch { /* noop */ }
@@ -83,7 +118,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const saved = readStorage();
     const hasData = (saved.earnedBadges?.length ?? 0) > 0 || (saved.completedChapters?.length ?? 0) > 0;
     if (hasData) {
-      setState(prev => ({ ...prev, ...saved, screen: 'home' as ScreenType }));
+      setState(prev => ({
+        ...prev,
+        ...saved,
+        settings: { ...defaultSettings, ...saved.settings },
+        journalEntries: saved.journalEntries || [],
+        screen: 'home' as ScreenType,
+      }));
+    } else if (saved.settings) {
+      // Apply settings even without game progress
+      setState(prev => ({
+        ...prev,
+        settings: { ...defaultSettings, ...saved.settings },
+      }));
     }
   }, []);
 
@@ -96,6 +143,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const navigateTo = useCallback((screen: ScreenType) => {
+    setState(prev => ({
+      ...prev,
+      screen,
+      screenHistory: [...prev.screenHistory.slice(-5), prev.screen],
+    }));
+  }, []);
+
   const setScreen = useCallback((s: ScreenType) => setState(prev => ({ ...prev, screen: s })), []);
   const selectTome = useCallback((id: string) => setState(prev => ({ ...prev, selectedTomeId: id })), []);
   const selectChapter = useCallback((id: string) => setState(prev => ({ ...prev, selectedChapterId: id })), []);
@@ -106,8 +161,49 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const setQuizScore = useCallback((chapterId: string, score: number) => updateAndPersist(prev => ({ ...prev, quizScores: { ...prev.quizScores, [chapterId]: Math.max(prev.quizScores[chapterId] || 0, score) } })), [updateAndPersist]);
   const resetProgress = useCallback(() => { setState({ ...defaultState }); try { localStorage.removeItem(STORAGE_KEY); } catch { /* noop */ } }, []);
 
+  const updateSettings = useCallback((partial: Partial<AppSettings>) => {
+    updateAndPersist(prev => ({
+      ...prev,
+      settings: { ...prev.settings, ...partial },
+    }));
+  }, [updateAndPersist]);
+
+  const addJournalEntry = useCallback((entry: Omit<JournalEntry, 'id' | 'createdAt'>) => {
+    updateAndPersist(prev => ({
+      ...prev,
+      journalEntries: [
+        ...prev.journalEntries,
+        {
+          ...entry,
+          id: `je-${Date.now()}`,
+          createdAt: new Date().toISOString(),
+        },
+      ],
+    }));
+  }, [updateAndPersist]);
+
+  const deleteJournalEntry = useCallback((id: string) => {
+    updateAndPersist(prev => ({
+      ...prev,
+      journalEntries: prev.journalEntries.filter(e => e.id !== id),
+    }));
+  }, [updateAndPersist]);
+
   return (
-    <AppContext.Provider value={{ screen: state.screen, setScreen, selectedTomeId: state.selectedTomeId, selectTome, selectedChapterId: state.selectedChapterId, selectChapter, currentSceneId: state.currentSceneId, setCurrentScene, earnedBadges: state.earnedBadges, earnBadge, completedScenes: state.completedScenes, completeScene, completedChapters: state.completedChapters, completeChapter, quizScores: state.quizScores, setQuizScore, resetProgress, hydrate }}>
+    <AppContext.Provider value={{
+      screen: state.screen, setScreen, navigateTo,
+      selectedTomeId: state.selectedTomeId, selectTome,
+      selectedChapterId: state.selectedChapterId, selectChapter,
+      currentSceneId: state.currentSceneId, setCurrentScene,
+      earnedBadges: state.earnedBadges, earnBadge,
+      completedScenes: state.completedScenes, completeScene,
+      completedChapters: state.completedChapters, completeChapter,
+      quizScores: state.quizScores, setQuizScore,
+      resetProgress, hydrate,
+      settings: state.settings, updateSettings,
+      journalEntries: state.journalEntries, addJournalEntry, deleteJournalEntry,
+      screenHistory: state.screenHistory,
+    }}>
       {children}
     </AppContext.Provider>
   );

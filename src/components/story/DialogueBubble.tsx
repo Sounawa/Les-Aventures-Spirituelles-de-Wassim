@@ -35,6 +35,17 @@ export function DialogueBubble({ dialogue, index }: DialogueBubbleProps) {
 
   if (!character) return null;
 
+  const emotionEmoji: Record<string, string> = {
+    neutral: '',
+    happy: '😊',
+    sad: '😢',
+    angry: '😠',
+    surprised: '😮',
+    wise: '🧠',
+    scared: '😨',
+    determined: '💪',
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
@@ -50,10 +61,15 @@ export function DialogueBubble({ dialogue, index }: DialogueBubbleProps) {
         isSpeaking={!isComplete}
       />
       <div className="flex-1">
-        <p className="text-xs font-semibold mb-1" style={{ color: character.color }}>
-          {character.name}
-          <span className="text-stone-400 font-normal ml-2">{character.nameAr}</span>
-        </p>
+        <div className="flex items-center gap-2 mb-1">
+          <p className="text-xs font-semibold" style={{ color: character.color }}>
+            {character.name}
+          </p>
+          <p className="text-[10px] text-stone-400 font-amiri" dir="rtl">{character.nameAr}</p>
+          {dialogue.emotion && dialogue.emotion !== 'neutral' && (
+            <span className="text-xs">{emotionEmoji[dialogue.emotion] || ''}</span>
+          )}
+        </div>
         <div
           className="rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm border max-w-lg"
           style={{
@@ -64,7 +80,10 @@ export function DialogueBubble({ dialogue, index }: DialogueBubbleProps) {
           <p className="text-sm leading-relaxed text-stone-700">
             {displayText}
             {!isComplete && (
-              <span className="inline-block w-0.5 h-3 ml-0.5 animate-pulse align-middle" style={{ backgroundColor: character.color }} />
+              <span
+                className="inline-block w-0.5 h-3 ml-0.5 animate-pulse align-middle typewriter-cursor"
+                style={{ backgroundColor: character.color }}
+              />
             )}
           </p>
         </div>

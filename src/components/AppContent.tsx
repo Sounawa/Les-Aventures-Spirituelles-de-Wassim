@@ -10,6 +10,9 @@ import { StoryScreen } from '@/components/screens/StoryScreen';
 import { CharacterGalleryScreen } from '@/components/screens/CharacterGalleryScreen';
 import { BadgeCollectionScreen } from '@/components/screens/BadgeCollectionScreen';
 import { LessonScreen } from '@/components/screens/LessonScreen';
+import { SettingsScreen } from '@/components/screens/SettingsScreen';
+import { StatsScreen } from '@/components/screens/StatsScreen';
+import { JournalScreen } from '@/components/screens/JournalScreen';
 import QuizScreen from '@/components/screens/QuizScreen';
 import type { ScreenType } from '@/types/story';
 
@@ -22,11 +25,9 @@ const screenComponents: Record<ScreenType, React.ComponentType> = {
   badge_collection: BadgeCollectionScreen,
   lesson: LessonScreen,
   quiz: QuizScreen,
-  settings: () => (
-    <div className="min-h-screen flex items-center justify-center text-stone-400 bg-gradient-to-b from-amber-50 to-teal-50">
-      Paramètres — Bientôt disponible
-    </div>
-  ),
+  settings: SettingsScreen,
+  stats: StatsScreen,
+  journal: JournalScreen,
 };
 
 function Hydrator({ children }: { children: React.ReactNode }) {
@@ -35,12 +36,25 @@ function Hydrator({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+function ThemeHandler() {
+  const { settings } = useApp();
+  useEffect(() => {
+    if (settings.darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [settings.darkMode]);
+  return null;
+}
+
 function AppInner() {
   const { screen } = useApp();
   const ScreenComponent = screenComponents[screen];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-amber-50 via-orange-50 to-teal-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-amber-50 via-orange-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950 transition-colors duration-500">
+      <ThemeHandler />
       <main className="flex-1">
         <AnimatePresence mode="wait">
           <motion.div
@@ -48,19 +62,19 @@ function AppInner() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.15 }}
           >
             {ScreenComponent && <ScreenComponent />}
           </motion.div>
         </AnimatePresence>
       </main>
 
-      <footer className="mt-auto bg-amber-100/60 backdrop-blur-sm border-t border-amber-200/30 py-3">
+      <footer className="mt-auto bg-amber-100/60 dark:bg-stone-800/60 backdrop-blur-sm border-t border-amber-200/30 dark:border-stone-700/30 py-3 transition-colors duration-500">
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <p className="text-[10px] text-stone-400">
+          <p className="text-[10px] text-stone-400 dark:text-stone-500">
             Les Aventures Spirituelles de Nawfel — مغامرات نوفل الروحية
           </p>
-          <p className="text-[10px] text-stone-300 mt-0.5">
+          <p className="text-[10px] text-stone-300 dark:text-stone-600 mt-0.5">
             Un livre dont tu es le héros • Basé sur les enseignements du Tassawuf
           </p>
         </div>

@@ -87,7 +87,9 @@ export type ScreenType =
   | 'badge_collection'
   | 'lesson'
   | 'quiz'
-  | 'settings';
+  | 'settings'
+  | 'stats'
+  | 'journal';
 
 export interface GameState {
   currentScreen: ScreenType;
