@@ -8,7 +8,7 @@ import { badges } from '@/data/badges';
 import { Button } from '@/components/ui/button';
 import {
   ArrowLeft, BookOpen, Trophy, Star, Brain,
-  Flame, Target, TrendingUp,
+  Flame, Target, TrendingUp, BookHeart,
 } from 'lucide-react';
 
 function StatCard({
@@ -80,8 +80,17 @@ function ProgressRing({
   );
 }
 
+function getMotivationalMessage(progress: number) {
+  if (progress === 0) return { emoji: '🚀', text: 'Ton aventure t\'attend !', gradient: 'from-stone-400 to-stone-500 dark:from-stone-600 dark:to-stone-700' };
+  if (progress <= 25) return { emoji: '🌱', text: 'Tu as posé la première pierre de ton chemin', gradient: 'from-emerald-400 to-teal-500 dark:from-emerald-600 dark:to-teal-700' };
+  if (progress <= 50) return { emoji: '📈', text: 'Tu progresses avec persévérance', gradient: 'from-sky-400 to-cyan-500 dark:from-sky-600 dark:to-cyan-700' };
+  if (progress <= 75) return { emoji: '⭐', text: 'Plus de la moitié parcourue !', gradient: 'from-amber-400 to-orange-500 dark:from-amber-600 dark:to-orange-700' };
+  if (progress < 100) return { emoji: '🏆', text: 'Presque au bout du voyage !', gradient: 'from-rose-400 to-pink-500 dark:from-rose-600 dark:to-pink-700' };
+  return { emoji: '🌟', text: 'Masha\'Allah ! Aventure complétée !', gradient: 'from-amber-300 via-yellow-400 to-amber-500 dark:from-amber-500 dark:via-yellow-500 dark:to-amber-600' };
+}
+
 export function StatsScreen() {
-  const { navigateTo, completedChapters, earnedBadges, completedScenes, quizScores, journalEntries } = useApp();
+  const { navigateTo, completedChapters, earnedBadges, completedScenes, quizScores, journalEntries, dailyStreak } = useApp();
 
   const stats = useMemo(() => {
     const totalChapters = tomes.reduce((s, t) => s + t.chapters.length, 0);
@@ -97,6 +106,13 @@ export function StatsScreen() {
       : 0;
     const quizzesTaken = Object.keys(quizScores).length;
 
+    // Find first completed chapter for insights
+    const allChapters = tomes.flatMap(t => t.chapters);
+    const firstCompletedChapter = allChapters.find(c => completedChapters.includes(c.id));
+
+    // Find next locked chapter
+    const nextLockedChapter = allChapters.find(c => !completedChapters.includes(c.id));
+
     return {
       totalChapters,
       totalScenes,
@@ -109,6 +125,9 @@ export function StatsScreen() {
       badgeProgress: (earnedBadges.length / badges.length) * 100,
       totalJournalEntries: journalEntries.length,
       scenesProgress: totalScenes > 0 ? (completedScenes.length / totalScenes) * 100 : 0,
+      firstCompletedChapter,
+      nextLockedChapter,
+      allDone: completedChapters.length === totalChapters,
     };
   }, [completedChapters, earnedBadges, completedScenes, quizScores, journalEntries]);
 
@@ -127,6 +146,7 @@ export function StatsScreen() {
     }), [completedChapters]);
 
   const hasNoProgress = completedChapters.length === 0;
+  const motivation = getMotivationalMessage(stats.globalProgress);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
@@ -183,8 +203,8 @@ export function StatsScreen() {
               </div>
             </motion.div>
 
-            {/* Stats grid */}
-            <div className="grid grid-cols-2 gap-3">
+            {/* Stats grid — 2 cols mobile, 3 cols md */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               <StatCard
                 icon={<BookOpen className="w-5 h-5" />}
                 label="Chapitres"
@@ -217,7 +237,84 @@ export function StatsScreen() {
                 color="#059669"
                 delay={0.25}
               />
+              {/* New: Scènes lues */}
+              <StatCard
+                icon={<Target className="w-5 h-5" />}
+                label="Scènes lues"
+                value={completedScenes.length}
+                sub={`sur ${stats.totalScenes}`}
+                color="#0D9488"
+                delay={0.3}
+              />
+              {/* New: Journal */}
+              <StatCard
+                icon={<BookHeart className="w-5 h-5" />}
+                label="Journal"
+                value={journalEntries.length}
+                sub="réflexions écrites"
+                color="#E11D48"
+                delay={0.35}
+              />
+              {/* New: Série — spans full width on mobile, 1 col on md */}
+              <StatCard
+                icon={<Flame className="w-5 h-5" />}
+                label="Série"
+                value={dailyStreak}
+                sub={dailyStreak >= 3 ? `${dailyStreak} jours d'affilée !` : 'jours consécutifs'}
+                color="#EA580C"
+                delay={0.4}
+              />
             </div>
+
+            {/* Reading Insights Section */}
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45 }}
+              className="glass-card rounded-xl p-5 space-y-4"
+            >
+              <h3 className="text-sm font-semibold text-stone-700 dark:text-stone-200 flex items-center gap-2">
+                💡 Tes moments de lecture
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {/* Chapitre favori */}
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-amber-50/60 dark:bg-amber-900/20 border border-amber-200/40 dark:border-amber-700/30">
+                  <div className="w-9 h-9 rounded-lg bg-amber-100 dark:bg-amber-800/40 flex items-center justify-center shrink-0">
+                    <BookOpen className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] text-stone-400 dark:text-stone-500 font-medium">Chapitre favori</p>
+                    <p className="text-xs font-semibold text-stone-700 dark:text-stone-200 truncate">
+                      {stats.firstCompletedChapter ? stats.firstCompletedChapter.title : '—'}
+                    </p>
+                  </div>
+                </div>
+                {/* Badges préférés */}
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-violet-50/60 dark:bg-violet-900/20 border border-violet-200/40 dark:border-violet-700/30">
+                  <div className="w-9 h-9 rounded-lg bg-violet-100 dark:bg-violet-800/40 flex items-center justify-center shrink-0">
+                    <Star className="w-4 h-4 text-violet-600 dark:text-violet-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] text-stone-400 dark:text-stone-500 font-medium">Badges préférés</p>
+                    <p className="text-xs font-semibold text-stone-700 dark:text-stone-200">
+                      {earnedBadges.length} vertus collectées
+                    </p>
+                  </div>
+                </div>
+                {/* Prochaine étape */}
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-teal-50/60 dark:bg-teal-900/20 border border-teal-200/40 dark:border-teal-700/30">
+                  <div className="w-9 h-9 rounded-lg bg-teal-100 dark:bg-teal-800/40 flex items-center justify-center shrink-0">
+                    <Target className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] text-stone-400 dark:text-stone-500 font-medium">Prochaine étape</p>
+                    <p className="text-xs font-semibold text-stone-700 dark:text-stone-200 truncate">
+                      {stats.allDone ? 'Aventure terminée !' : stats.nextLockedChapter ? stats.nextLockedChapter.title : '—'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.section>
 
             {/* Scenes progress */}
             <motion.div
@@ -287,6 +384,17 @@ export function StatsScreen() {
                 );
               })}
             </motion.section>
+
+            {/* Motivational Banner */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className={`rounded-xl p-5 text-center bg-gradient-to-r ${motivation.gradient} shadow-lg`}
+            >
+              <span className="text-2xl block mb-1">{motivation.emoji}</span>
+              <p className="text-sm font-bold text-white drop-shadow-sm">{motivation.text}</p>
+            </motion.div>
           </>
         )}
       </div>

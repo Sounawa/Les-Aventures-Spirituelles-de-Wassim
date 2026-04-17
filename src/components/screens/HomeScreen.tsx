@@ -123,22 +123,85 @@ function WisdomCard() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className={`font-medium leading-relaxed ${showFull ? 'text-lg text-stone-800 dark:text-stone-200 font-amiri' : 'text-sm text-stone-700 dark:text-stone-300'}`}
+                className={`font-medium leading-relaxed ${showFull ? 'text-lg text-stone-800 dark:text-stone-200 font-amiri' : 'text-base text-stone-700 dark:text-stone-300'}`}
                 dir={showFull ? 'rtl' : 'ltr'}
               >
-                {showFull ? wisdom.textAr : wisdom.textFr}
+                {showFull ? wisdom.textAr : (wisdom.textFr.length > 120 ? wisdom.textFr.slice(0, 120) + '…' : wisdom.textFr)}
               </motion.p>
             </AnimatePresence>
-            <div className="flex items-center justify-between mt-2">
-              <p className="text-[10px] text-stone-400 dark:text-stone-500">{wisdom.source}</p>
-              <div className="flex items-center gap-1 text-[10px] text-amber-600 dark:text-amber-400">
-                <Sparkles className="w-3 h-3" />
-                <span>Cliquez pour {showFull ? 'français' : 'arabe'}</span>
-              </div>
+            <div className="flex items-center justify-end mt-2">
+              <span className="text-base text-amber-600 dark:text-amber-400 cursor-pointer hover:scale-110 transition-transform">🔄</span>
             </div>
           </div>
         </div>
       </button>
+    </motion.div>
+  );
+}
+
+// Fun Facts rotating section
+function FunFacts() {
+  const funFacts = [
+    "🌍 Le Maroc abrite les montagnes du Rif, où vit Nawfel",
+    "📚 Le Tassawuf enseigne la purification du cœur",
+    "🌙 Les rêves sont les portes du monde intérieur",
+    "⚔️ Le Nafs a 3 états : ammarah, lawwama, mutma'inna",
+    "🕯️ Le Dhikr est le rappel d'Allah dans le cœur",
+  ];
+
+  const [currentFact, setCurrentFact] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentFact((prev) => (prev + 1) % funFacts.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [funFacts.length]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.8 }}
+      className="max-w-md mx-auto"
+    >
+      <div className="glass-card rounded-2xl border border-amber-200/30 dark:border-amber-700/20 p-5 shadow-sm">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-lg">💡</span>
+          <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
+            Le savais-tu ?
+          </p>
+        </div>
+        <div className="relative h-12 flex items-center overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={currentFact}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
+              className="text-sm text-stone-700 dark:text-stone-300 font-medium leading-relaxed"
+            >
+              {funFacts[currentFact]}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+        {/* Dot indicators */}
+        <div className="flex items-center justify-center gap-1.5 mt-3">
+          {funFacts.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentFact(i)}
+              className={`rounded-full transition-all duration-300 ${
+                i === currentFact
+                  ? 'w-5 h-1.5 bg-amber-500 dark:bg-amber-400'
+                  : 'w-1.5 h-1.5 bg-stone-300 dark:bg-stone-600 hover:bg-stone-400 dark:hover:bg-stone-500'
+              }`}
+              aria-label={`Fun fait ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
     </motion.div>
   );
 }
@@ -259,6 +322,30 @@ export function HomeScreen() {
                   <span className="text-xs">✦</span>
                 </motion.div>
               </div>
+            </div>
+          </motion.div>
+
+          {/* Hero Character - Meet Nawfel */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="flex flex-col items-center gap-2 mb-5"
+          >
+            <motion.div
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-20 h-20 rounded-full flex items-center justify-center shadow-lg"
+              style={{
+                background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%)',
+                boxShadow: '0 4px 20px rgba(217, 119, 6, 0.4)',
+              }}
+            >
+              <span className="text-4xl">🌟</span>
+            </motion.div>
+            <div className="text-center">
+              <p className="text-base font-bold text-stone-800 dark:text-stone-100">Je suis Nawfel, j&apos;ai 8 ans</p>
+              <p className="text-sm text-amber-600 dark:text-amber-400 font-medium">Prêt pour l&apos;aventure ?</p>
             </div>
           </motion.div>
 
@@ -383,6 +470,11 @@ export function HomeScreen() {
       {/* Daily wisdom */}
       <div className="relative z-10 px-4 pb-4">
         <WisdomCard />
+      </div>
+
+      {/* Fun Facts */}
+      <div className="relative z-10 px-4 pb-4">
+        <FunFacts />
       </div>
 
       {/* Quick access cards - enhanced grid */}

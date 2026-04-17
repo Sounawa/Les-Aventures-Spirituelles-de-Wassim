@@ -1,4 +1,46 @@
 ---
+Task ID: 10 — Cron Review Round 4 (Child-Friendly UX + Engagement)
+Agent: Main Agent
+Task: VLM-guided UX improvements, child-friendly features, engagement enhancements
+
+Work Log:
+- QA Testing with agent-browser: Tested home, tome select, story, stats screens. All functional.
+- VLM Analysis: Analyzed home and story screenshots for child-friendliness.
+  - Key findings: need character introduction, simplify wisdom card, add interactive progress, improve engagement
+- HomeScreen Enhancements:
+  - Added "Meet Nawfel" hero character section: bouncing avatar with 🌟 icon, "Je suis Nawfel, j'ai 8 ans" text, "Prêt pour l'aventure ?" subtitle
+  - Simplified WisdomCard for kids: larger text (text-base), truncated to 120 chars, removed source text, replaced toggle text with 🔄 emoji
+  - Added FunFacts section: 5 rotating facts about the story world (auto-rotate every 5s), "💡 Le savais-tu ?" header, interactive dot indicators, animated text transitions
+- SceneRenderer Enhancements:
+  - Star-based progress indicator (StarProgress component): filled stars ⭐ for completed, empty ☆ for remaining, pulsing 🌟 for current scene, max 10 shown with "…" for overflow
+  - Enhanced choice section: glass-card container, gradient background, "Choisis ta réponse :" instruction text
+  - SparkleBurst animation: 12 particles radiating outward on scene continue, auto-dismiss after 800ms
+  - Enhanced chapter end: "🎉 Masha'Allah !" animated title, 3 sequential pop-in stars, better button hierarchy
+- StatsScreen Enhancements:
+  - 3 new stat cards: Scènes lues, Journal entries, Série (daily streak)
+  - Reading Insights section: "Tes moments de lecture" with 3 insight cards (chapitre favori, badges, prochaine étape)
+  - Motivational banner: 6 progress tiers with matching gradients and emoji (🚀 → 🌟)
+  - Grid expanded to 3 columns on md
+- ChoiceButton Enhancements:
+  - Full dark mode support: dark:bg-stone-800/60, dark:text-stone-200, dark:border variants
+  - Enhanced hover: left accent bar (3px), letter badge scale + glow animation
+  - Accessibility: aria-label on each choice button
+
+Stage Summary:
+- 0 lint errors in app code (verified with `bun run lint`)
+- 2 new components: StarProgress, SparkleBurst (both in SceneRenderer)
+- 1 new section: FunFacts with rotating facts on HomeScreen
+- 1 new section: Reading Insights on StatsScreen
+- 1 new component: Motivational Banner on StatsScreen
+- Character introduction ("Meet Nawfel") on HomeScreen
+- Wisdom card simplified for child audience
+- Star-based progress indicator replacing text counter
+- Sparkle animation on scene continue
+- Enhanced chapter completion celebration
+- Stats screen expanded with streak, scenes, journal, insights, motivation
+
+---
+
 Task ID: 9 — Cron Review Round 3 (Visual Polish + New Features)
 Agent: Main Agent
 Task: QA testing, styling improvements, new features (narration, bookmarks, streaks)

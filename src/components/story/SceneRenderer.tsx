@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '@/components/AppContext';
 import { getScene, getChapter } from '@/data/tomes';
@@ -18,6 +18,110 @@ import {
   Pause,
 } from 'lucide-react';
 
+/* ── SparkleBurst: CSS-only confetti particles ── */
+function SparkleBurst() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(false), 800);
+    return () => clearTimeout(t);
+  }, []);
+
+  const PARTICLES = 12;
+  const particles = useMemo(
+    () =>
+      Array.from({ length: PARTICLES }, (_, i) => {
+        const angle = (360 / PARTICLES) * i;
+        const rad = (angle * Math.PI) / 180;
+        const dist = 40 + Math.random() * 30;
+        return { id: i, tx: Math.cos(rad) * dist, ty: Math.sin(rad) * dist, delay: i * 0.03 };
+      }),
+    [],
+  );
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center z-40">
+          {particles.map((p) => (
+            <motion.span
+              key={p.id}
+              className="absolute text-amber-400 text-lg select-none"
+              initial={{ opacity: 1, scale: 0.5, x: 0, y: 0 }}
+              animate={{
+                opacity: [1, 1, 0],
+                scale: [0.5, 1.2, 0.6],
+                x: p.tx,
+                y: p.ty,
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, delay: p.delay, ease: 'easeOut' }}
+              aria-hidden
+            >
+              ✦
+            </motion.span>
+          ))}
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/* ── StarProgress: visual star-based progress row ── */
+function StarProgress({
+  totalScenes,
+  completedSceneIds,
+  currentSceneId,
+  allSceneIds,
+}: {
+  totalScenes: number;
+  completedSceneIds: string[];
+  currentSceneId: string;
+  allSceneIds: string[];
+}) {
+  const MAX_SHOW = 10;
+  const showEllipsis = totalScenes > MAX_SHOW;
+  const displayCount = showEllipsis ? MAX_SHOW - 1 : totalScenes;
+
+  return (
+    <span className="flex items-center gap-0.5 text-xs leading-none">
+      {Array.from({ length: displayCount }).map((_, i) => {
+        const sceneId = allSceneIds[i];
+        if (!sceneId) return null;
+        const isCurrent = sceneId === currentSceneId;
+        const isCompleted = completedSceneIds.includes(sceneId);
+
+        if (isCurrent) {
+          return (
+            <span
+              key={sceneId}
+              className="animate-pulse inline-block"
+              aria-label={`Scène actuelle ${i + 1}`}
+            >
+              🌟
+            </span>
+          );
+        }
+        if (isCompleted) {
+          return (
+            <span key={sceneId} className="inline-block" aria-label={`Scène terminée ${i + 1}`}>
+              ⭐
+            </span>
+          );
+        }
+        return (
+          <span key={sceneId} className="inline-block opacity-40" aria-label={`Scène à venir ${i + 1}`}>
+            ☆
+          </span>
+        );
+      })}
+      {showEllipsis && (
+        <span className="text-stone-400 dark:text-stone-500 ml-0.5">…</span>
+      )}
+    </span>
+  );
+}
+
 export function SceneRenderer() {
   const {
     navigateTo,
@@ -31,6 +135,7 @@ export function SceneRenderer() {
     settings,
     bookmarkedScenes,
     toggleBookmark,
+    completedScenes,
   } = useApp();
 
   const { playClick, playSuccess, playBadge, playTransition, playComplete } = useSoundEffects();
@@ -40,6 +145,7 @@ export function SceneRenderer() {
   const [earnedBadge, setEarnedBadge] = useState<string | null>(null);
   const [dialoguesStarted, setDialoguesStarted] = useState(false);
   const [narrationComplete, setNarrationComplete] = useState(false);
+  const [sparkleKey, setSparkleKey] = useState(0);
 
   const scene = selectedTomeId && selectedChapterId && currentSceneId
     ? getScene(selectedTomeId, selectedChapterId, currentSceneId)
@@ -97,6 +203,8 @@ export function SceneRenderer() {
       setShowLesson(true);
       return;
     }
+    // Trigger sparkle burst on scene transition
+    setSparkleKey((k) => k + 1);
     if (scene.nextSceneId) {
       completeScene(scene.id);
       setCurrentScene(scene.nextSceneId);
@@ -187,9 +295,14 @@ export function SceneRenderer() {
               >
                 {isBookmarked ? <BookmarkCheck className="w-3.5 h-3.5" /> : <Bookmark className="w-3.5 h-3.5" />}
               </motion.button>
-              {/* Scene counter badge */}
-              <span className="text-xs text-stone-500 dark:text-stone-400 font-semibold bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm px-2.5 py-1 rounded-full border border-amber-200/20 dark:border-stone-700/20">
-                {sceneIndex + 1}/{totalScenes}
+              {/* Star-based progress indicator */}
+              <span className="flex items-center gap-1 bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm px-2 py-1.5 rounded-full border border-amber-200/20 dark:border-stone-700/20">
+                <StarProgress
+                  totalScenes={totalScenes}
+                  completedSceneIds={completedScenes}
+                  currentSceneId={currentSceneId ?? ''}
+                  allSceneIds={chapter?.scenes.map(s => s.id) ?? []}
+                />
               </span>
             </div>
           </div>
@@ -255,43 +368,58 @@ export function SceneRenderer() {
           ))}
         </AnimatePresence>
 
-        {/* Choices */}
+        {/* Choices - Enhanced */}
         <AnimatePresence>
           {narrationComplete && hasChoices && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-6 space-y-3"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="mt-6"
             >
-              <div className="flex items-center gap-2 mb-3">
-                <div className="h-px flex-1 bg-amber-300/30 dark:bg-amber-500/20" />
-                <p className="text-sm font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1">
-                  ✦ Que fais-tu ? ✦
-                </p>
-                <div className="h-px flex-1 bg-amber-300/30 dark:bg-amber-500/20" />
+              {/* Choice section glass-card with gradient */}
+              <div className="relative rounded-xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-amber-100/50 via-orange-50/30 to-amber-100/20 dark:from-amber-900/20 dark:via-orange-900/10 dark:to-amber-900/10" />
+                <div className="relative backdrop-blur-sm border border-amber-200/40 dark:border-amber-700/20 rounded-xl p-4 md:p-5">
+                  {/* Header with title and instruction */}
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="h-px flex-1 bg-amber-300/30 dark:bg-amber-500/20" />
+                    <p className="text-sm font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1">
+                      ✦ Que fais-tu ? ✦
+                    </p>
+                    <div className="h-px flex-1 bg-amber-300/30 dark:bg-amber-500/20" />
+                  </div>
+                  <p className="text-center text-xs text-stone-400 dark:text-stone-500 mb-3">
+                    Choisis ta réponse :
+                  </p>
+                  {/* Choices list */}
+                  <div className="space-y-3">
+                    {scene.choices.map((choice, idx) => (
+                      <ChoiceButton
+                        key={choice.id}
+                        choice={choice}
+                        index={idx}
+                        onClick={() => handleChoice(choice)}
+                        soundEnabled={settings.soundEnabled}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
-              {scene.choices.map((choice, idx) => (
-                <ChoiceButton
-                  key={choice.id}
-                  choice={choice}
-                  index={idx}
-                  onClick={() => handleChoice(choice)}
-                  soundEnabled={settings.soundEnabled}
-                />
-              ))}
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Continue button */}
+        {/* Continue button with sparkle burst */}
         <AnimatePresence>
           {showContinue && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="mt-6 flex justify-center"
+              className="mt-6 flex justify-center relative"
             >
+              {sparkleKey > 0 && <SparkleBurst key={sparkleKey} />}
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -339,35 +467,70 @@ export function SceneRenderer() {
           )}
         </AnimatePresence>
 
-        {/* Chapter end */}
+        {/* Chapter end - Enhanced celebration */}
         {narrationComplete && scene.isEnding && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-8 text-center space-y-4"
           >
+            {/* Celebration title */}
+            <motion.h3
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: 'spring', delay: 0.1, stiffness: 200 }}
+              className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600 bg-clip-text text-transparent"
+            >
+              🎉 Masha&apos;Allah !
+            </motion.h3>
+
+            {/* Sequential animated stars */}
+            <div className="flex items-center justify-center gap-3">
+              {[0, 1, 2].map((i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  transition={{
+                    type: 'spring',
+                    delay: 0.3 + i * 0.2,
+                    stiffness: 260,
+                    damping: 15,
+                  }}
+                  className="text-4xl drop-shadow-md"
+                  aria-hidden
+                >
+                  ⭐
+                </motion.span>
+              ))}
+            </div>
+
+            {/* Award icon */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ type: 'spring', delay: 0.2 }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-amber-300 to-orange-400 shadow-lg"
+              transition={{ type: 'spring', delay: 0.9 }}
+              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-amber-300 to-orange-400 shadow-lg golden-glow"
             >
               <Award className="w-8 h-8 text-white" />
             </motion.div>
-            <h3 className="text-lg font-bold text-stone-800 dark:text-stone-100">Chapitre terminé !</h3>
+            <p className="text-base font-semibold text-stone-700 dark:text-stone-200">Chapitre terminé !</p>
             <p className="text-sm text-stone-500 dark:text-stone-400">
               Bravo ! Tu as terminé ce chapitre de l&apos;aventure.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+            {/* Buttons with better visual hierarchy */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-3">
+              {/* Primary action */}
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => navigateTo('quiz')}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-amber-500 hover:from-purple-600 hover:to-amber-600 text-white rounded-xl shadow-md transition-all min-h-[48px] font-medium"
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-xl shadow-lg golden-glow-hover transition-all min-h-[48px] font-bold"
               >
-                <Brain className="w-4 h-4" />
+                <Brain className="w-5 h-5" />
                 Passer le quiz
               </motion.button>
+              {/* Secondary action */}
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -377,6 +540,7 @@ export function SceneRenderer() {
                 <BookHeart className="w-4 h-4" />
                 Écrire une réflexion
               </motion.button>
+              {/* Tertiary action */}
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
