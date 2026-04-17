@@ -8,11 +8,14 @@ import { DialogueBubble } from './DialogueBubble';
 import { ChoiceButton } from './ChoiceButton';
 import { StoryBackground } from './StoryBackground';
 import { TypewriterText } from './TypewriterText';
+import { useNarration } from '@/hooks/useNarration';
 import { badges } from '@/data/badges';
 import { useSoundEffects } from '@/hooks/useSoundEffects';
 import {
   Award, BookOpen, ChevronRight, Brain,
   Home, ArrowLeft, BookHeart, Sparkles,
+  Volume2, VolumeX, Bookmark, BookmarkCheck,
+  Pause,
 } from 'lucide-react';
 
 export function SceneRenderer() {
@@ -26,9 +29,12 @@ export function SceneRenderer() {
     earnBadge,
     completeChapter,
     settings,
+    bookmarkedScenes,
+    toggleBookmark,
   } = useApp();
 
   const { playClick, playSuccess, playBadge, playTransition, playComplete } = useSoundEffects();
+  const { speak, stop, isSpeaking } = useNarration();
 
   const [showLesson, setShowLesson] = useState(false);
   const [earnedBadge, setEarnedBadge] = useState<string | null>(null);
@@ -45,6 +51,29 @@ export function SceneRenderer() {
 
   const sceneIndex = chapter?.scenes.findIndex(s => s.id === currentSceneId) ?? -1;
   const totalScenes = chapter?.scenes.length ?? 0;
+
+  const isBookmarked = currentSceneId ? bookmarkedScenes.includes(currentSceneId) : false;
+
+  // Stop narration on scene change
+  useEffect(() => {
+    stop();
+  }, [currentSceneId, stop]);
+
+  const handleNarrate = useCallback(() => {
+    if (!scene) return;
+    if (isSpeaking) {
+      stop();
+    } else {
+      speak(scene.narration, 'fr');
+    }
+  }, [scene, isSpeaking, speak, stop]);
+
+  const handleToggleBookmark = useCallback(() => {
+    if (currentSceneId) {
+      toggleBookmark(currentSceneId);
+      if (settings.soundEnabled) playClick();
+    }
+  }, [currentSceneId, toggleBookmark, settings.soundEnabled, playClick]);
 
   const handleChoice = useCallback((choice: { id: string; nextSceneId: string; badgeId?: string }) => {
     if (settings.soundEnabled) { playTransition(); }
@@ -113,30 +142,65 @@ export function SceneRenderer() {
   // Dynamic font size class based on settings
   const fontSizeClass = settings.fontSize === 'large' ? 'text-base' : settings.fontSize === 'xlarge' ? 'text-lg' : 'text-sm';
 
+  const progressPercent = totalScenes > 0 ? ((sceneIndex + 1) / totalScenes) * 100 : 0;
+
   return (
     <div className="relative min-h-[70vh]">
       <StoryBackground background={scene.background} />
 
       <div className="relative z-10 px-4 py-6 md:px-8 md:py-8 max-w-2xl mx-auto">
-        {/* Scene progress info */}
-        <div className="mb-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <BookOpen className="w-4 h-4 text-amber-600" />
-            <span className="text-xs text-stone-500 dark:text-stone-400">
-              {chapter?.titleAr} — {chapter?.title}
-            </span>
+        {/* Scene progress info - enhanced header */}
+        <div className="mb-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 min-w-0">
+              <BookOpen className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+              <span className="text-xs text-stone-500 dark:text-stone-400 truncate">
+                {chapter?.titleAr} — {chapter?.title}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 shrink-0 ml-2">
+              {/* Audio narration button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleNarrate}
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                  isSpeaking
+                    ? 'bg-amber-500 text-white shadow-md shadow-amber-200/50'
+                    : 'bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm text-stone-500 dark:text-stone-400 hover:text-amber-600 border border-amber-200/30 dark:border-stone-700/30'
+                }`}
+                aria-label={isSpeaking ? 'Arrêter la narration' : 'Écouter la narration'}
+              >
+                {isSpeaking ? <Pause className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+              </motion.button>
+              {/* Bookmark button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleToggleBookmark}
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                  isBookmarked
+                    ? 'bg-amber-500 text-white shadow-md shadow-amber-200/50'
+                    : 'bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm text-stone-500 dark:text-stone-400 hover:text-amber-600 border border-amber-200/30 dark:border-stone-700/30'
+                }`}
+                aria-label={isBookmarked ? 'Retirer le signet' : 'Ajouter un signet'}
+              >
+                {isBookmarked ? <BookmarkCheck className="w-3.5 h-3.5" /> : <Bookmark className="w-3.5 h-3.5" />}
+              </motion.button>
+              {/* Scene counter badge */}
+              <span className="text-xs text-stone-500 dark:text-stone-400 font-semibold bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm px-2.5 py-1 rounded-full border border-amber-200/20 dark:border-stone-700/20">
+                {sceneIndex + 1}/{totalScenes}
+              </span>
+            </div>
           </div>
-          <span className="text-xs text-stone-400 dark:text-stone-500 font-medium bg-white/40 dark:bg-stone-800/40 backdrop-blur-sm px-2 py-0.5 rounded-full">
-            {sceneIndex + 1}/{totalScenes}
-          </span>
         </div>
 
-        {/* Progress bar */}
-        <div className="w-full h-2 bg-white/40 dark:bg-stone-800/40 rounded-full mb-6 overflow-hidden shadow-inner">
+        {/* Enhanced progress bar */}
+        <div className="w-full h-2.5 bg-white/40 dark:bg-stone-800/60 rounded-full mb-6 overflow-hidden shadow-inner backdrop-blur-sm">
           <motion.div
             className="h-full story-progress-bar rounded-full"
             initial={{ width: 0 }}
-            animate={{ width: `${totalScenes > 0 ? ((sceneIndex + 1) / totalScenes) * 100 : 0}%` }}
+            animate={{ width: `${progressPercent}%` }}
             transition={{ duration: 0.5 }}
           />
         </div>
@@ -150,25 +214,38 @@ export function SceneRenderer() {
             exit={{ opacity: 0, y: 10 }}
             className="text-lg md:text-xl font-bold text-stone-800 dark:text-stone-100 mb-4 flex items-center gap-2"
           >
-            <Sparkles className="w-4 h-4 text-amber-500" />
+            <Sparkles className="w-4 h-4 text-amber-500 animate-sparkle" />
             {scene.title}
           </motion.h2>
         </AnimatePresence>
 
-        {/* Narration box - with fade-in slide-up animation */}
+        {/* Narration box - enhanced with glass effect */}
         <motion.div
           key={`narration-${scene.id}`}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="parchment-card rounded-xl p-4 md:p-5 mb-4 islamic-border"
+          className="narration-glass rounded-xl p-5 md:p-6 mb-4 islamic-border"
         >
           <TypewriterText
             text={scene.narration}
             speed={settings.typewriterSpeed}
             onComplete={() => setNarrationComplete(true)}
-            className={`${fontSizeClass} text-stone-700 dark:text-stone-300`}
+            className={`${fontSizeClass} text-stone-700 dark:text-stone-300 leading-relaxed`}
           />
+          {narrationComplete && !isSpeaking && (
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleNarrate}
+              className="mt-3 flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors"
+            >
+              <Volume2 className="w-3 h-3" />
+              <span>Écouter</span>
+            </motion.button>
+          )}
         </motion.div>
 
         {/* Dialogues */}
@@ -314,7 +391,7 @@ export function SceneRenderer() {
         )}
       </div>
 
-      {/* Badge earned notification */}
+      {/* Badge earned notification - enhanced */}
       <AnimatePresence>
         {earnedBadge && (
           <motion.div
@@ -323,7 +400,7 @@ export function SceneRenderer() {
             exit={{ opacity: 0, y: -20, scale: 0.8 }}
             className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50"
           >
-            <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-amber-400 to-orange-400 text-white rounded-2xl shadow-2xl golden-glow">
+            <div className="toast-achievement flex items-center gap-3 px-5 py-3 text-white rounded-2xl shadow-2xl golden-glow">
               <motion.div
                 animate={{ rotate: [0, 10, -10, 0] }}
                 transition={{ repeat: 2, duration: 0.5 }}

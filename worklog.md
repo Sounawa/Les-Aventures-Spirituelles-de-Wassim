@@ -1,4 +1,78 @@
 ---
+Task ID: 9 — Cron Review Round 3 (Visual Polish + New Features)
+Agent: Main Agent
+Task: QA testing, styling improvements, new features (narration, bookmarks, streaks)
+
+Work Log:
+- QA Testing with agent-browser: Tested home, story, map, settings screens. All functional.
+- VLM Analysis: Analyzed 4 screenshots (home, dark mode, story, map) for visual quality.
+  - Key findings: backgrounds too generic, map timeline too thin, locked chapters hard to see
+  - Dark mode: well-executed, no major issues
+- Enhanced globals.css with new utility classes:
+  - Global custom scrollbar (webkit + Firefox) with dark mode support
+  - `.glass-card` — glassmorphism card with backdrop-blur and border
+  - `.animate-glow-pulse`, `.animate-float-slow`, `.animate-fade-in-up`, `.animate-shimmer-text`
+  - `.scene-backdrop` — full-screen backdrop with vignette overlay
+  - `.narration-glass` — glassmorphism narration box
+  - `.choice-card-hover` — enhanced hover for choice buttons
+  - `.toast-notification`, `.toast-success`, `.toast-achievement` — toast notification styles
+  - `.streak-fire`, `.streak-badge` — streak animation styles
+  - Enhanced dark mode variants for existing patterns and borders
+- Rewrote StoryBackground with:
+  - Dark mode gradient support (dual gradient system with opacity transitions)
+  - Floating decorative emoji elements per scene type (animated)
+  - Islamic geometric pattern overlay
+  - Ambient radial gradient light effects
+  - Vignette overlay for depth
+  - Bottom gradient fade for readability
+- Enhanced SceneRenderer with:
+  - Audio narration button (uses existing `useNarration` hook with Web Speech API)
+  - Scene bookmark toggle button (uses new AppContext `toggleBookmark`)
+  - "Écouter" link after narration completes
+  - Enhanced progress bar with backdrop blur
+  - Improved narration box using `.narration-glass` class
+  - Enhanced badge notification using `.toast-achievement` class
+- Enhanced AppContext:
+  - Added `bookmarkedScenes: string[]` to state
+  - Added `toggleBookmark(sceneId)` method
+  - Added `dailyStreak: number` and `lastPlayDate: string` to state
+  - Added `updateStreak()` method (consecutive day tracking logic)
+  - Migrated from v2 to v3 localStorage format (automatic migration)
+  - Storage key changed from `nawfel-save-v2` to `nawfel-save-v3`
+  - `resetProgress` now clears both v2 and v3 keys
+- Enhanced HomeScreen:
+  - Daily streak display with fire emoji animation
+  - Streak messages (Premier jour → Maître de la constance)
+  - Replaced parchment-card with glass-card throughout
+  - Reorganized quick access grid: 4 primary + 3 secondary buttons
+  - "Succès" button replaces "Badges" in primary grid
+  - Bookmarked scenes quick-access button (shown when bookmarks exist)
+  - Enhanced animations and hover effects
+  - Reduced particle count for cleaner look
+- Enhanced WorldMapScreen:
+  - Thickened timeline line (w-1 → w-1.5 with rounded-full)
+  - Added MapPin icon in header
+  - Enhanced glass-card styling for legend and tome headers
+  - Better shadow and glow effects on tome nodes
+  - Improved connector dots with glow shadows
+  - Enhanced chapter cards with better hover border effects
+  - Better contrast for scene progress bars
+  - "Terminé" badges use emerald green
+- Enhanced AppContent footer with glass-card styling
+- Version bumped to 3.2 in SettingsScreen
+
+Stage Summary:
+- 0 lint errors in app code (verified with `bun run lint`)
+- 3 new features: Audio narration, Scene bookmarking, Daily streak tracking
+- Major visual overhaul: glassmorphism cards, enhanced backgrounds, floating decorative elements
+- Enhanced StoryBackground with dark mode support and atmospheric effects
+- Improved WorldMapScreen with better visual hierarchy and contrast
+- HomeScreen reorganized with streak display and better grid layout
+- V3 localStorage migration from V2 (automatic, transparent)
+- Version 3.2
+
+---
+
 Task ID: 8 — Comprehensive Enhancement: Dark Mode, Sound, Map, Bookmarks
 Agent: Main Agent
 Task: Bug fixes, dark mode, sound effects, world map, scene bookmarking, styling

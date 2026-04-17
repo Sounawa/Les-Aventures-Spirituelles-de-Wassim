@@ -23,6 +23,9 @@ interface AppState {
   settings: AppSettings;
   journalEntries: JournalEntry[];
   screenHistory: ScreenType[];
+  bookmarkedScenes: string[];
+  dailyStreak: number;
+  lastPlayDate: string;
 }
 
 export interface JournalEntry {
@@ -59,9 +62,14 @@ interface AppContextType {
   deleteJournalEntry: (id: string) => void;
   screenHistory: ScreenType[];
   navigateTo: (screen: ScreenType) => void;
+  bookmarkedScenes: string[];
+  toggleBookmark: (sceneId: string) => void;
+  dailyStreak: number;
+  lastPlayDate: string;
+  updateStreak: () => void;
 }
 
-const STORAGE_KEY = 'nawfel-save-v2';
+const STORAGE_KEY = 'nawfel-save-v3';
 
 const defaultSettings: AppSettings = {
   darkMode: false,
@@ -82,6 +90,9 @@ const defaultState: AppState = {
   settings: defaultSettings,
   journalEntries: [],
   screenHistory: [],
+  bookmarkedScenes: [],
+  dailyStreak: 0,
+  lastPlayDate: '',
 };
 
 function readStorage(): Partial<AppState> {
@@ -89,7 +100,9 @@ function readStorage(): Partial<AppState> {
     if (typeof window === 'undefined') return {};
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return {};
-    return JSON.parse(raw);
+    // Try v3 format first
+    const parsed = JSON.parse(raw);
+    return parsed;
   } catch { return {}; }
 }
 
@@ -106,9 +119,42 @@ function writeStorage(state: AppState) {
       quizScores: state.quizScores,
       settings: state.settings,
       journalEntries: state.journalEntries,
+      bookmarkedScenes: state.bookmarkedScenes,
+      dailyStreak: state.dailyStreak,
+      lastPlayDate: state.lastPlayDate,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch { /* noop */ }
+}
+
+// Migrate from v2 to v3 format
+function migrateFromV2() {
+  try {
+    if (typeof window === 'undefined') return null;
+    const raw = localStorage.getItem('nawfel-save-v2');
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    // Migrate: add new fields with defaults
+    const migrated = {
+      ...parsed,
+      bookmarkedScenes: [],
+      dailyStreak: 0,
+      lastPlayDate: '',
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+    localStorage.removeItem('nawfel-save-v2');
+    return migrated;
+  } catch { return null; }
+}
+
+function getTodayString(): string {
+  return new Date().toISOString().split('T')[0];
+}
+
+function getYesterdayString(): string {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().split('T')[0];
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -117,7 +163,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AppState>(defaultState);
 
   const hydrate = useCallback(() => {
-    const saved = readStorage();
+    let saved = readStorage();
+    // Try migration from v2
+    if (!saved || Object.keys(saved).length === 0) {
+      const migrated = migrateFromV2();
+      if (migrated) saved = migrated;
+    }
+
     const hasData = (saved.earnedBadges?.length ?? 0) > 0 || (saved.completedChapters?.length ?? 0) > 0;
     if (hasData) {
       setState(prev => ({
@@ -125,10 +177,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ...saved,
         settings: { ...defaultSettings, ...saved.settings },
         journalEntries: saved.journalEntries || [],
+        bookmarkedScenes: saved.bookmarkedScenes || [],
+        dailyStreak: saved.dailyStreak || 0,
+        lastPlayDate: saved.lastPlayDate || '',
         screen: 'home' as ScreenType,
       }));
     } else if (saved.settings) {
-      // Apply settings even without game progress
       setState(prev => ({
         ...prev,
         settings: { ...defaultSettings, ...saved.settings },
@@ -161,7 +215,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const completeScene = useCallback((id: string) => updateAndPersist(prev => ({ ...prev, completedScenes: prev.completedScenes.includes(id) ? prev.completedScenes : [...prev.completedScenes, id] })), [updateAndPersist]);
   const completeChapter = useCallback((id: string) => updateAndPersist(prev => ({ ...prev, completedChapters: prev.completedChapters.includes(id) ? prev.completedChapters : [...prev.completedChapters, id] })), [updateAndPersist]);
   const setQuizScore = useCallback((chapterId: string, score: number) => updateAndPersist(prev => ({ ...prev, quizScores: { ...prev.quizScores, [chapterId]: Math.max(prev.quizScores[chapterId] || 0, score) } })), [updateAndPersist]);
-  const resetProgress = useCallback(() => { setState({ ...defaultState }); try { localStorage.removeItem(STORAGE_KEY); } catch { /* noop */ } }, []);
+  const resetProgress = useCallback(() => {
+    setState({ ...defaultState });
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem('nawfel-save-v2');
+    } catch { /* noop */ }
+  }, []);
 
   const updateSettings = useCallback((partial: Partial<AppSettings>) => {
     updateAndPersist(prev => ({
@@ -191,6 +251,37 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
   }, [updateAndPersist]);
 
+  const toggleBookmark = useCallback((sceneId: string) => {
+    updateAndPersist(prev => ({
+      ...prev,
+      bookmarkedScenes: prev.bookmarkedScenes.includes(sceneId)
+        ? prev.bookmarkedScenes.filter(id => id !== sceneId)
+        : [...prev.bookmarkedScenes, sceneId],
+    }));
+  }, [updateAndPersist]);
+
+  const updateStreak = useCallback(() => {
+    updateAndPersist(prev => {
+      const today = getTodayString();
+      const yesterday = getYesterdayString();
+
+      if (prev.lastPlayDate === today) return prev; // Already counted today
+
+      let newStreak = prev.dailyStreak;
+      if (prev.lastPlayDate === yesterday) {
+        newStreak += 1;
+      } else if (prev.lastPlayDate !== today) {
+        newStreak = 1;
+      }
+
+      return {
+        ...prev,
+        dailyStreak: newStreak,
+        lastPlayDate: today,
+      };
+    });
+  }, [updateAndPersist]);
+
   return (
     <AppContext.Provider value={{
       screen: state.screen, setScreen, navigateTo,
@@ -205,6 +296,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       settings: state.settings, updateSettings,
       journalEntries: state.journalEntries, addJournalEntry, deleteJournalEntry,
       screenHistory: state.screenHistory,
+      bookmarkedScenes: state.bookmarkedScenes, toggleBookmark,
+      dailyStreak: state.dailyStreak, lastPlayDate: state.lastPlayDate, updateStreak,
     }}>
       {children}
     </AppContext.Provider>

@@ -73,12 +73,12 @@ function AppInner() {
         </AnimatePresence>
       </main>
 
-      <footer className="mt-auto bg-amber-100/60 dark:bg-stone-800/60 backdrop-blur-sm border-t border-amber-200/30 dark:border-stone-700/30 py-3 transition-colors duration-500">
+      <footer className="mt-auto glass-card border-t border-amber-200/30 dark:border-stone-700/30 py-3 transition-colors duration-500">
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <p className="text-[10px] text-stone-400 dark:text-stone-500">
+          <p className="text-[10px] text-stone-500 dark:text-stone-400">
             Les Aventures Spirituelles de Nawfel — مغامرات نوفل الروحية
           </p>
-          <p className="text-[10px] text-stone-300 dark:text-stone-600 mt-0.5">
+          <p className="text-[10px] text-stone-400 dark:text-stone-600 mt-0.5">
             Un livre dont tu es le héros • Basé sur les enseignements du Tassawuf
           </p>
         </div>

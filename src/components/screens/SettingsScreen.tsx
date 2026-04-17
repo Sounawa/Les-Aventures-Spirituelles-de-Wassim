@@ -266,7 +266,7 @@ export function SettingsScreen() {
                 concepts du Tassawuf (soufisme) aux enfants de 8 à 12 ans à travers une aventure
                 passionnante. Basé sur les enseignements authentiques de l&apos;Islam.
               </p>
-              <p className="mt-2 text-stone-400 dark:text-stone-500">Version 3.1 — Carte du monde, sons, mode sombre, reprise de scène</p>
+              <p className="mt-2 text-stone-400 dark:text-stone-500">Version 3.2 — Narration audio, signets, série quotidienne, style amélioré</p>
             </div>
           </div>
         </motion.div>

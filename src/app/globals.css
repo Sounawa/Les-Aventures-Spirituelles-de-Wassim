@@ -304,3 +304,370 @@
   border-left: none;
   border-top: none;
 }
+
+/* ============================================
+   Enhanced Global Styles
+   ============================================ */
+
+/* --- 1. Global Custom Scrollbar --- */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: oklch(0.94 0.01 80 / 0.4);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: oklch(0.78 0.08 65 / 0.6);
+  border-radius: 4px;
+  border: 2px solid oklch(0.94 0.01 80 / 0.3);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.65 0.12 65 / 0.8);
+}
+
+.dark *::-webkit-scrollbar-track {
+  background: oklch(0.22 0.025 50 / 0.5);
+}
+
+.dark *::-webkit-scrollbar-thumb {
+  background: oklch(0.45 0.06 60 / 0.7);
+  border-color: oklch(0.22 0.025 50 / 0.5);
+}
+
+.dark *::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.60 0.10 65 / 0.9);
+}
+
+/* Firefox scrollbar support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.78 0.08 65 / 0.6) oklch(0.94 0.01 80 / 0.4);
+}
+
+.dark * {
+  scrollbar-color: oklch(0.45 0.06 60 / 0.7) oklch(0.22 0.025 50 / 0.5);
+}
+
+/* --- 2. Glassmorphism Card --- */
+.glass-card {
+  background: oklch(0.98 0.01 85 / 0.55);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid oklch(0.85 0.02 75 / 0.5);
+  border-radius: 1rem;
+  box-shadow:
+    0 8px 32px oklch(0.25 0.03 50 / 0.08),
+    inset 0 1px 0 oklch(1 0 0 / 0.3);
+}
+
+.dark .glass-card {
+  background: oklch(0.20 0.025 50 / 0.55);
+  border-color: oklch(0.35 0.03 50 / 0.4);
+  box-shadow:
+    0 8px 32px oklch(0 0 0 / 0.3),
+    inset 0 1px 0 oklch(1 0 0 / 0.06);
+}
+
+/* --- 3. Enhanced Animations --- */
+
+/* Glow pulse */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 12px oklch(0.75 0.12 65 / 0.2), 0 0 24px oklch(0.75 0.12 65 / 0.08);
+  }
+  50% {
+    box-shadow: 0 0 20px oklch(0.75 0.12 65 / 0.4), 0 0 48px oklch(0.75 0.12 65 / 0.15);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+/* Slow float (6s) */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+/* Fade in from below */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out both;
+}
+
+/* Text shimmer */
+@keyframes shimmer-text {
+  0% {
+    background-position: -100% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-ink) 0%,
+    var(--color-ink) 35%,
+    var(--color-gold-bright) 50%,
+    var(--color-ink) 65%,
+    var(--color-ink) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-text 3s ease-in-out infinite;
+}
+
+.dark .animate-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    oklch(0.92 0.01 80) 0%,
+    oklch(0.92 0.01 80) 35%,
+    var(--color-gold-bright) 50%,
+    oklch(0.92 0.01 80) 65%,
+    oklch(0.92 0.01 80) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* --- 4. Story-Specific Styles --- */
+
+/* Immersive scene backdrop with vignette */
+.scene-backdrop {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.scene-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    oklch(0.15 0.03 50 / 0.55) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.scene-backdrop > * {
+  position: relative;
+  z-index: 2;
+}
+
+.dark .scene-backdrop::after {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    oklch(0.05 0.02 50 / 0.7) 100%
+  );
+}
+
+/* Narration glass text box */
+.narration-glass {
+  background: oklch(0.98 0.01 85 / 0.45);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border: 1px solid oklch(0.85 0.02 75 / 0.4);
+  border-radius: 1.25rem;
+  padding: 1.5rem 2rem;
+  box-shadow:
+    0 12px 40px oklch(0.25 0.03 50 / 0.1),
+    inset 0 1px 0 oklch(1 0 0 / 0.25);
+}
+
+.dark .narration-glass {
+  background: oklch(0.18 0.02 50 / 0.5);
+  border-color: oklch(0.35 0.03 50 / 0.35);
+  box-shadow:
+    0 12px 40px oklch(0 0 0 / 0.35),
+    inset 0 1px 0 oklch(1 0 0 / 0.05);
+}
+
+/* Enhanced choice card hover */
+.choice-card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  border: 1px solid oklch(0.85 0.02 75 / 0.6);
+}
+
+.choice-card-hover:hover {
+  transform: scale(1.03);
+  box-shadow:
+    0 0 16px oklch(0.75 0.12 65 / 0.25),
+    0 8px 24px oklch(0.25 0.03 50 / 0.12);
+  border-color: oklch(0.75 0.12 65 / 0.5);
+}
+
+.dark .choice-card-hover {
+  border-color: oklch(0.35 0.03 50 / 0.6);
+}
+
+.dark .choice-card-hover:hover {
+  box-shadow:
+    0 0 20px oklch(0.75 0.12 65 / 0.2),
+    0 8px 24px oklch(0 0 0 / 0.3);
+  border-color: oklch(0.75 0.12 65 / 0.4);
+}
+
+/* --- 5. Toast Notifications --- */
+
+@keyframes toast-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.toast-notification {
+  animation: toast-slide-up 0.35s ease-out both;
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  border-radius: 0.75rem;
+  box-shadow: 0 25px 50px -12px oklch(0.25 0.03 50 / 0.25);
+  padding: 0.875rem 1.25rem;
+  border: 1px solid oklch(0.85 0.02 75 / 0.4);
+  background: oklch(0.97 0.01 85 / 0.7);
+}
+
+.dark .toast-notification {
+  background: oklch(0.22 0.025 50 / 0.7);
+  border-color: oklch(0.35 0.03 50 / 0.3);
+  box-shadow: 0 25px 50px -12px oklch(0 0 0 / 0.4);
+}
+
+/* Toast success (green) */
+.toast-success {
+  background: oklch(0.95 0.04 145 / 0.75);
+  border-color: oklch(0.65 0.15 145 / 0.3);
+  color: oklch(0.25 0.08 145);
+}
+
+.dark .toast-success {
+  background: oklch(0.25 0.06 145 / 0.65);
+  border-color: oklch(0.55 0.15 145 / 0.3);
+  color: oklch(0.90 0.04 145);
+}
+
+/* Toast achievement (gold/amber with sparkle) */
+.toast-achievement {
+  background: linear-gradient(
+    135deg,
+    oklch(0.97 0.03 80 / 0.8),
+    oklch(0.95 0.06 75 / 0.8)
+  );
+  border-color: oklch(0.75 0.15 75 / 0.4);
+  color: oklch(0.30 0.06 55);
+}
+
+.dark .toast-achievement {
+  background: linear-gradient(
+    135deg,
+    oklch(0.22 0.04 65 / 0.7),
+    oklch(0.25 0.06 55 / 0.7)
+  );
+  border-color: oklch(0.65 0.12 65 / 0.35);
+  color: oklch(0.92 0.04 75);
+}
+
+.toast-achievement::before {
+  content: '✨';
+  margin-right: 0.5rem;
+  display: inline-block;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+/* --- 6. Streak Fire Animation --- */
+
+@keyframes fire-glow {
+  0%, 100% {
+    text-shadow: 0 0 6px oklch(0.70 0.15 55 / 0.5), 0 0 12px oklch(0.75 0.12 65 / 0.2);
+  }
+  50% {
+    text-shadow: 0 0 12px oklch(0.75 0.18 50 / 0.7), 0 0 24px oklch(0.80 0.14 55 / 0.3);
+  }
+}
+
+.streak-fire {
+  animation: fire-glow 1.5s ease-in-out infinite;
+}
+
+/* Streak badge */
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, oklch(0.65 0.15 65), oklch(0.75 0.12 55));
+  color: oklch(1 0 0);
+  font-weight: 700;
+  font-size: 0.875rem;
+  box-shadow: 0 0 16px oklch(0.75 0.12 65 / 0.35), 0 0 32px oklch(0.75 0.12 65 / 0.12);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.dark .streak-badge {
+  background: linear-gradient(135deg, oklch(0.50 0.12 60), oklch(0.60 0.10 55));
+  box-shadow: 0 0 20px oklch(0.65 0.12 60 / 0.4), 0 0 40px oklch(0.60 0.10 55 / 0.15);
+}
+
+/* --- 7. Additional Dark Mode Utility Classes --- */
+.dark .islamic-pattern::before {
+  opacity: 0.06;
+}
+
+.dark .golden-glow {
+  box-shadow: 0 0 20px oklch(0.60 0.10 60 / 0.35), 0 0 40px oklch(0.55 0.08 55 / 0.15);
+}
+
+.dark .golden-glow-hover:hover {
+  box-shadow: 0 0 24px oklch(0.65 0.12 60 / 0.45), 0 0 48px oklch(0.60 0.10 55 / 0.2);
+}
+
+.dark .story-progress-bar {
+  background: linear-gradient(90deg, oklch(0.55 0.12 60), oklch(0.65 0.10 55), oklch(0.70 0.08 65));
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.dark .islamic-border {
+  border-color: oklch(0.45 0.06 55);
+}
+
+.dark .islamic-border::before,
+.dark .islamic-border::after {
+  border-color: oklch(0.45 0.06 55);
+}
