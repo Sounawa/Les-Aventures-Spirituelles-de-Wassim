@@ -2,10 +2,10 @@
 
 import { ArrowLeft, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useGameStore } from '@/store/gameStore';
+import { useApp } from '@/components/AppContext';
 
 export default function QuizScreen() {
-  const { goBack } = useGameStore();
+  const { setScreen } = useApp();
 
   return (
     <div className="min-h-[70vh] px-4 py-6 max-w-2xl mx-auto w-full flex flex-col items-center justify-center">

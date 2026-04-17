@@ -1,12 +1,14 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { AppProvider } from '@/components/AppContext';
+import { HomeScreen } from '@/components/screens/HomeScreen';
 
-const AppContent = dynamic(
-  () => import('@/components/AppContent'),
-  { ssr: false }
-);
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
-  return <AppContent />;
+  return (
+    <AppProvider>
+      <HomeScreen />
+    </AppProvider>
+  );
 }

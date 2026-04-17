@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useGameStore } from '@/store/gameStore';
+import { useApp } from '@/components/AppContext';
 import { tomes } from '@/data/tomes';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Lock, BookOpen, CheckCircle2 } from 'lucide-react';
@@ -14,7 +14,7 @@ const futureTomes = [
 ];
 
 export function TomeSelectScreen() {
-  const { setScreen, selectTome, completedTomes, completedChapters } = useGameStore();
+  const { setScreen, selectTome, completedChapters, completedChapters } = useApp();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-teal-50">
@@ -33,7 +33,7 @@ export function TomeSelectScreen() {
         {/* Available tomes */}
         {tomes.map((tome, idx) => {
           const completedChaptersInTome = completedChapters.filter(id => tome.chapters.some(c => c.id === id)).length;
-          const isComplete = completedTomes.includes(tome.id);
+          const isComplete = completedChapters.includes(tome.id);
 
           return (
             <motion.button

@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { useGameStore } from '@/store/gameStore';
+import { useApp } from '@/components/AppContext';
 import { HomeScreen } from '@/components/screens/HomeScreen';
 import { TomeSelectScreen } from '@/components/screens/TomeSelectScreen';
 import { ChapterSelectScreen } from '@/components/screens/ChapterSelectScreen';
@@ -32,15 +32,15 @@ const screenComponents: Record<ScreenType, React.ComponentType> = {
 };
 
 export default function AppContent() {
-  const { currentScreen } = useGameStore();
-  const ScreenComponent = screenComponents[currentScreen];
+  const { screen } = useApp();
+  const ScreenComponent = screenComponents[screen];
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-amber-50 via-orange-50 to-teal-50">
       <main className="flex-1">
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentScreen}
+            key={screen}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

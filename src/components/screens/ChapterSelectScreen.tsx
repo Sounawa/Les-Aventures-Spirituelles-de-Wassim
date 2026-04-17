@@ -1,13 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useGameStore } from '@/store/gameStore';
+import { useApp } from '@/components/AppContext';
 import { getTome } from '@/data/tomes';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Lock, CheckCircle2, Play } from 'lucide-react';
 
 export function ChapterSelectScreen() {
-  const { setScreen, selectedTomeId, selectChapter, setCurrentScene, completedChapters } = useGameStore();
+  const { setScreen, selectedTomeId, selectChapter, setCurrentScene, completedChapters } = useApp();
   const tome = selectedTomeId ? getTome(selectedTomeId) : null;
 
   if (!tome) {

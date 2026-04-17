@@ -1,6 +1,6 @@
 'use client';
 
-import { useGameStore } from '@/store/gameStore';
+import { useApp } from '@/components/AppContext';
 import { getChapter } from '@/data/tomes';
 import { SceneRenderer } from '@/components/story/SceneRenderer';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,7 @@ export function StoryScreen() {
     selectedTomeId,
     selectedChapterId,
     completedChapters,
-  } = useGameStore();
+  } = useApp();
 
   const chapter = selectedTomeId && selectedChapterId
     ? getChapter(selectedTomeId, selectedChapterId)

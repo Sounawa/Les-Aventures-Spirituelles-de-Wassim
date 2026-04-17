@@ -6,12 +6,12 @@ import { Menu, Award, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import NavigationMenu from './NavigationMenu';
-import { useGameStore } from '@/store/gameStore';
+import { useApp } from '@/components/AppContext';
 import { useTheme } from 'next-themes';
 
 export default function AppHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { earnedBadges, setScreen } = useGameStore();
+  const { earnedBadges, setScreen } = useApp();
   const { theme, setTheme } = useTheme();
 
   return (

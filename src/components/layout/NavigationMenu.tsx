@@ -5,7 +5,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
-import { useGameStore } from '@/store/gameStore';
+import { useApp } from '@/components/AppContext';
 import { badges } from '@/data/badges';
 import type { ScreenType } from '@/types/story';
 
@@ -25,7 +25,7 @@ export default function NavigationMenu({ open, onClose }: NavigationMenuProps) {
     earnedBadges,
     completedChapters,
     setScreen,
-  } = useGameStore();
+  } = useApp();
 
   const navItems: NavItem[] = [
     {

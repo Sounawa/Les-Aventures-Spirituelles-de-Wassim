@@ -1,14 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useGameStore } from '@/store/gameStore';
+import { useApp } from '@/components/AppContext';
 import { tomes } from '@/data/tomes';
 import { Button } from '@/components/ui/button';
 import { BookOpen, Lock, ChevronRight, Star, Users, Award, Play, RotateCcw } from 'lucide-react';
 
 export function HomeScreen() {
-  const { setScreen, selectTome, completedTomes, completedChapters, earnedBadges, resetProgress } = useGameStore();
-  const hasProgress = completedTomes.length > 0 || completedChapters.length > 0;
+  const { setScreen, selectTome, completedChapters, earnedBadges } = useApp();
+  const hasProgress = completedChapters.length > 0;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -101,19 +101,10 @@ export function HomeScreen() {
               className="w-full max-w-xs mx-auto flex items-center justify-center gap-2 h-14 text-base bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-lg shadow-amber-200/50 rounded-xl"
             >
               <Play className="w-5 h-5" />
-              {hasProgress ? 'Continuer l\'aventure' : 'Commencer l\'aventure'}
+              Commencer l\'aventure
             </Button>
 
-            {hasProgress && (
-              <Button
-                variant="ghost"
-                onClick={() => setScreen('tome_select')}
-                className="text-stone-500 hover:text-stone-700"
-              >
-                <BookOpen className="w-4 h-4 mr-2" />
-                Choisir un tome
-              </Button>
-            )}
+
           </motion.div>
         </div>
       </div>
@@ -156,26 +147,7 @@ export function HomeScreen() {
         </div>
       </div>
 
-      {/* Reset button (subtle) */}
-      {hasProgress && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="relative z-10 text-center pb-4"
-        >
-          <button
-            onClick={() => {
-              if (confirm('Es-tu sûr de vouloir recommencer toute l\'aventure ?')) {
-                resetProgress();
-              }
-            }}
-            className="text-xs text-stone-300 hover:text-stone-500 transition-colors flex items-center gap-1 mx-auto"
-          >
-            <RotateCcw className="w-3 h-3" />
-            Recommencer
-          </button>
-        </motion.div>
-      )}
+
     </div>
   );
 }

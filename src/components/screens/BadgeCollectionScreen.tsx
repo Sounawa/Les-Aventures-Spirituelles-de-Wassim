@@ -1,13 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useGameStore } from '@/store/gameStore';
+import { useApp } from '@/components/AppContext';
 import { badges } from '@/data/badges';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Lock, Award } from 'lucide-react';
 
 export function BadgeCollectionScreen() {
-  const { setScreen, earnedBadges } = useGameStore();
+  const { setScreen, earnedBadges } = useApp();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 via-amber-50 to-teal-50">

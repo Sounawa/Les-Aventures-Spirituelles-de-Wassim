@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGameStore } from '@/store/gameStore';
+import { useApp } from '@/components/AppContext';
 import { getScene, getChapter } from '@/data/tomes';
 import { DialogueBubble } from './DialogueBubble';
 import { ChoiceButton } from './ChoiceButton';
@@ -20,9 +20,7 @@ export function SceneRenderer() {
     completeScene,
     earnBadge,
     completeChapter,
-    makeChoice,
-    settings,
-  } = useGameStore();
+  } = useApp();
 
   const [showLesson, setShowLesson] = useState(false);
   const [earnedBadge, setEarnedBadge] = useState<string | null>(null);
@@ -41,9 +39,6 @@ export function SceneRenderer() {
   const totalScenes = chapter?.scenes.length ?? 0;
 
   const handleChoice = useCallback((choice: { id: string; nextSceneId: string; badgeId?: string }) => {
-    if (selectedChapterId && currentSceneId) {
-      makeChoice(currentSceneId, choice.id);
-    }
     if (choice.badgeId) {
       earnBadge(choice.badgeId);
       setEarnedBadge(choice.badgeId);
@@ -54,7 +49,7 @@ export function SceneRenderer() {
     setNarrationComplete(false);
     setDialoguesStarted(false);
     setShowLesson(false);
-  }, [selectedChapterId, currentSceneId, makeChoice, earnBadge, completeScene, setCurrentScene, scene]);
+  }, [earnBadge, completeScene, setCurrentScene, scene]);
 
   const handleContinue = useCallback(() => {
     if (!scene) return;
@@ -93,7 +88,7 @@ export function SceneRenderer() {
   const showContinue = narrationComplete && !hasChoices && !scene.lesson;
   const showContinueAfterLesson = showLesson && narrationComplete;
 
-  const fontClass = settings.fontSize === 'large' ? 'text-base' : settings.fontSize === 'xlarge' ? 'text-lg' : 'text-sm';
+
 
   return (
     <div className="relative min-h-[70vh]">
@@ -140,9 +135,9 @@ export function SceneRenderer() {
         <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 md:p-5 shadow-sm border border-amber-200/30 mb-4">
           <TypewriterText
             text={scene.narration}
-            speed={settings.typewriterSpeed}
+            speed={30}
             onComplete={() => setNarrationComplete(true)}
-            className={fontClass}
+            className="text-sm"
           />
         </div>
 
