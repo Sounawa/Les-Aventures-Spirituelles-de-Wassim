@@ -97,7 +97,7 @@ export function ProfileScreen() {
           </AnimatePresence>
           <div className="text-center">
             <h2 className={`text-xl font-bold ${colorMap.text} transition-colors duration-300`}>
-              {localName || 'Nawfel'}
+              {localName || 'Souhayl'}
             </h2>
             <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5">Aventurier spirituel</p>
           </div>

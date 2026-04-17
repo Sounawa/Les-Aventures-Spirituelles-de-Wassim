@@ -2,7 +2,7 @@ import { tomes } from '@/data/tomes';
 
 // ─────────────────────────────────────────────────────────────
 // Islamic Learning Badges & Achievements System
-// Les Aventures Spirituelles de Nawfel
+// Les Aventures Spirituelles de Souhayl
 // ─────────────────────────────────────────────────────────────
 
 export type AchievementCategory = 'lecture' | 'sagesse' | 'spiritualite' | 'defis' | 'jeux';

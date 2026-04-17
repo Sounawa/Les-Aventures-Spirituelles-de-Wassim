@@ -52,7 +52,7 @@ const AppContent = dynamic(() => import('@/components/AppContent'), {
         </div>
         <p className="text-amber-700 dark:text-amber-400 font-medium text-sm">Chargement de l&apos;aventure...</p>
         <p className="text-amber-600/50 dark:text-amber-500/40 text-xs italic">Que la paix soit avec toi</p>
-        <p className="text-amber-600/30 dark:text-amber-500/25 text-xs font-amiri" dir="rtl">مغامرات نوفل الروحية</p>
+        <p className="text-amber-600/30 dark:text-amber-500/25 text-xs font-amiri" dir="rtl">مغامرات سهيل الروحية</p>
       </div>
     </div>
   ),

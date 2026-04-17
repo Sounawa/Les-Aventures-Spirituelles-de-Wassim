@@ -39,7 +39,7 @@ export default function AppHeader() {
                 🌙
               </span>
               <span className="font-bold text-sm text-foreground group-hover:text-primary transition-colors hidden sm:inline">
-                Nawfel
+                Souhayl
               </span>
             </button>
           </div>

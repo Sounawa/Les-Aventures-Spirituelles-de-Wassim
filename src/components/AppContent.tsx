@@ -68,7 +68,7 @@ function AppInner() {
   const ScreenComponent = screenComponents[screen];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-amber-50 via-orange-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950 transition-colors duration-500">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-teal-50 via-emerald-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950 transition-colors duration-500">
       <ThemeHandler />
       <OnboardingModal />
       <main className="flex-1">
@@ -87,18 +87,18 @@ function AppInner() {
 
       <footer className="mt-auto relative transition-colors duration-500">
         {/* Top gradient border */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-400/40 dark:via-amber-500/30 to-transparent" />
-        <div className="glass-card border-t border-amber-200/30 dark:border-stone-700/30 py-4 pb-20 md:pb-4">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teal-400/40 dark:via-teal-500/30 to-transparent" />
+        <div className="glass-card border-t border-teal-200/30 dark:border-stone-700/30 py-4 pb-20 md:pb-4">
           <div className="max-w-2xl mx-auto px-4 text-center">
             <p className="text-[10px] text-stone-500 dark:text-stone-400">
-              Les Aventures Spirituelles de Nawfel — مغامرات نوفل الروحية
+              Les Aventures Spirituelles de Souhayl — مغامرات سهيل الروحية
             </p>
             <div className="flex items-center justify-center gap-2 my-1">
-              <span className="text-amber-400 dark:text-amber-500 text-xs">🌙</span>
+              <span className="text-teal-400 dark:text-teal-500 text-xs">🌙</span>
               <span className="text-stone-300 dark:text-stone-600">✦</span>
-              <span className="text-amber-300 dark:text-amber-500 text-[10px]">⭐</span>
+              <span className="text-teal-300 dark:text-teal-500 text-[10px]">⭐</span>
               <span className="text-stone-300 dark:text-stone-600">✦</span>
-              <span className="text-amber-400 dark:text-amber-500 text-xs">🌙</span>
+              <span className="text-teal-400 dark:text-teal-500 text-xs">🌙</span>
             </div>
             <p className="text-[10px] text-stone-400 dark:text-stone-600">
               Un livre dont tu es le héros • Basé sur les enseignements du Tassawuf
@@ -106,7 +106,7 @@ function AppInner() {
             <p className="text-[10px] text-stone-400/70 dark:text-stone-600/50 mt-1">
               Fait avec ❤️ pour les jeunes musulmans
             </p>
-            <p className="text-[9px] text-stone-300 dark:text-stone-700 mt-1">v3.7</p>
+            <p className="text-[9px] text-stone-300 dark:text-stone-700 mt-1">v1.0</p>
           </div>
         </div>
       </footer>

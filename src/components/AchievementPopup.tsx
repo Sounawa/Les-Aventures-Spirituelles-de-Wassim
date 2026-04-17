@@ -46,7 +46,7 @@ export function AchievementPopup() {
           >
             <div className="relative overflow-hidden rounded-2xl p-5 shadow-2xl"
               style={{
-                background: 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 40%, #FDE68A 100%)',
+                background: 'linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 40%, #99F6E4 100%)',
               }}
             >
               {/* Dark mode overlay */}
@@ -56,7 +56,7 @@ export function AchievementPopup() {
               <motion.div
                 className="absolute inset-0 opacity-20 dark:opacity-10"
                 style={{
-                  background: 'linear-gradient(105deg, transparent 40%, rgba(217, 119, 6, 0.4) 45%, rgba(251, 191, 36, 0.6) 50%, rgba(217, 119, 6, 0.4) 55%, transparent 60%)',
+                  background: 'linear-gradient(105deg, transparent 40%, rgba(13, 148, 136, 0.4) 45%, rgba(45, 212, 191, 0.6) 50%, rgba(13, 148, 136, 0.4) 55%, transparent 60%)',
                 }}
                 animate={{ x: ['-100%', '100%'] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, ease: 'easeInOut' }}
@@ -68,7 +68,7 @@ export function AchievementPopup() {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
               >
-                <Sparkles className="w-5 h-5 text-amber-400 dark:text-amber-500" />
+                <Sparkles className="w-5 h-5 text-teal-400 dark:text-teal-500" />
               </motion.div>
 
               <motion.div
@@ -76,7 +76,7 @@ export function AchievementPopup() {
                 animate={{ rotate: -360 }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
               >
-                <Sparkles className="w-4 h-4 text-amber-300/60 dark:text-amber-600/60" />
+                <Sparkles className="w-4 h-4 text-teal-300/60 dark:text-teal-600/60" />
               </motion.div>
 
               {/* Close button */}
@@ -97,9 +97,9 @@ export function AchievementPopup() {
                   transition={{ delay: 0.15, type: 'spring', damping: 12 }}
                   className="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl shrink-0"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(217, 119, 6, 0.2), rgba(251, 191, 36, 0.3))',
-                    boxShadow: '0 0 20px rgba(217, 119, 6, 0.3)',
-                    border: '2px solid rgba(217, 119, 6, 0.4)',
+                    background: 'linear-gradient(135deg, rgba(13, 148, 136, 0.2), rgba(45, 212, 191, 0.3))',
+                    boxShadow: '0 0 20px rgba(13, 148, 136, 0.3)',
+                    border: '2px solid rgba(13, 148, 136, 0.4)',
                   }}
                 >
                   {achievementPopup.icon}
@@ -111,7 +111,7 @@ export function AchievementPopup() {
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 mb-0.5"
+                    className="text-[10px] font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-0.5"
                   >
                     🏆 Succès débloqué !
                   </motion.p>
@@ -142,8 +142,8 @@ export function AchievementPopup() {
                 onClick={dismissAchievement}
                 className="relative z-10 mt-4 w-full py-2.5 rounded-xl text-sm font-bold text-white transition-all active:scale-95"
                 style={{
-                  background: 'linear-gradient(135deg, #D97706, #F59E0B)',
-                  boxShadow: '0 4px 12px rgba(217, 119, 6, 0.3)',
+                  background: 'linear-gradient(135deg, #0D9488, #14B8A6)',
+                  boxShadow: '0 4px 12px rgba(13, 148, 136, 0.3)',
                 }}
               >
                 Continuer ✨

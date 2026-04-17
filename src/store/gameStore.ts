@@ -125,7 +125,7 @@ export const useGameStore = create<GameStore>()(
       resetProgress: () => set(initialState),
     }),
     {
-      name: 'nawfel-adventures-storage',
+      name: 'souhayl-adventures-storage',
       storage: createJSONStorage(() => {
         if (typeof window !== 'undefined') return localStorage;
         return {

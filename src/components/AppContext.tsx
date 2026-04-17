@@ -104,7 +104,7 @@ interface AppContextType {
   checkAchievements: () => void;
 }
 
-const STORAGE_KEY = 'nawfel-save-v3';
+const STORAGE_KEY = 'souhayl-save-v1';
 
 const defaultSettings: AppSettings = {
   darkMode: false,
@@ -132,7 +132,7 @@ const defaultState: AppState = {
   completedChallenges: [],
   challengeXP: 0,
   readingDays: [],
-  playerName: 'Nawfel',
+  playerName: 'Souhayl',
   playerAvatar: '🌟',
   playerColor: 'amber',
   memoryBestScore: 0,
@@ -250,7 +250,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         completedChallenges: saved.completedChallenges || [],
         challengeXP: saved.challengeXP || 0,
         readingDays: saved.readingDays || [],
-        playerName: saved.playerName || 'Nawfel',
+        playerName: saved.playerName || 'Souhayl',
         playerAvatar: saved.playerAvatar || '🌟',
         playerColor: saved.playerColor || 'amber',
         memoryBestScore: saved.memoryBestScore || 0,

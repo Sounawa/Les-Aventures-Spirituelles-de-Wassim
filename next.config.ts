@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   ...(isStaticExport
     ? {
         output: "export" as const,
-        basePath: "/Les-Aventures-Spirituelles-de-Nawfel",
+        basePath: "/Les-Aventures-Spirituelles-de-Souhayl",
       }
     : {}),
   images: {

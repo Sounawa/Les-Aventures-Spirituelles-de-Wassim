@@ -186,11 +186,11 @@
 
 /* Golden glow effect */
 .golden-glow {
-  box-shadow: 0 0 20px oklch(0.75 0.12 65 / 0.3), 0 0 40px oklch(0.75 0.12 65 / 0.1);
+  box-shadow: 0 0 20px oklch(0.65 0.15 170 / 0.3), 0 0 40px oklch(0.65 0.15 170 / 0.1);
 }
 
 .golden-glow-hover:hover {
-  box-shadow: 0 0 24px oklch(0.75 0.12 65 / 0.4), 0 0 48px oklch(0.75 0.12 65 / 0.15);
+  box-shadow: 0 0 24px oklch(0.65 0.15 170 / 0.4), 0 0 48px oklch(0.65 0.15 170 / 0.15);
 }
 
 /* Blinking cursor for typewriter */
@@ -651,11 +651,11 @@
 }
 
 .dark .golden-glow {
-  box-shadow: 0 0 20px oklch(0.60 0.10 60 / 0.35), 0 0 40px oklch(0.55 0.08 55 / 0.15);
+  box-shadow: 0 0 20px oklch(0.50 0.12 170 / 0.35), 0 0 40px oklch(0.50 0.10 170 / 0.15);
 }
 
 .dark .golden-glow-hover:hover {
-  box-shadow: 0 0 24px oklch(0.65 0.12 60 / 0.45), 0 0 48px oklch(0.60 0.10 55 / 0.2);
+  box-shadow: 0 0 24px oklch(0.55 0.12 170 / 0.45), 0 0 48px oklch(0.50 0.10 170 / 0.2);
 }
 
 .dark .story-progress-bar {
@@ -680,10 +680,10 @@
 /* --- 8. Button Breathing Glow --- */
 @keyframes breathe-glow {
   0%, 100% {
-    box-shadow: 0 4px 15px oklch(0.65 0.15 65 / 0.2), 0 0 0 0 oklch(0.65 0.15 65 / 0);
+    box-shadow: 0 4px 15px oklch(0.65 0.15 170 / 0.2), 0 0 0 0 oklch(0.65 0.15 170 / 0);
   }
   50% {
-    box-shadow: 0 4px 20px oklch(0.65 0.15 65 / 0.35), 0 0 0 8px oklch(0.65 0.15 65 / 0);
+    box-shadow: 0 4px 20px oklch(0.65 0.15 170 / 0.35), 0 0 0 8px oklch(0.65 0.15 170 / 0);
   }
 }
 
@@ -692,8 +692,8 @@
 }
 
 /* --- 9. Gradient Text Utility --- */
-.text-gradient-amber {
-  background: linear-gradient(135deg, oklch(0.65 0.15 65), oklch(0.75 0.12 55));
+.text-gradient-teal {
+  background: linear-gradient(135deg, oklch(0.65 0.15 170), oklch(0.70 0.12 180));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -811,16 +811,16 @@
   gap: 0.25rem;
   padding: 0.125rem 0.5rem;
   border-radius: 9999px;
-  background: linear-gradient(135deg, oklch(0.80 0.12 75), oklch(0.75 0.15 65));
-  color: oklch(0.30 0.06 55);
+  background: linear-gradient(135deg, oklch(0.80 0.12 175), oklch(0.75 0.15 170));
+  color: oklch(0.30 0.06 170);
   font-weight: 700;
   font-size: 0.625rem;
   letter-spacing: 0.05em;
 }
 
 .dark .xp-badge {
-  background: linear-gradient(135deg, oklch(0.45 0.10 60), oklch(0.40 0.12 55));
-  color: oklch(0.92 0.04 75);
+  background: linear-gradient(135deg, oklch(0.45 0.10 175), oklch(0.40 0.12 170));
+  color: oklch(0.92 0.04 175);
 }
 
 /* --- 15. Decorative Star Field --- */

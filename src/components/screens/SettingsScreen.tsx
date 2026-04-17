@@ -22,7 +22,7 @@ const speedOptions = [
   { value: 45, label: 'Lent', desc: 'Pour bien lire chaque mot' },
 ];
 
-const STORAGE_KEY = 'nawfel-save-v3';
+const STORAGE_KEY = 'souhayl-save-v1';
 
 export function SettingsScreen() {
   const { navigateTo, settings, updateSettings, resetProgress } = useApp();
@@ -266,11 +266,11 @@ export function SettingsScreen() {
             <div className="text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
               <p className="font-medium text-stone-600 dark:text-stone-300 mb-1">À propos</p>
               <p>
-                Les Aventures Spirituelles de Nawfel est un livre interactif qui enseigne les
+                Les Aventures Spirituelles de Souhayl est un livre interactif qui enseigne les
                 concepts du Tassawuf (soufisme) aux enfants de 8 à 12 ans à travers une aventure
                 passionnante. Basé sur les enseignements authentiques de l&apos;Islam.
               </p>
-              <p className="mt-2 text-stone-400 dark:text-stone-500">Version 3.3 — Défis quotidiens, onboarding, navigation mobile, défis XP</p>
+              <p className="mt-2 text-stone-400 dark:text-stone-500">Version 1.0 — Défis quotidiens, onboarding, navigation mobile, défis XP</p>
             </div>
           </div>
         </motion.div>
