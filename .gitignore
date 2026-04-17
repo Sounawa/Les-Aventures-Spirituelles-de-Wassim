@@ -52,3 +52,16 @@ prompt
 server.log
 # Skills directory
 /skills/
+
+# Database
+db/
+*.db
+
+# Download/QA screenshots
+/download/
+
+# Worklog (internal dev tracking)
+/worklog.md
+
+# Mini services (local dev only)
+/mini-services/
