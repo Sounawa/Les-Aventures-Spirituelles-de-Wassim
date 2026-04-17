@@ -4,13 +4,13 @@ import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '@/components/AppContext';
 import { tomes } from '@/data/tomes';
-import { getDailyWisdom, type WisdomQuote } from '@/data/wisdom';
+import { getDailyWisdom } from '@/data/wisdom';
 import { getDailyChallenge, categoryLabels } from '@/data/dailyChallenges';
 import { Button } from '@/components/ui/button';
 import {
-  BookOpen, Users, Award, Play, RotateCcw,
+  BookOpen, Users, Play, RotateCcw,
   BarChart3, BookHeart, Settings, Sparkles, ChevronRight,
-  Moon, Sun, Map, Trophy, Star, BookmarkCheck, Check,
+  Moon, Sun, Map, Trophy, Star, BookmarkCheck, Check, Brain,
 } from 'lucide-react';
 
 // Floating particle component - enhanced
@@ -620,6 +620,30 @@ export function HomeScreen() {
           </motion.button>
         </div>
       </div>
+
+      {/* Mini-Jeux card */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.85 }}
+        className="relative z-10 px-4 pb-3"
+      >
+        <motion.button
+          whileHover={{ scale: 1.01, y: -1 }}
+          whileTap={{ scale: 0.99 }}
+          onClick={() => navigateTo('memory_game')}
+          className="w-full max-w-md mx-auto flex items-center gap-3 px-4 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-purple-200/40 dark:hover:border-purple-700/30"
+        >
+          <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center shrink-0">
+            <Brain className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+          </div>
+          <div className="text-left flex-1 min-w-0">
+            <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200 block">Mini-Jeux</span>
+            <span className="text-[9px] text-stone-400 dark:text-stone-500">Jeu de mémoire</span>
+          </div>
+          <Sparkles className="w-4 h-4 text-purple-400 dark:text-purple-500 shrink-0" />
+        </motion.button>
+      </motion.div>
 
       {/* Secondary actions row - enhanced */}
       <div className="relative z-10 px-4 pb-6">

@@ -30,6 +30,12 @@ interface AppState {
   hasSeenOnboarding: boolean;
   completedChallenges: string[];
   challengeXP: number;
+  readingDays: string[];
+  playerName: string;
+  playerAvatar: string;
+  playerColor: string;
+  memoryBestScore: number;
+  memoryGamesPlayed: number;
 }
 
 export interface JournalEntry {
@@ -76,6 +82,14 @@ interface AppContextType {
   completedChallenges: string[];
   completeChallenge: (date: string) => void;
   challengeXP: number;
+  readingDays: string[];
+  playerName: string;
+  playerAvatar: string;
+  playerColor: string;
+  updateProfile: (profile: { playerName?: string; playerAvatar?: string; playerColor?: string }) => void;
+  memoryBestScore: number;
+  memoryGamesPlayed: number;
+  updateMemoryScore: (moves: number) => void;
 }
 
 const STORAGE_KEY = 'nawfel-save-v3';
@@ -105,6 +119,12 @@ const defaultState: AppState = {
   hasSeenOnboarding: false,
   completedChallenges: [],
   challengeXP: 0,
+  readingDays: [],
+  playerName: 'Nawfel',
+  playerAvatar: '🌟',
+  playerColor: 'amber',
+  memoryBestScore: 0,
+  memoryGamesPlayed: 0,
 };
 
 function readStorage(): Partial<AppState> {
@@ -137,6 +157,12 @@ function writeStorage(state: AppState) {
       hasSeenOnboarding: state.hasSeenOnboarding,
       completedChallenges: state.completedChallenges,
       challengeXP: state.challengeXP,
+      readingDays: state.readingDays,
+      playerName: state.playerName,
+      playerAvatar: state.playerAvatar,
+      playerColor: state.playerColor,
+      memoryBestScore: state.memoryBestScore,
+      memoryGamesPlayed: state.memoryGamesPlayed,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch { /* noop */ }
@@ -198,12 +224,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
         hasSeenOnboarding: saved.hasSeenOnboarding || false,
         completedChallenges: saved.completedChallenges || [],
         challengeXP: saved.challengeXP || 0,
+        readingDays: saved.readingDays || [],
+        playerName: saved.playerName || 'Nawfel',
+        playerAvatar: saved.playerAvatar || '🌟',
+        playerColor: saved.playerColor || 'amber',
+        memoryBestScore: saved.memoryBestScore || 0,
+        memoryGamesPlayed: saved.memoryGamesPlayed || 0,
         screen: 'home' as ScreenType,
       }));
-    } else if (saved.settings) {
+    } else if (saved.settings || saved.hasSeenOnboarding) {
       setState(prev => ({
         ...prev,
-        settings: { ...defaultSettings, ...saved.settings },
+        ...(saved.settings ? { settings: { ...defaultSettings, ...saved.settings } } : {}),
+        hasSeenOnboarding: saved.hasSeenOnboarding || false,
       }));
     }
   }, []);
@@ -278,6 +311,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
   }, [updateAndPersist]);
 
+  const updateProfile = useCallback((profile: { playerName?: string; playerAvatar?: string; playerColor?: string }) => {
+    updateAndPersist(prev => ({
+      ...prev,
+      ...(profile.playerName !== undefined && { playerName: profile.playerName }),
+      ...(profile.playerAvatar !== undefined && { playerAvatar: profile.playerAvatar }),
+      ...(profile.playerColor !== undefined && { playerColor: profile.playerColor }),
+    }));
+  }, [updateAndPersist]);
+
+  const updateMemoryScore = useCallback((moves: number) => {
+    updateAndPersist(prev => ({
+      ...prev,
+      memoryGamesPlayed: prev.memoryGamesPlayed + 1,
+      memoryBestScore: prev.memoryBestScore === 0 ? moves : Math.min(prev.memoryBestScore, moves),
+    }));
+  }, [updateAndPersist]);
+
   const setHasSeenOnboarding = useCallback(() => {
     updateAndPersist(prev => ({ ...prev, hasSeenOnboarding: true }));
   }, [updateAndPersist]);
@@ -312,6 +362,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ...prev,
         dailyStreak: newStreak,
         lastPlayDate: today,
+        readingDays: prev.readingDays.includes(today)
+          ? prev.readingDays
+          : [...prev.readingDays, today],
       };
     });
   }, [updateAndPersist]);
@@ -334,6 +387,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       dailyStreak: state.dailyStreak, lastPlayDate: state.lastPlayDate, updateStreak,
       hasSeenOnboarding: state.hasSeenOnboarding, setHasSeenOnboarding,
       completedChallenges: state.completedChallenges, completeChallenge, challengeXP: state.challengeXP,
+      readingDays: state.readingDays,
+      playerName: state.playerName, playerAvatar: state.playerAvatar, playerColor: state.playerColor, updateProfile,
+      memoryBestScore: state.memoryBestScore, memoryGamesPlayed: state.memoryGamesPlayed, updateMemoryScore,
     }}>
       {children}
     </AppContext.Provider>

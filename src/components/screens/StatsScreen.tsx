@@ -8,8 +8,49 @@ import { badges } from '@/data/badges';
 import { Button } from '@/components/ui/button';
 import {
   ArrowLeft, BookOpen, Trophy, Star, Brain,
-  Flame, Target, TrendingUp, BookHeart,
+  Flame, Target, TrendingUp, BookHeart, CalendarDays,
 } from 'lucide-react';
+
+const DAY_LABELS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+
+function getLast7Days(): { dateStr: string; dayLabel: string; isToday: boolean; isFuture: boolean }[] {
+  const today = new Date();
+  const days: { dateStr: string; dayLabel: string; isToday: boolean; isFuture: boolean }[] = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const dateStr = d.toISOString().split('T')[0];
+    const dayOfWeek = d.getDay();
+    // JS Sunday=0, we want Monday=0
+    const idx = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    days.push({
+      dateStr,
+      dayLabel: DAY_LABELS[idx],
+      isToday: i === 0,
+      isFuture: i < 0,
+    });
+  }
+  return days;
+}
+
+function computeBestStreak(readingDays: string[]): number {
+  if (readingDays.length === 0) return 0;
+  const sorted = [...readingDays].sort();
+  let best = 1;
+  let current = 1;
+  for (let i = 1; i < sorted.length; i++) {
+    const prev = new Date(sorted[i - 1]);
+    const curr = new Date(sorted[i]);
+    const diffDays = Math.round((curr.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24));
+    if (diffDays === 1) {
+      current++;
+      best = Math.max(best, current);
+    } else if (diffDays > 1) {
+      current = 1;
+    }
+  }
+  return best;
+}
 
 function StatCard({
   icon, label, value, sub, color, delay,
@@ -90,7 +131,7 @@ function getMotivationalMessage(progress: number) {
 }
 
 export function StatsScreen() {
-  const { navigateTo, completedChapters, earnedBadges, completedScenes, quizScores, journalEntries, dailyStreak } = useApp();
+  const { navigateTo, completedChapters, earnedBadges, completedScenes, quizScores, journalEntries, dailyStreak, readingDays } = useApp();
 
   const stats = useMemo(() => {
     const totalChapters = tomes.reduce((s, t) => s + t.chapters.length, 0);
@@ -147,6 +188,10 @@ export function StatsScreen() {
 
   const hasNoProgress = completedChapters.length === 0;
   const motivation = getMotivationalMessage(stats.globalProgress);
+
+  // Weekly calendar data
+  const weekDays = useMemo(() => getLast7Days(), []);
+  const bestStreak = useMemo(() => computeBestStreak(readingDays), [readingDays]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
@@ -265,6 +310,106 @@ export function StatsScreen() {
                 delay={0.4}
               />
             </div>
+
+            {/* 📅 Activité de la semaine */}
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.42 }}
+              className="glass-card rounded-xl p-5 space-y-4"
+            >
+              <h3 className="text-sm font-semibold text-stone-700 dark:text-stone-200 flex items-center gap-2">
+                <CalendarDays className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                Activité de la semaine
+              </h3>
+
+              {/* 7-day row */}
+              <div className="flex items-center justify-between gap-1">
+                {weekDays.map((day) => {
+                  const isActive = readingDays.includes(day.dateStr);
+                  const isToday = day.isToday;
+                  return (
+                    <div key={day.dateStr} className="flex flex-col items-center gap-1.5 flex-1">
+                      <span className={`text-[10px] font-medium ${
+                        isToday
+                          ? 'text-amber-600 dark:text-amber-400'
+                          : 'text-stone-400 dark:text-stone-500'
+                      }`}>
+                        {day.dayLabel}
+                      </span>
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.42 }}
+                        className="relative"
+                      >
+                        {/* Pulsing ring for today */}
+                        {isToday && (
+                          <motion.div
+                            className="absolute inset-0 rounded-full border-2 border-amber-400 dark:border-amber-500"
+                            animate={{ scale: [1, 1.25, 1], opacity: [0.6, 0, 0.6] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                          />
+                        )}
+                        {isActive ? (
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-amber-400 via-orange-400 to-amber-500 dark:from-amber-500 dark:via-orange-500 dark:to-amber-600 flex items-center justify-center shadow-lg shadow-amber-400/30 dark:shadow-amber-500/20">
+                            <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white fill-white" />
+                          </div>
+                        ) : (
+                          <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ${
+                            isToday
+                              ? 'border-2 border-dashed border-amber-300 dark:border-amber-600 bg-amber-50/50 dark:bg-amber-900/10'
+                              : 'border-2 border-dashed border-stone-200 dark:border-stone-600 bg-stone-50/50 dark:bg-stone-800/30'
+                          }`}>
+                            <div className={`w-2 h-2 rounded-full ${
+                              isToday
+                                ? 'bg-amber-300 dark:bg-amber-600'
+                                : 'bg-stone-200 dark:bg-stone-600'
+                            }`} />
+                          </div>
+                        )}
+                      </motion.div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Streaks + total reading days */}
+              <div className="flex items-center gap-3 pt-1">
+                {/* Current streak */}
+                <div className="flex-1 flex items-center gap-2 p-2.5 rounded-lg bg-orange-50/60 dark:bg-orange-900/15 border border-orange-200/40 dark:border-orange-700/25">
+                  <div className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-800/30 flex items-center justify-center shrink-0">
+                    <Flame className="w-4 h-4 text-orange-500 dark:text-orange-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] text-stone-400 dark:text-stone-500 font-medium">Série actuelle</p>
+                    <p className="text-sm font-bold text-stone-800 dark:text-stone-100">
+                      {dailyStreak}{dailyStreak > 1 ? ' jours' : ' jour'} 🔥
+                    </p>
+                  </div>
+                </div>
+                {/* Best streak */}
+                <div className="flex-1 flex items-center gap-2 p-2.5 rounded-lg bg-amber-50/60 dark:bg-amber-900/15 border border-amber-200/40 dark:border-amber-700/25">
+                  <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-800/30 flex items-center justify-center shrink-0">
+                    <Trophy className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] text-stone-400 dark:text-stone-500 font-medium">Meilleure série</p>
+                    <p className="text-sm font-bold text-stone-800 dark:text-stone-100">
+                      {bestStreak}{bestStreak > 1 ? ' jours' : ' jour'} ⭐
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Total reading days */}
+              <div className="flex items-center justify-center gap-2 pt-1">
+                <BookOpen className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+                <span className="text-xs font-semibold text-stone-600 dark:text-stone-300">
+                  {readingDays.length} jour{readingDays.length > 1 ? 's' : ''} de lecture
+                </span>
+              </div>
+            </motion.section>
 
             {/* Reading Insights Section */}
             <motion.section

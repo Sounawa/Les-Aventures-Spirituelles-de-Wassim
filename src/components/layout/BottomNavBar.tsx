@@ -9,7 +9,7 @@ const tabs = [
   { screen: 'tome_select' as const, icon: BookOpen, label: 'Tomes' },
   { screen: 'map' as const, icon: Map, label: 'Carte' },
   { screen: 'achievements' as const, icon: Trophy, label: 'Succès' },
-  { screen: 'settings' as const, icon: User, label: 'Profil' },
+  { screen: 'profile' as const, icon: User, label: 'Profil' },
 ];
 
 export function BottomNavBar() {

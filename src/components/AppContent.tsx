@@ -16,6 +16,8 @@ import { JournalScreen } from '@/components/screens/JournalScreen';
 import AchievementsScreen from '@/components/screens/AchievementsScreen';
 import QuizScreen from '@/components/screens/QuizScreen';
 import { WorldMapScreen } from '@/components/screens/WorldMapScreen';
+import MemoryGameScreen from '@/components/screens/MemoryGameScreen';
+import { ProfileScreen } from '@/components/screens/ProfileScreen';
 import { BottomNavBar } from '@/components/layout/BottomNavBar';
 import { OnboardingModal } from '@/components/OnboardingModal';
 import type { ScreenType } from '@/types/story';
@@ -34,6 +36,8 @@ const screenComponents: Record<ScreenType, React.ComponentType> = {
   journal: JournalScreen,
   achievements: AchievementsScreen,
   map: WorldMapScreen,
+  profile: ProfileScreen,
+  memory_game: MemoryGameScreen,
 };
 
 function Hydrator({ children }: { children: React.ReactNode }) {

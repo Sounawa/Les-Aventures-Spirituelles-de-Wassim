@@ -1,4 +1,65 @@
 ---
+Task ID: 12 — Cron Review Round 6 (Profile, Memory Game, Activity Calendar, Bug Fixes)
+Agent: Main Agent
+Task: QA testing, bug fixes, new features (Profile Screen, Memory Game, Activity Calendar)
+
+Work Log:
+- QA Testing with agent-browser:
+  - Tested home screen, profile screen, memory game, stats screen, dark mode
+  - Tested mobile viewport (375x812) and desktop (1280x800)
+  - VLM analysis of home screen identified: small touch targets, unclear CTA hierarchy, subtitle readability
+  - All screens functional, 0 build errors, 0 lint errors
+- Bug Fixes:
+  - Fixed onboarding hydration bug: hasSeenOnboarding was not loaded from localStorage when no progress data existed
+  - Fixed duplicate Brain import in HomeScreen
+  - Removed unused imports (Award, WisdomQuote) in HomeScreen
+  - Fixed Module not found error for MemoryGameScreen (sub-agent failed but AppContent was updated)
+- New Feature: Profile/Avatar Customization Screen
+  - Created ProfileScreen.tsx with large animated avatar preview
+  - 16 emoji avatar options in responsive grid (4-col mobile, 8-col sm+)
+  - 6 color theme options (amber, emerald, purple, rose, teal, sky)
+  - Name input with 20-char limit and live counter
+  - Reading stats summary (chapters, badges, streak, challenge XP, reading days)
+  - Save button with change detection and "Sauvegardé !" confirmation
+  - Full dark mode, framer-motion animations, mobile-first responsive
+  - Added playerName, playerAvatar, playerColor to AppContext with localStorage persistence
+  - BottomNavBar "Profil" tab now navigates to profile screen instead of settings
+- New Feature: Memory Match Mini-Game
+  - Created MemoryGameScreen.tsx with 4x4 grid (8 emoji pairs)
+  - Islamic/spiritual themed card emojis: 🌙,🕌,🕊️,📖,🌟,🌿,💎,🕯️
+  - 3D card flip animation with framer-motion (rotateY transform)
+  - Match detection with green glow border and star badge on matched cards
+  - Move counter, timer, progress bar
+  - Victory overlay with confetti particles, star rating (3/2/1 stars based on moves)
+  - "Nouveau record !" detection and display
+  - Best score and games played tracking via AppContext
+  - Card back design: amber gradient with Islamic geometric SVG pattern
+  - "Mini-Jeux" button added to HomeScreen for easy access
+- New Feature: Reading Activity Calendar (StatsScreen Enhancement)
+  - Added readingDays: string[] to AppContext (auto-populated by updateStreak)
+  - Weekly activity visualization: 7 day-cells with French abbreviations (Lun-Dim)
+  - Active days: filled amber gradient circles with star icon
+  - Today: pulsing ring animation
+  - Inactive past days: dashed-border empty circles
+  - Current streak and best streak display
+  - Total reading days counter
+- AppContext Enhancements:
+  - Added profile state: playerName, playerAvatar, playerColor with updateProfile()
+  - Added memory game state: memoryBestScore, memoryGamesPlayed with updateMemoryScore()
+  - Added readingDays tracking with auto-population in updateStreak()
+  - Fixed hydrate function to load hasSeenOnboarding even without progress data
+
+Stage Summary:
+- 3 new files: ProfileScreen.tsx, MemoryGameScreen.tsx, enhanced StatsScreen.tsx
+- 1 bug fix: onboarding hydration bug
+- 3 new features: Profile Screen, Memory Game, Activity Calendar
+- 0 lint errors in src/ directory
+- 0 build errors
+- All QA tests passing
+- Version 3.4
+
+---
+
 Task ID: 11 — Cron Review Round 5 (Navigation, Challenges, Onboarding, Polish)
 Agent: Main Agent
 Task: QA testing, bug fixes, new features, styling improvements
@@ -436,3 +497,90 @@ Work Log:
 Stage Summary:
 - AnimatePresence warnings resolved for dialogues section
 - Individual dialogue bubbles now animate independently with staggered delays
+
+---
+
+Task ID: 12 — Reading Activity Calendar & Streak Visualization
+Agent: Full-Stack Agent
+Task: Add weekly streak visualization and activity tracking to StatsScreen
+
+Work Log:
+- Added `readingDays: string[]` to AppState interface in AppContext
+- Added `readingDays` to AppContextType interface and Provider value
+- Added `readingDays: []` to defaultState
+- Added `readingDays` to writeStorage persistence data and hydrate loading
+- Modified `updateStreak()` to automatically add today's date string to readingDays (if not already present)
+- Created `getLast7Days()` helper in StatsScreen: returns array of last 7 days with dateStr, dayLabel (Lun–Dim), isToday, isFuture
+- Created `computeBestStreak()` helper: sorts readingDays and finds longest consecutive-day streak
+- Added "📅 Activité de la semaine" section to StatsScreen (between stats grid and Reading Insights):
+  - Glass-card container with CalendarDays icon header
+  - 7-day row of day-cells, each with day abbreviation label
+  - Active days: filled circle with amber→orange gradient, white star icon, amber glow shadow
+  - Today (inactive): pulsing ring animation (amber border, scale 1→1.25→1, opacity fade)
+  - Inactive past days: empty circle with dashed border, small dot center
+  - Future days: gray dashed border
+  - Responsive: w-9 h-9 mobile, w-10 h-10 sm+ (sm:w-10 sm:h-10)
+  - Spring entrance animation on each cell
+- Streak visualization row with 2 cards:
+  - "Série actuelle" card: orange theme, Flame icon, current streak + 🔥
+  - "Meilleure série" card: amber theme, Trophy icon, best streak + ⭐
+- Total reading days count: BookOpen icon + "X jours de lecture"
+- Full dark mode support throughout (dark:bg variants, dark:text variants, dark:border variants)
+- No API routes, no new dependencies
+- ESLint: 0 errors in AppContext.tsx and StatsScreen.tsx (verified)
+
+Stage Summary:
+- 2 modified files: AppContext.tsx (readingDays state + persistence), StatsScreen.tsx (weekly calendar UI)
+- New feature: Reading Activity Calendar with 7-day visualization
+- Streak tracking: current streak + best streak display
+- Total reading days counter
+- Pulsing ring animation on today's cell
+- Spring entrance animations, glass-card styling
+- Full dark mode and responsive support
+- 0 lint errors (verified)
+
+---
+
+Task ID: 13 — Profile/Avatar Customization Screen
+Agent: Main Agent
+Task: Create a profile customization screen for kids with avatar, name, color theme, and reading stats
+
+Work Log:
+- Added `profile` to ScreenType union in `/src/types/story.ts`
+- Updated AppContext (`/src/components/AppContext.tsx`):
+  - Added `playerName: string` (default "Nawfel") to AppState interface and defaultState
+  - Added `playerAvatar: string` (default "🌟") to AppState interface and defaultState
+  - Added `playerColor: string` (default "amber") to AppState interface and defaultState
+  - Added all three fields to AppContextType interface
+  - Created `updateProfile()` callback using updateAndPersist
+  - Added fields to writeStorage persistence data
+  - Added fields to hydrate loading with defaults
+  - Added all to Provider value
+- Created `/src/components/screens/ProfileScreen.tsx`:
+  - Large avatar preview with animated spring transition (AnimatePresence mode="wait")
+  - Dynamic color theming based on selected playerColor
+  - Name input with 20-char limit and live character counter
+  - Avatar grid: 16 emoji options (🌟🌙⭐🦋🕊️🌸🍃💎🐪🕌☀️🌿📖🎵🏔️🌊)
+  - Color theme picker: 6 options (amber, emerald, purple, rose, teal, sky) as labeled circles
+  - Reading stats summary: chapters completed, badges earned, streak days, challenge XP
+  - Total reading days counter with Masha'Allah message
+  - Settings link button for app preferences
+  - Save button with change detection and saved confirmation
+  - Glass-card and parchment-card styling throughout
+  - Full dark mode support (dark:bg-stone variants, dark:text-stone variants)
+  - Framer-motion fade-in animations with staggered delays
+  - Sticky header with back button (matches SettingsScreen pattern)
+  - Mobile-first responsive design (4-col avatar grid, 8-col on sm+)
+  - Footer-safe spacing (pb-28)
+- Wired ProfileScreen into AppContent.tsx screenComponents map
+- Updated BottomNavBar "Profil" tab to navigate to 'profile' instead of 'settings'
+- ESLint: 0 errors in all 5 modified files (verified)
+
+Stage Summary:
+- 1 new file: src/components/screens/ProfileScreen.tsx
+- 4 modified files: types/story.ts, AppContext.tsx, AppContent.tsx, BottomNavBar.tsx
+- New profile state persists via v3 localStorage system
+- 16 emoji avatars, 6 color themes, name customization
+- Reading stats dashboard with 4 metric cards
+- Full dark mode, responsive, framer-motion animations
+- 0 lint errors (verified)
