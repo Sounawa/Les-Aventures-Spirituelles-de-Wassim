@@ -93,7 +93,8 @@ export type ScreenType =
   | 'achievements'
   | 'map'
   | 'profile'
-  | 'memory_game';
+  | 'memory_game'
+  | 'dhikr_counter';
 
 export interface GameState {
   currentScreen: ScreenType;

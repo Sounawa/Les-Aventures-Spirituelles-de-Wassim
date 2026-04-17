@@ -36,6 +36,8 @@ interface AppState {
   playerColor: string;
   memoryBestScore: number;
   memoryGamesPlayed: number;
+  totalDhikr: number;
+  totalDhikrSessions: number;
 }
 
 export interface JournalEntry {
@@ -90,6 +92,9 @@ interface AppContextType {
   memoryBestScore: number;
   memoryGamesPlayed: number;
   updateMemoryScore: (moves: number) => void;
+  totalDhikr: number;
+  totalDhikrSessions: number;
+  updateDhikrSession: (count: number) => void;
 }
 
 const STORAGE_KEY = 'nawfel-save-v3';
@@ -125,6 +130,8 @@ const defaultState: AppState = {
   playerColor: 'amber',
   memoryBestScore: 0,
   memoryGamesPlayed: 0,
+  totalDhikr: 0,
+  totalDhikrSessions: 0,
 };
 
 function readStorage(): Partial<AppState> {
@@ -163,6 +170,8 @@ function writeStorage(state: AppState) {
       playerColor: state.playerColor,
       memoryBestScore: state.memoryBestScore,
       memoryGamesPlayed: state.memoryGamesPlayed,
+      totalDhikr: state.totalDhikr,
+      totalDhikrSessions: state.totalDhikrSessions,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch { /* noop */ }
@@ -230,6 +239,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         playerColor: saved.playerColor || 'amber',
         memoryBestScore: saved.memoryBestScore || 0,
         memoryGamesPlayed: saved.memoryGamesPlayed || 0,
+        totalDhikr: saved.totalDhikr || 0,
+        totalDhikrSessions: saved.totalDhikrSessions || 0,
         screen: 'home' as ScreenType,
       }));
     } else if (saved.settings || saved.hasSeenOnboarding) {
@@ -328,6 +339,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
   }, [updateAndPersist]);
 
+  const updateDhikrSession = useCallback((count: number) => {
+    updateAndPersist(prev => ({
+      ...prev,
+      totalDhikr: prev.totalDhikr + count,
+      totalDhikrSessions: prev.totalDhikrSessions + 1,
+    }));
+  }, [updateAndPersist]);
+
   const setHasSeenOnboarding = useCallback(() => {
     updateAndPersist(prev => ({ ...prev, hasSeenOnboarding: true }));
   }, [updateAndPersist]);
@@ -390,6 +409,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       readingDays: state.readingDays,
       playerName: state.playerName, playerAvatar: state.playerAvatar, playerColor: state.playerColor, updateProfile,
       memoryBestScore: state.memoryBestScore, memoryGamesPlayed: state.memoryGamesPlayed, updateMemoryScore,
+      totalDhikr: state.totalDhikr, totalDhikrSessions: state.totalDhikrSessions, updateDhikrSession,
     }}>
       {children}
     </AppContext.Provider>

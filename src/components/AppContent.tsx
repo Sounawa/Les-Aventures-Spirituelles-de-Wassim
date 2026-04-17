@@ -18,6 +18,7 @@ import QuizScreen from '@/components/screens/QuizScreen';
 import { WorldMapScreen } from '@/components/screens/WorldMapScreen';
 import MemoryGameScreen from '@/components/screens/MemoryGameScreen';
 import { ProfileScreen } from '@/components/screens/ProfileScreen';
+import { DhikrCounterScreen } from '@/components/screens/DhikrCounterScreen';
 import { BottomNavBar } from '@/components/layout/BottomNavBar';
 import { OnboardingModal } from '@/components/OnboardingModal';
 import type { ScreenType } from '@/types/story';
@@ -38,6 +39,7 @@ const screenComponents: Record<ScreenType, React.ComponentType> = {
   map: WorldMapScreen,
   profile: ProfileScreen,
   memory_game: MemoryGameScreen,
+  dhikr_counter: DhikrCounterScreen,
 };
 
 function Hydrator({ children }: { children: React.ReactNode }) {

@@ -6,11 +6,12 @@ import { useApp } from '@/components/AppContext';
 import { tomes } from '@/data/tomes';
 import { getDailyWisdom } from '@/data/wisdom';
 import { getDailyChallenge, categoryLabels } from '@/data/dailyChallenges';
+import { getDailyDua, duaCategoryConfig } from '@/data/duas';
 import { Button } from '@/components/ui/button';
 import {
   BookOpen, Users, Play, RotateCcw,
   BarChart3, BookHeart, Settings, Sparkles, ChevronRight,
-  Moon, Sun, Map, Trophy, Star, BookmarkCheck, Check, Brain,
+  Moon, Sun, Map, Trophy, Star, BookmarkCheck, Check, Brain, Heart,
 } from 'lucide-react';
 
 // Floating particle component - enhanced
@@ -106,7 +107,7 @@ function WisdomCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.6 }}
-      className="max-w-md mx-auto"
+      className="max-w-lg mx-auto"
     >
       <button
         onClick={() => setShowFull(!showFull)}
@@ -140,6 +141,78 @@ function WisdomCard() {
   );
 }
 
+// Daily Dua Card
+function DailyDuaCard() {
+  const dua = useMemo(() => getDailyDua(), []);
+  const [isFav, setIsFav] = useState(false);
+  const config = duaCategoryConfig[dua.category];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.7 }}
+      className="max-w-lg mx-auto"
+    >
+      <div className={`glass-card rounded-2xl border ${config.borderColor} ${config.darkBorderColor} bg-gradient-to-br ${config.bgColor} ${config.darkBgColor} p-5 shadow-sm`}>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <span className="text-lg">{config.icon}</span>
+            <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
+              Du&apos;a du jour
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${config.color} bg-white/50 dark:bg-stone-800/50`}>
+              {config.label}
+            </span>
+            <motion.button
+              whileTap={{ scale: 0.8 }}
+              onClick={() => setIsFav(!isFav)}
+              className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/50 dark:hover:bg-stone-800/50 transition-colors"
+              aria-label="Ajouter aux favoris"
+            >
+              <Heart
+                className={`w-3.5 h-3.5 transition-colors ${
+                  isFav
+                    ? 'text-rose-500 dark:text-rose-400 fill-rose-500 dark:fill-rose-400'
+                    : 'text-stone-400 dark:text-stone-500'
+                }`}
+              />
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Occasion */}
+        <p className="text-[11px] text-stone-500 dark:text-stone-400 mb-3 font-medium">
+          {dua.occasion}
+        </p>
+
+        {/* Arabic text */}
+        <div className="mb-3 p-3 rounded-xl bg-white/40 dark:bg-stone-800/30 border border-white/60 dark:border-stone-700/30">
+          <p
+            className="text-lg text-stone-800 dark:text-stone-100 font-amiri leading-relaxed text-center"
+            dir="rtl"
+          >
+            {dua.textAr}
+          </p>
+        </div>
+
+        {/* French translation */}
+        <p className="text-sm text-stone-600 dark:text-stone-300 leading-relaxed mb-3">
+          {dua.textFr}
+        </p>
+
+        {/* Source */}
+        <p className="text-[10px] text-stone-400 dark:text-stone-500">
+          📖 {dua.source}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
 // Fun Facts rotating section
 function FunFacts() {
   const funFacts = [
@@ -163,8 +236,8 @@ function FunFacts() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.8 }}
-      className="max-w-md mx-auto"
+      transition={{ delay: 1.9 }}
+      className="max-w-lg mx-auto"
     >
       <div className="glass-card rounded-2xl border border-amber-200/30 dark:border-amber-700/20 p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
@@ -248,8 +321,8 @@ function DailyChallengeCard() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 2.0 }}
-      className="max-w-md mx-auto"
+      transition={{ delay: 2.1 }}
+      className="max-w-lg mx-auto"
     >
       <div className={`glass-card rounded-2xl border p-5 shadow-sm ${isCompleted ? 'border-green-200/40 dark:border-green-700/30' : 'border-amber-200/30 dark:border-amber-700/20'}`}>
         <div className="flex items-center justify-between mb-3">
@@ -463,7 +536,7 @@ export function HomeScreen() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9 }}
-            className="text-sm text-stone-500 dark:text-stone-400 max-w-md mx-auto leading-relaxed"
+            className="text-sm text-stone-500 dark:text-stone-400 max-w-lg mx-auto leading-relaxed"
           >
             Un livre dont tu es le héros — Découvre le cheminement spirituel de Nawfel,
             un garçon de 8 ans qui apprend à combattre son ego avec les armes de l&apos;âme.
@@ -542,6 +615,11 @@ export function HomeScreen() {
         <WisdomCard />
       </div>
 
+      {/* Daily Du'a */}
+      <div className="relative z-10 px-4 pb-4">
+        <DailyDuaCard />
+      </div>
+
       {/* Fun Facts */}
       <div className="relative z-10 px-4 pb-4">
         <FunFacts />
@@ -554,11 +632,11 @@ export function HomeScreen() {
 
       {/* Quick access cards - enhanced grid */}
       <div className="relative z-10 px-4 pb-4">
-        <div className="max-w-md mx-auto grid grid-cols-4 gap-2.5">
+        <div className="max-w-lg mx-auto grid grid-cols-4 gap-2.5">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4 }}
+            transition={{ delay: 1.5 }}
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigateTo('tome_select')}
@@ -574,7 +652,7 @@ export function HomeScreen() {
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.5 }}
+            transition={{ delay: 1.6 }}
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigateTo('character_gallery')}
@@ -590,7 +668,7 @@ export function HomeScreen() {
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.6 }}
+            transition={{ delay: 1.7 }}
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigateTo('achievements')}
@@ -606,7 +684,7 @@ export function HomeScreen() {
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.6 }}
+            transition={{ delay: 1.7 }}
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigateTo('map')}
@@ -621,37 +699,61 @@ export function HomeScreen() {
         </div>
       </div>
 
-      {/* Mini-Jeux card */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.85 }}
-        className="relative z-10 px-4 pb-3"
-      >
-        <motion.button
-          whileHover={{ scale: 1.01, y: -1 }}
-          whileTap={{ scale: 0.99 }}
-          onClick={() => navigateTo('memory_game')}
-          className="w-full max-w-md mx-auto flex items-center gap-3 px-4 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-purple-200/40 dark:hover:border-purple-700/30"
-        >
-          <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center shrink-0">
-            <Brain className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-          </div>
-          <div className="text-left flex-1 min-w-0">
-            <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200 block">Mini-Jeux</span>
-            <span className="text-[9px] text-stone-400 dark:text-stone-500">Jeu de mémoire</span>
-          </div>
-          <Sparkles className="w-4 h-4 text-purple-400 dark:text-purple-500 shrink-0" />
-        </motion.button>
-      </motion.div>
+      {/* Feature cards: Dhikr + Mini-Jeux side by side */}
+      <div className="relative z-10 px-4 pb-3">
+        <div className="max-w-lg mx-auto grid grid-cols-2 gap-2.5">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.95 }}
+          >
+            <motion.button
+              whileHover={{ scale: 1.01, y: -1 }}
+              whileTap={{ scale: 0.99 }}
+              onClick={() => navigateTo('dhikr_counter')}
+              className="w-full flex items-center gap-3 px-4 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-amber-200/40 dark:hover:border-amber-700/30"
+            >
+              <div className="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center shrink-0">
+                <span className="text-lg">📿</span>
+              </div>
+              <div className="text-left flex-1 min-w-0">
+                <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200 block">Dhikr</span>
+                <span className="text-[9px] text-stone-400 dark:text-stone-500">Compteur de tasbih</span>
+              </div>
+              <Sparkles className="w-4 h-4 text-teal-400 dark:text-teal-500 shrink-0" />
+            </motion.button>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.0 }}
+          >
+            <motion.button
+              whileHover={{ scale: 1.01, y: -1 }}
+              whileTap={{ scale: 0.99 }}
+              onClick={() => navigateTo('memory_game')}
+              className="w-full flex items-center gap-3 px-4 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-purple-200/40 dark:hover:border-purple-700/30"
+            >
+              <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center shrink-0">
+                <Brain className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+              </div>
+              <div className="text-left flex-1 min-w-0">
+                <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200 block">Mini-Jeux</span>
+                <span className="text-[9px] text-stone-400 dark:text-stone-500">Jeu de mémoire</span>
+              </div>
+              <Sparkles className="w-4 h-4 text-purple-400 dark:text-purple-500 shrink-0" />
+            </motion.button>
+          </motion.div>
+        </div>
+      </div>
 
       {/* Secondary actions row - enhanced */}
       <div className="relative z-10 px-4 pb-6">
-        <div className="max-w-md mx-auto grid grid-cols-3 gap-2.5">
+        <div className="max-w-lg mx-auto grid grid-cols-3 gap-2.5">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.7 }}
+            transition={{ delay: 1.8 }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigateTo('stats')}
@@ -664,7 +766,7 @@ export function HomeScreen() {
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.75 }}
+            transition={{ delay: 1.85 }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigateTo('journal')}
@@ -677,7 +779,7 @@ export function HomeScreen() {
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.8 }}
+            transition={{ delay: 1.9 }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigateTo('badge_collection')}
@@ -693,8 +795,8 @@ export function HomeScreen() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.9 }}
-            className="mt-3 max-w-md mx-auto"
+            transition={{ delay: 2.0 }}
+            className="mt-3 max-w-lg mx-auto"
           >
             <button
               onClick={() => navigateTo('lesson')}

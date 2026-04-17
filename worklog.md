@@ -1,4 +1,142 @@
 ---
+Task ID: 16 — Cron Review Round 7 (Dhikr Counter, Du'a of the Day, Desktop Layout)
+Agent: Main Agent
+Task: QA testing, new features (Dhikr counter, Du'a of the day), desktop layout improvements
+
+Work Log:
+- QA Testing with agent-browser:
+  - Tested home screen (mobile 375x812, desktop 1280x800)
+  - VLM analysis of mobile and desktop screenshots
+  - Mobile: identified small touch targets, spacing improvements needed
+  - Desktop: identified excessive whitespace, narrow content width
+  - Tested Dhikr counter screen navigation and functionality
+  - Tested dark mode toggle
+  - Verified 0 console errors, 0 browser errors
+- Styling Improvements:
+  - Widened all HomeScreen card containers from max-w-md (448px) to max-w-lg (512px) for better desktop experience
+  - Affected cards: WisdomCard, DailyDuaCard, FunFacts, DailyChallengeCard, Quick access grid, Secondary actions, Mini-Jeux
+  - VLM confirmed: "Content width: Better — cards now use max-w-lg, utilizing more screen space appropriately"
+  - Reorganized feature cards: Dhikr + Mini-Jeux now displayed side-by-side in 2-col grid (was single Mini-Jeux card)
+- New Feature: Dhikr/Tasbih Counter Screen (via sub-agent):
+  - Created DhikrCounterScreen.tsx with 5 dhikr phrases (Soubhan'Allah, Alhamdoulillah, Allahou Akbar, La ilaha illa Allah, Astaghfirullah)
+  - SVG circular progress ring, 160px tap button, vibration feedback
+  - Celebration animation with particle emojis on target completion
+  - Session stats: current session count, rounds completed, lifetime dhikr total
+  - Added totalDhikr, totalDhikrSessions to AppContext with localStorage persistence
+  - Added 'dhikr_counter' to ScreenType and screenComponents map
+- New Feature: Du'a of the Day (via sub-agent):
+  - Created src/data/duas.ts with 14 authentic du'as across 7 categories (morning, evening, before/after eating, general, protection, gratitude)
+  - Category-based theming with warm colors (amber, purple, emerald, teal, rose)
+  - DailyDuaCard on HomeScreen: Arabic text in RTL, French translation, source reference, heart favorite button
+  - getDailyDua() function using day-of-year rotation
+- Added Dhikr button to HomeScreen quick access area alongside Mini-Jeux in 2-col grid
+
+Stage Summary:
+- 2 new files: DhikrCounterScreen.tsx, src/data/duas.ts
+- 4 modified files: types/story.ts, AppContext.tsx, AppContent.tsx, HomeScreen.tsx
+- 2 new features: Dhikr/Tasbih Counter, Du'a of the Day
+- 1 styling improvement: Desktop layout widened (max-w-md → max-w-lg)
+- 0 lint errors in src/
+- 0 console errors
+- Version 3.5
+
+---
+
+Task ID: 15 — Du'a of the Day System
+Agent: Full-Stack Developer Agent
+Task: Create daily du'a data file and integrate into HomeScreen
+
+Work Log:
+- Created `/src/data/duas.ts`:
+  - Defined `DailyDua` interface with id, title, textAr, textFr, source, category, occasion fields
+  - Created 14 authentic du'as covering all 7 categories: morning (3), evening (2), before_eating (1), after_eating (1), general (3), protection (2), gratitude (2)
+  - Each du'a includes authentic Arabic text, French translation, and source reference (Sahih Bukhari, Sahih Muslim, Sunan Abi Dawud, Sunan At-Tirmidhi, Coran)
+  - Created `duaCategoryConfig` map with icon, label, color, borderColor, darkBorderColor, bgColor, darkBgColor per category
+    - morning: 🌅 amber, evening: 🌙 purple, before_eating: 🍽️ emerald, after_eating: 🤲 emerald, general: 📿 stone, protection: 🛡️ teal, gratitude: 💝 rose
+  - Created `getDailyDua()` function using day-of-year for consistent daily rotation (same pattern as getDailyWisdom)
+- Updated `/src/components/screens/HomeScreen.tsx`:
+  - Added imports: `getDailyDua`, `duaCategoryConfig` from `@/data/duas`, `Heart` icon from lucide-react
+  - Created `DailyDuaCard` component placed after WisdomCard section:
+    - Glass-card with category-based colored border and gradient background
+    - Header: category icon + "Du'a du jour" label + category pill badge + Heart favorite button
+    - Occasion text (when to say the du'a)
+    - Arabic text in styled container (font-amiri, text-lg, RTL, centered, white/stone bg)
+    - French translation below
+    - Source reference at bottom with 📖 icon
+    - Heart button with toggle state (filled rose when favorited, gray when not) — visual only, no persistence
+    - Framer-motion fade-in at delay 1.7
+    - Full dark mode support throughout
+  - Adjusted animation delays for all subsequent components (+0.1):
+    - FunFacts: 1.8 → 1.9
+    - DailyChallengeCard: 2.0 → 2.1
+    - Quick access cards: 1.4→1.5, 1.5→1.6, 1.6→1.7, 1.6→1.7
+    - Mini-Jeux: 1.85 → 1.95
+    - Secondary actions: 1.7→1.8, 1.75→1.85, 1.8→1.9
+    - Bookmarked scenes: 1.9 → 2.0
+- ESLint: 0 errors in HomeScreen.tsx and duas.ts (verified with `npx eslint`)
+
+Stage Summary:
+- 1 new file: src/data/duas.ts (14 du'as, 7 categories, getDailyDua function, duaCategoryConfig)
+- 1 modified file: src/components/screens/HomeScreen.tsx (DailyDuaCard component, animation delay adjustments)
+- Daily du'a rotates based on day-of-year for consistency
+- Category-based theming with warm colors (no blue/indigo)
+- Heart favorite button with visual feedback (no persistence needed)
+- 0 lint errors in changed files (verified)
+
+---
+
+Task ID: 14 — Dhikr/Tasbih Counter Screen
+Agent: Full-Stack Developer Agent
+Task: Create a dhikr counter mini-app for spiritual practice
+
+Work Log:
+- Added `'dhikr_counter'` to ScreenType union in `/src/types/story.ts`
+- Updated AppContext (`/src/components/AppContext.tsx`):
+  - Added `totalDhikr: number` (default 0) to AppState and defaultState
+  - Added `totalDhikrSessions: number` (default 0) to AppState and defaultState
+  - Added both fields to AppContextType interface
+  - Created `updateDhikrSession(count)` callback: increments totalDhikr by count, increments totalDhikrSessions by 1
+  - Added fields to writeStorage persistence data and hydrate loading
+  - Added all to Provider value
+- Created `/src/components/screens/DhikrCounterScreen.tsx`:
+  - 5 dhikr phrases with Arabic text, French translation, targets, and emojis:
+    - سُبْحَانَ اللَّهِ (Soubhan'Allah) — target 33
+    - الْحَمْدُ لِلَّهِ (Alhamdoulillah) — target 33
+    - اللَّهُ أَكْبَرُ (Allahou Akbar) — target 34
+    - لَا إِلٰهَ إِلَّا اللَّهُ (La ilaha illa Allah) — target 100
+    - أَسْتَغْفِرُ اللَّهَ (Astaghfirullah) — target 100
+  - Horizontal scrollable phrase selector pills with snap scrolling and auto-centering
+  - Large Arabic phrase display (RTL) with French translation below
+  - 160px circular counter button with amber gradient and shadow
+  - SVG circular progress ring (6px stroke, smooth transition)
+  - Counter number animates (scale-up pulse) on each tap
+  - Vibration feedback on tap (navigator.vibrate 15ms)
+  - Button press animation (framer-motion whileTap scale 0.92)
+  - Celebration animation when target reached: 12 particle emojis radiating outward (⭐✨🌟💫🕌🌙💚🤲)
+  - Green "Terminé !" state when target reached (button changes to emerald gradient)
+  - "Masha'Allah ! Objectif atteint" badge with sparkle icon on completion
+  - "Recommencer" reset button for current count
+  - Session stats section (glass-card): session count, rounds completed, lifetime total dhikr
+  - Lifetime session count with "BarakAllahou fik !" message
+  - Prophetic hadith quote at bottom for spiritual encouragement
+  - Full dark mode support throughout
+  - Framer-motion staggered fade-in animations
+  - Mobile-first responsive design with sticky header
+  - Back button navigates to home via useApp().navigateTo('home')
+  - Accessibility: aria-label on counter button and phrase pills
+- Wired DhikrCounterScreen into AppContent.tsx screenComponents map
+- Fixed lint error: moved celebration state updates from useEffect to handleTap callback to avoid react-hooks/set-state-in-effect rule
+- ESLint: 0 errors in src/ (only pre-existing mini-services errors)
+
+Stage Summary:
+- 1 new file: src/components/screens/DhikrCounterScreen.tsx
+- 3 modified files: types/story.ts, AppContext.tsx, AppContent.tsx
+- Full dhikr counter with 5 phrases, progress ring, celebration animation, vibration feedback
+- Lifetime dhikr tracking persists via v3 localStorage
+- Session stats: session count, rounds completed, lifetime total, lifetime sessions
+- 0 lint errors in src/ (verified)
+
+---
 Task ID: 12 — Cron Review Round 6 (Profile, Memory Game, Activity Calendar, Bug Fixes)
 Agent: Main Agent
 Task: QA testing, bug fixes, new features (Profile Screen, Memory Game, Activity Calendar)
