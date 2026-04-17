@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '@/components/AppContext';
 import { tomes } from '@/data/tomes';
@@ -8,6 +8,7 @@ import { getDailyWisdom } from '@/data/wisdom';
 import { getDailyChallenge, categoryLabels } from '@/data/dailyChallenges';
 import { getDailyDua, duaCategoryConfig } from '@/data/duas';
 import { getDailyVerse, verseThemeConfig } from '@/data/quranVerses';
+import { getShuffledDiscoveries, discoveryCategoryConfig, type Discovery } from '@/data/discoveries';
 
 import { toast } from 'sonner';
 
@@ -15,7 +16,7 @@ import { Button } from '@/components/ui/button';
 import {
   BookOpen, Users, Play, RotateCcw,
   BarChart3, BookHeart, Settings, Sparkles, ChevronRight,
-  Moon, Sun, Map, Trophy, Star, BookmarkCheck, Check, Brain, Heart,
+  Moon, Sun, Map, Trophy, Star, BookmarkCheck, Check, Brain, Heart, CreditCard,
 } from 'lucide-react';
 
 // Floating particle component - enhanced
@@ -482,6 +483,191 @@ function StreakDisplay({ streak }: { streak: number }) {
   );
 }
 
+// ─────────────────────────────────────────────────────
+// Discoveries Feed — Horizontal auto-scrolling cards
+// ─────────────────────────────────────────────────────
+function DiscoveriesFeed() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const autoScrollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const items = useMemo(() => getShuffledDiscoveries(20), []);
+
+  // Card width for snap scrolling
+  const CARD_WIDTH = 200;
+  const GAP = 12;
+  const STEP = CARD_WIDTH + GAP;
+
+  const scrollToNext = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    const next = el.scrollLeft + STEP;
+    // Loop back to start when reaching the end
+    el.scrollTo({ left: next > maxScroll + STEP / 2 ? 0 : next, behavior: 'smooth' });
+  }, [STEP]);
+
+  const scrollToPrev = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const prev = el.scrollLeft - STEP;
+    el.scrollTo({ left: prev < 0 ? el.scrollWidth - el.clientWidth : prev, behavior: 'smooth' });
+  }, [STEP]);
+
+  // Auto-scroll every 5 seconds
+  useEffect(() => {
+    if (isPaused) return;
+    autoScrollRef.current = setInterval(scrollToNext, 5000);
+    return () => {
+      if (autoScrollRef.current) clearInterval(autoScrollRef.current);
+    };
+  }, [isPaused, scrollToNext]);
+
+  const handleMouseEnter = useCallback(() => setIsPaused(true), []);
+  const handleMouseLeave = useCallback(() => setIsPaused(false), []);
+  const handleTouchStart = useCallback(() => setIsPaused(true), []);
+  const handleTouchEnd = useCallback(() => setIsPaused(false), []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.85 }}
+      className="max-w-2xl lg:max-w-5xl mx-auto"
+    >
+      {/* Section header */}
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-base">💡</span>
+          <h2 className="text-sm font-bold text-stone-700 dark:text-stone-200 uppercase tracking-wider">
+            Découvertes
+          </h2>
+          <span className="text-[10px] text-stone-400 dark:text-stone-500 font-medium">
+            {items.length} curiosités
+          </span>
+        </div>
+        <button
+          onClick={() => {
+            if (scrollRef.current) {
+              scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+              toast('Découvertes réinitialisées !');
+            }
+          }}
+          className="flex items-center gap-1 text-[11px] text-teal-600 dark:text-teal-400 font-semibold hover:text-teal-700 dark:hover:text-teal-300 transition-colors"
+        >
+          Voir tout
+          <ChevronRight className="w-3 h-3" />
+        </button>
+      </div>
+
+      {/* Horizontal scroll container */}
+      <div className="relative group">
+        {/* Left fade overlay */}
+        <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-white/80 dark:from-stone-950/80 to-transparent z-10 pointer-events-none rounded-l-xl" />
+        {/* Right fade overlay */}
+        <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-white/80 dark:from-stone-950/80 to-transparent z-10 pointer-events-none rounded-r-xl" />
+
+        {/* Navigation arrows (desktop only) */}
+        <button
+          onClick={scrollToPrev}
+          className="absolute left-1 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm shadow-sm border border-stone-200/50 dark:border-stone-700/50 flex items-center justify-center text-stone-500 dark:text-stone-300 hover:bg-white dark:hover:bg-stone-700 transition-all opacity-0 group-hover:opacity-100 hidden sm:flex"
+          aria-label="Précédent"
+        >
+          <span className="text-xs">‹</span>
+        </button>
+        <button
+          onClick={scrollToNext}
+          className="absolute right-1 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm shadow-sm border border-stone-200/50 dark:border-stone-700/50 flex items-center justify-center text-stone-500 dark:text-stone-300 hover:bg-white dark:hover:bg-stone-700 transition-all opacity-0 group-hover:opacity-100 hidden sm:flex"
+          aria-label="Suivant"
+        >
+          <span className="text-xs">›</span>
+        </button>
+
+        {/* Scrollable row */}
+        <div
+          ref={scrollRef}
+          className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-1 -mx-1 px-1"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {items.map((item, index) => {
+            const cat = discoveryCategoryConfig[item.category];
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 16, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 1.9 + index * 0.05, duration: 0.35 }}
+                className="flex-shrink-0 snap-start"
+                style={{ width: CARD_WIDTH }}
+              >
+                <div className={`
+                  glass-card rounded-xl border border-stone-200/40 dark:border-stone-700/30
+                  shadow-sm hover:shadow-md transition-all duration-200
+                  p-3.5 h-full flex flex-col
+                  border-t-2 ${cat.cardAccent}
+                  hover:border-stone-300/60 dark:hover:border-stone-600/40
+                  cursor-default
+                `}>
+                  {/* Icon + category pill row */}
+                  <div className="flex items-center justify-between mb-2">
+                    <motion.div
+                      whileHover={{ scale: 1.15, rotate: 5 }}
+                      className="w-9 h-9 rounded-lg bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-900/30 dark:to-emerald-900/30 flex items-center justify-center text-xl shadow-sm"
+                    >
+                      {item.icon}
+                    </motion.div>
+                    <span className={`text-[9px] px-2 py-0.5 rounded-full font-semibold ${cat.color} ${cat.bg}`}>
+                      {cat.label}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-[13px] font-bold text-stone-800 dark:text-stone-100 mb-1.5 leading-snug line-clamp-2">
+                    {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-[11px] text-stone-500 dark:text-stone-400 leading-relaxed flex-1 line-clamp-3">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Scroll progress dots */}
+        <div className="flex items-center justify-center gap-1.5 mt-3">
+          {isPaused ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex items-center gap-1.5"
+            >
+              {[0, 1, 2, 3, 4].map((i) => (
+                <div
+                  key={i}
+                  className="w-1.5 h-1.5 rounded-full bg-teal-400 dark:bg-teal-500"
+                />
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              className="w-2 h-2 rounded-full bg-teal-500 dark:bg-teal-400"
+              animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 // Daily Challenge Card
 function DailyChallengeCard() {
   const { completedChallenges, completeChallenge, challengeXP } = useApp();
@@ -673,7 +859,7 @@ export function HomeScreen() {
               <span className="text-4xl">🌟</span>
             </motion.div>
             <div className="text-center">
-              <p className="text-base font-bold text-stone-800 dark:text-stone-100">Je suis Souhayl, j&apos;ai 8 ans</p>
+              <p className="text-base font-bold text-stone-800 dark:text-stone-100">Je suis Souhayl, j'ai bientôt 10 ans</p>
               <p className="text-base font-bold text-teal-600 dark:text-teal-300">Prêt pour l&apos;aventure ?</p>
             </div>
           </motion.div>
@@ -724,7 +910,7 @@ export function HomeScreen() {
             className="text-sm text-stone-500 dark:text-stone-400 max-w-lg mx-auto leading-relaxed"
           >
             Un livre dont tu es le héros — Découvre le cheminement spirituel de Souhayl,
-            un garçon de 8 ans qui apprend à combattre son ego avec les armes de l&apos;âme.
+            un garçon de 9 ans bientôt 10 qui apprend à combattre son ego avec les armes de l'âme.
           </motion.p>
 
           {/* Streak display */}
@@ -798,6 +984,11 @@ export function HomeScreen() {
       {/* Daily Inspiration — unified tabbed card */}
       <div className="relative z-10 px-4 pb-4">
         <DailyInspirationCard />
+      </div>
+
+      {/* Discoveries Feed — horizontal scroll */}
+      <div className="relative z-10 px-4 pb-4">
+        <DiscoveriesFeed />
       </div>
 
       {/* Daily Challenge */}
@@ -887,10 +1078,10 @@ export function HomeScreen() {
         </motion.div>
       </div>
 
-      {/* Feature cards: Dhikr + Mini-Jeux side by side — staggered */}
+      {/* Feature cards: Dhikr + Mini-Jeux + Cartes — staggered */}
       <div className="relative z-10 px-4 pb-3">
         <motion.div
-          className="max-w-lg lg:max-w-5xl mx-auto grid grid-cols-2 gap-2.5"
+          className="max-w-lg lg:max-w-5xl mx-auto grid grid-cols-3 gap-2.5"
           variants={{
             show: { transition: { staggerChildren: 0.12 } },
           }}
@@ -907,14 +1098,14 @@ export function HomeScreen() {
               whileHover={{ scale: 1.01, y: -1 }}
               whileTap={{ scale: 0.99 }}
               onClick={() => navigateTo('dhikr_counter')}
-              className="w-full flex items-center gap-3 px-4 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-teal-200/40 dark:hover:border-teal-700/30"
+              className="w-full flex items-center gap-3 px-3 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-teal-200/40 dark:hover:border-teal-700/30"
             >
               <div className="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center shrink-0">
                 <span className="text-lg">📿</span>
               </div>
               <div className="text-left flex-1 min-w-0">
                 <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200 block">Dhikr</span>
-                <span className="text-[9px] text-stone-400 dark:text-stone-500">Compteur de tasbih</span>
+                <span className="text-[9px] text-stone-400 dark:text-stone-500 hidden sm:block">Compteur de tasbih</span>
               </div>
               <Sparkles className="w-4 h-4 text-teal-400 dark:text-teal-500 shrink-0" />
             </motion.button>
@@ -929,16 +1120,38 @@ export function HomeScreen() {
               whileHover={{ scale: 1.01, y: -1 }}
               whileTap={{ scale: 0.99 }}
               onClick={() => navigateTo('memory_game')}
-              className="w-full flex items-center gap-3 px-4 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-purple-200/40 dark:hover:border-purple-700/30"
+              className="w-full flex items-center gap-3 px-3 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-purple-200/40 dark:hover:border-purple-700/30"
             >
               <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center shrink-0">
                 <Brain className="w-5 h-5 text-purple-600 dark:text-purple-400" />
               </div>
               <div className="text-left flex-1 min-w-0">
                 <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200 block">Mini-Jeux</span>
-                <span className="text-[9px] text-stone-400 dark:text-stone-500">Jeu de mémoire</span>
+                <span className="text-[9px] text-stone-400 dark:text-stone-500 hidden sm:block">Jeu de mémoire</span>
               </div>
               <Sparkles className="w-4 h-4 text-purple-400 dark:text-purple-500 shrink-0" />
+            </motion.button>
+          </motion.div>
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20, scale: 0.97 },
+              show: { opacity: 1, y: 0, scale: 1 },
+            }}
+          >
+            <motion.button
+              whileHover={{ scale: 1.01, y: -1 }}
+              whileTap={{ scale: 0.99 }}
+              onClick={() => navigateTo('greeting_cards')}
+              className="w-full flex items-center gap-3 px-3 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-emerald-200/40 dark:hover:border-emerald-700/30"
+            >
+              <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center shrink-0">
+                <CreditCard className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <div className="text-left flex-1 min-w-0">
+                <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200 block">Cartes</span>
+                <span className="text-[9px] text-stone-400 dark:text-stone-500 hidden sm:block">Cartes de vœux</span>
+              </div>
+              <Sparkles className="w-4 h-4 text-emerald-400 dark:text-emerald-500 shrink-0" />
             </motion.button>
           </motion.div>
         </motion.div>
