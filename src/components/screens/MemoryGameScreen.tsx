@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '@/components/AppContext';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, RotateCcw, Clock, Zap, Trophy, Star } from 'lucide-react';
 
@@ -315,7 +316,12 @@ export default function MemoryGameScreen() {
             if (next.length === CARD_EMOJIS.length) {
               setIsPlaying(false);
               setIsComplete(true);
-              updateMemoryScore(moves + 1);
+              const finalMoves = moves + 1;
+              updateMemoryScore(finalMoves);
+              const finalStars = getStarRating(finalMoves);
+              toast.success('Bravo ! 🎉', {
+                description: `${finalMoves} coups - ${finalStars} étoile(s)`,
+              });
             }
             return next;
           });

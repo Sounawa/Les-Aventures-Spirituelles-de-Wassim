@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useApp } from '@/components/AppContext';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
   ArrowLeft, Moon, Sun, Type, Gauge, Volume2, VolumeX,
@@ -63,6 +64,9 @@ export function SettingsScreen() {
   const handleReset = () => {
     if (confirm('Es-tu sûr de vouloir recommencer ? Toute ta progression sera perdue.')) {
       resetProgress();
+      toast('Progression réinitialisée', {
+        description: 'Tu peux recommencer l\'aventure !',
+      });
     }
   };
 

@@ -7,6 +7,8 @@ import { tomes } from '@/data/tomes';
 import { getDailyWisdom } from '@/data/wisdom';
 import { getDailyChallenge, categoryLabels } from '@/data/dailyChallenges';
 import { getDailyDua, duaCategoryConfig } from '@/data/duas';
+import { getDailyVerse, verseThemeConfig } from '@/data/quranVerses';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
   BookOpen, Users, Play, RotateCcw,
@@ -53,6 +55,91 @@ function FloatingParticles() {
             ease: 'easeInOut',
           }}
         />
+      ))}
+    </div>
+  );
+}
+
+// Night sky with twinkling stars and shooting stars (dark mode only)
+function NightSky() {
+  const stars = useMemo(() =>
+    Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 2 + 1,
+      twinkleDuration: Math.random() * 3 + 2,
+      twinkleDelay: Math.random() * 5,
+      baseOpacity: Math.random() * 0.4 + 0.3,
+    })), []);
+
+  const shootingStars = useMemo(() =>
+    Array.from({ length: 3 }, (_, i) => ({
+      id: i,
+      startX: Math.random() * 60 + 10,
+      startY: Math.random() * 30,
+      duration: Math.random() * 1.5 + 1,
+      delay: Math.random() * 12 + i * 6,
+      angle: Math.random() * 15 + 25,
+    })), []);
+
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden hidden dark:block">
+      {/* Twinkling stars */}
+      {stars.map((star) => (
+        <motion.div
+          key={star.id}
+          className="absolute rounded-full bg-white"
+          style={{
+            width: star.size,
+            height: star.size,
+            left: `${star.x}%`,
+            top: `${star.y}%`,
+          }}
+          animate={{
+            opacity: [star.baseOpacity * 0.3, star.baseOpacity, star.baseOpacity * 0.5, star.baseOpacity, star.baseOpacity * 0.3],
+            scale: [1, 1.3, 1, 1.2, 1],
+          }}
+          transition={{
+            duration: star.twinkleDuration,
+            repeat: Infinity,
+            delay: star.twinkleDelay,
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+
+      {/* Shooting stars */}
+      {shootingStars.map((shootingStar) => (
+        <motion.div
+          key={`shoot-${shootingStar.id}`}
+          className="absolute"
+          style={{
+            left: `${shootingStar.startX}%`,
+            top: `${shootingStar.startY}%`,
+          }}
+          initial={{ opacity: 0, x: 0, y: 0 }}
+          animate={{
+            opacity: [0, 0, 1, 1, 0],
+            x: [0, 0, 120, 200, 280],
+            y: [0, 0, 60, 100, 140],
+          }}
+          transition={{
+            duration: shootingStar.duration,
+            repeat: Infinity,
+            repeatDelay: shootingStar.delay,
+            ease: 'easeIn',
+          }}
+        >
+          <div
+            className="w-6 h-px bg-gradient-to-r from-white via-white/80 to-transparent"
+            style={{
+              transform: `rotate(${shootingStar.angle}deg)`,
+              transformOrigin: 'left center',
+              boxShadow: '0 0 4px 1px rgba(255,255,255,0.4)',
+            }}
+          />
+        </motion.div>
       ))}
     </div>
   );
@@ -107,7 +194,7 @@ function WisdomCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.6 }}
-      className="max-w-lg mx-auto"
+      className="max-w-lg lg:max-w-none mx-auto"
     >
       <button
         onClick={() => setShowFull(!showFull)}
@@ -116,7 +203,7 @@ function WisdomCard() {
         <div className="flex items-start gap-3">
           <div className="text-2xl shrink-0 mt-0.5">{categoryIcons[wisdom.category]}</div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wider mb-2">
+            <p className="text-xs font-semibold text-stone-600 dark:text-stone-200 uppercase tracking-wider mb-2">
               Sagesse du jour
             </p>
             <AnimatePresence mode="wait">
@@ -152,14 +239,14 @@ function DailyDuaCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.7 }}
-      className="max-w-lg mx-auto"
+      className="max-w-lg lg:max-w-none mx-auto"
     >
       <div className={`glass-card rounded-2xl border ${config.borderColor} ${config.darkBorderColor} bg-gradient-to-br ${config.bgColor} ${config.darkBgColor} p-5 shadow-sm`}>
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className="text-lg">{config.icon}</span>
-            <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-stone-600 dark:text-stone-200 uppercase tracking-wider">
               Du&apos;a du jour
             </p>
           </div>
@@ -169,7 +256,15 @@ function DailyDuaCard() {
             </span>
             <motion.button
               whileTap={{ scale: 0.8 }}
-              onClick={() => setIsFav(!isFav)}
+              onClick={() => {
+                const next = !isFav;
+                setIsFav(next);
+                if (next) {
+                  toast.success('Ajouté aux favoris ! 💝');
+                } else {
+                  toast('Retiré des favoris');
+                }
+              }}
               className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/50 dark:hover:bg-stone-800/50 transition-colors"
               aria-label="Ajouter aux favoris"
             >
@@ -213,6 +308,63 @@ function DailyDuaCard() {
   );
 }
 
+// Quran Verse of the Day Card
+function QuranVerseCard() {
+  const verse = useMemo(() => getDailyVerse(), []);
+  const config = verseThemeConfig[verse.theme];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.8 }}
+      className="max-w-lg lg:max-w-none mx-auto"
+    >
+      <div className={`glass-card rounded-2xl border border-l-4 ${config.borderColor} ${config.darkBorderColor} ${config.leftBorder} bg-gradient-to-br ${config.bgColor} ${config.darkBgColor} p-5 shadow-sm`}>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <span className="text-lg">📖</span>
+            <p className="text-xs font-semibold text-stone-600 dark:text-stone-200 uppercase tracking-wider">
+              Verset du Jour
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${config.color} ${config.badgeBg}`}>
+              {config.icon} {config.label}
+            </span>
+          </div>
+        </div>
+
+        {/* Surah name badge */}
+        <p className="text-[11px] text-stone-500 dark:text-stone-400 mb-3 font-medium">
+          Sourate {verse.surahName}
+        </p>
+
+        {/* Arabic text */}
+        <div className="mb-3 p-3 rounded-xl bg-white/40 dark:bg-stone-800/30 border border-white/60 dark:border-stone-700/30">
+          <p
+            className="text-lg text-stone-800 dark:text-stone-100 font-amiri leading-relaxed text-center"
+            dir="rtl"
+          >
+            {verse.textAr}
+          </p>
+        </div>
+
+        {/* French translation */}
+        <p className="text-sm text-stone-600 dark:text-stone-300 leading-relaxed mb-3">
+          {verse.textFr}
+        </p>
+
+        {/* Source */}
+        <p className="text-[10px] text-stone-400 dark:text-stone-500">
+          📖 {verse.source}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
 // Fun Facts rotating section
 function FunFacts() {
   const funFacts = [
@@ -237,12 +389,12 @@ function FunFacts() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.9 }}
-      className="max-w-lg mx-auto"
+      className="max-w-lg lg:max-w-none mx-auto"
     >
       <div className="glass-card rounded-2xl border border-amber-200/30 dark:border-amber-700/20 p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-lg">💡</span>
-          <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
+          <p className="text-xs font-semibold text-stone-600 dark:text-stone-200 uppercase tracking-wider">
             Le savais-tu ?
           </p>
         </div>
@@ -254,7 +406,7 @@ function FunFacts() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4 }}
-              className="text-sm text-stone-700 dark:text-stone-300 font-medium leading-relaxed"
+              className="text-sm text-stone-700 dark:text-stone-200 font-medium leading-relaxed"
             >
               {funFacts[currentFact]}
             </motion.p>
@@ -322,13 +474,13 @@ function DailyChallengeCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2.1 }}
-      className="max-w-lg mx-auto"
+      className="max-w-lg lg:max-w-none mx-auto"
     >
       <div className={`glass-card rounded-2xl border p-5 shadow-sm ${isCompleted ? 'border-green-200/40 dark:border-green-700/30' : 'border-amber-200/30 dark:border-amber-700/20'}`}>
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className="text-lg">{challenge.icon}</span>
-            <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-stone-600 dark:text-stone-200 uppercase tracking-wider">
               Défi du jour
             </p>
           </div>
@@ -366,7 +518,12 @@ function DailyChallengeCard() {
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => completeChallenge(todayString)}
+              onClick={() => {
+                completeChallenge(todayString);
+                toast.success("Masha'Allah ! Défi accompli ! ⭐", {
+                  description: `+${challenge.xp} XP gagnés`,
+                });
+              }}
               className="flex items-center gap-1.5 px-4 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
             >
               <span>✓</span>
@@ -401,12 +558,13 @@ export function HomeScreen() {
       {/* Hero section */}
       <div className="relative flex-1 flex flex-col items-center justify-center px-4 py-8 overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-amber-50 via-orange-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-amber-50 via-orange-50 to-teal-50 dark:from-stone-950 dark:via-indigo-950/20 dark:to-stone-950" />
         <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D97706' fill-opacity='1'%3E%3Cpath d='M40 0l10 20h20l-15 15 5 20-20-10-20 10 5-20L10 20h20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
 
         <FloatingParticles />
+        <NightSky />
         <IslamicDecoration className="top-4 right-4" />
         <IslamicDecoration className="bottom-20 left-4" />
 
@@ -416,7 +574,7 @@ export function HomeScreen() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => navigateTo('settings')}
-            className="w-12 h-12 rounded-full glass-card border border-amber-200/30 dark:border-stone-700/30 flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 shadow-md transition-colors"
+            className="w-12 h-12 rounded-full glass-card border border-amber-200/30 dark:border-stone-600/40 flex items-center justify-center text-stone-500 dark:text-stone-300 hover:text-stone-700 dark:hover:text-stone-100 shadow-md transition-colors"
             aria-label="Paramètres"
           >
             <Settings className="w-5 h-5" />
@@ -425,14 +583,14 @@ export function HomeScreen() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => updateSettings({ darkMode: !settings.darkMode })}
-            className="w-12 h-12 rounded-full glass-card border border-amber-200/30 dark:border-stone-700/30 flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 shadow-md transition-colors"
+            className="w-12 h-12 rounded-full glass-card border border-amber-200/30 dark:border-stone-600/40 flex items-center justify-center text-stone-500 dark:text-stone-300 hover:text-stone-700 dark:hover:text-stone-100 shadow-md transition-colors"
             aria-label={settings.darkMode ? 'Mode clair' : 'Mode sombre'}
           >
             {settings.darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </motion.button>
         </div>
 
-        <div className="relative z-10 text-center max-w-lg">
+        <div className="relative z-10 text-center max-w-lg lg:max-w-2xl">
           {/* Crescent moon and star with glow - enhanced */}
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
@@ -441,11 +599,17 @@ export function HomeScreen() {
             className="mb-5"
           >
             <div className="relative inline-flex items-center justify-center">
-              {/* Outer glow */}
+              {/* Outer glow - enhanced for dark mode */}
               <motion.div
                 className="absolute inset-0 rounded-full animate-glow-pulse"
-                style={{ boxShadow: '0 0 40px rgba(251, 191, 36, 0.3), 0 0 80px rgba(251, 191, 36, 0.1)' }}
+                style={{
+                  boxShadow: '0 0 40px rgba(251, 191, 36, 0.3), 0 0 80px rgba(251, 191, 36, 0.1)',
+                }}
               />
+              {/* Dark mode radial glow around moon */}
+              <div className="absolute -inset-8 rounded-full hidden dark:block" style={{
+                background: 'radial-gradient(circle, rgba(251,191,36,0.12) 0%, rgba(251,191,36,0.05) 40%, transparent 70%)',
+              }} />
               <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-200 via-orange-200 to-amber-300 shadow-lg shadow-amber-200/50 dark:shadow-amber-900/30 flex items-center justify-center relative">
                 <span className="text-5xl relative z-10">🌙</span>
                 {/* Orbiting stars */}
@@ -455,7 +619,7 @@ export function HomeScreen() {
                   transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                   style={{ transformOrigin: '48px 48px' }}
                 >
-                  <span className="text-lg">✦</span>
+                  <span className="text-lg dark:text-amber-200/90 dark:brightness-110">✦</span>
                 </motion.div>
                 <motion.div
                   className="absolute -bottom-1 -left-1"
@@ -463,7 +627,7 @@ export function HomeScreen() {
                   transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
                   style={{ transformOrigin: '48px 48px' }}
                 >
-                  <span className="text-xs">✦</span>
+                  <span className="text-xs dark:text-amber-200/90 dark:brightness-110">✦</span>
                 </motion.div>
               </div>
             </div>
@@ -610,29 +774,32 @@ export function HomeScreen() {
         </div>
       </div>
 
-      {/* Daily wisdom */}
+      {/* Daily wisdom + Du'a side by side on desktop */}
       <div className="relative z-10 px-4 pb-4">
-        <WisdomCard />
+        <div className="max-w-lg lg:max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <WisdomCard />
+          <DailyDuaCard />
+        </div>
       </div>
 
-      {/* Daily Du'a */}
+      {/* Quran Verse + Fun Facts side by side on desktop */}
       <div className="relative z-10 px-4 pb-4">
-        <DailyDuaCard />
-      </div>
-
-      {/* Fun Facts */}
-      <div className="relative z-10 px-4 pb-4">
-        <FunFacts />
+        <div className="max-w-lg lg:max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <QuranVerseCard />
+          <FunFacts />
+        </div>
       </div>
 
       {/* Daily Challenge */}
       <div className="relative z-10 px-4 pb-4">
-        <DailyChallengeCard />
+        <div className="max-w-lg lg:max-w-4xl mx-auto">
+          <DailyChallengeCard />
+        </div>
       </div>
 
       {/* Quick access cards - enhanced grid */}
       <div className="relative z-10 px-4 pb-4">
-        <div className="max-w-lg mx-auto grid grid-cols-4 gap-2.5">
+        <div className="max-w-lg lg:max-w-4xl mx-auto grid grid-cols-4 gap-2.5">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -701,7 +868,7 @@ export function HomeScreen() {
 
       {/* Feature cards: Dhikr + Mini-Jeux side by side */}
       <div className="relative z-10 px-4 pb-3">
-        <div className="max-w-lg mx-auto grid grid-cols-2 gap-2.5">
+        <div className="max-w-lg lg:max-w-4xl mx-auto grid grid-cols-2 gap-2.5">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -749,7 +916,7 @@ export function HomeScreen() {
 
       {/* Secondary actions row - enhanced */}
       <div className="relative z-10 px-4 pb-6">
-        <div className="max-w-lg mx-auto grid grid-cols-3 gap-2.5">
+        <div className="max-w-lg lg:max-w-4xl mx-auto grid grid-cols-3 gap-2.5">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -796,7 +963,7 @@ export function HomeScreen() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2.0 }}
-            className="mt-3 max-w-lg mx-auto"
+            className="mt-3 max-w-lg lg:max-w-4xl mx-auto"
           >
             <button
               onClick={() => navigateTo('lesson')}

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Amiri } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 
 const amiri = Amiri({
   variable: "--font-amiri",
@@ -29,7 +28,6 @@ export default function RootLayout({
         className={`${amiri.variable} antialiased`}
       >
         {children}
-        <Toaster />
       </body>
     </html>
   );

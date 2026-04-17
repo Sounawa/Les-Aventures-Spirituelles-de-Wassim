@@ -21,6 +21,7 @@ import { ProfileScreen } from '@/components/screens/ProfileScreen';
 import { DhikrCounterScreen } from '@/components/screens/DhikrCounterScreen';
 import { BottomNavBar } from '@/components/layout/BottomNavBar';
 import { OnboardingModal } from '@/components/OnboardingModal';
+import { Toaster } from '@/components/ui/sonner';
 import type { ScreenType } from '@/types/story';
 
 const screenComponents: Record<ScreenType, React.ComponentType> = {
@@ -93,6 +94,7 @@ function AppInner() {
         </div>
       </footer>
       <BottomNavBar />
+      <Toaster />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '@/components/AppContext';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
   ArrowLeft, Save, Star, Trophy, Flame, Check,
@@ -50,6 +51,7 @@ export function ProfileScreen() {
       playerColor: localColor,
     });
     setSaved(true);
+    toast.success('Profil sauvegardé ! ✨');
     setTimeout(() => setSaved(false), 2000);
   };
 

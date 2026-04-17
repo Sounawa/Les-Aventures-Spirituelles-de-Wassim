@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '@/components/AppContext';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
   ArrowLeft, RotateCcw, Star, Trophy, Sparkles,
@@ -139,6 +140,9 @@ export function DhikrCounterScreen() {
       setRoundsCompleted(prev => prev + 1);
       // Persist this session completion
       updateDhikrSession(phrase.target);
+      toast.success("Masha'Allah ! Dhikr terminé ! 📿", {
+        description: phrase.french,
+      });
       if (celebrationTimerRef.current) clearTimeout(celebrationTimerRef.current);
       celebrationTimerRef.current = setTimeout(() => setShowCelebration(false), 2500);
     }
@@ -147,7 +151,7 @@ export function DhikrCounterScreen() {
     if (typeof navigator !== 'undefined' && navigator.vibrate) {
       navigator.vibrate(15);
     }
-  }, [isComplete, count, phrase.target, updateDhikrSession]);
+  }, [isComplete, count, phrase.target, phrase.french, updateDhikrSession]);
 
   const handleReset = useCallback(() => {
     setCount(0);
