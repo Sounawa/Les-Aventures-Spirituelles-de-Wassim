@@ -343,19 +343,19 @@ export function HomeScreen() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => navigateTo('settings')}
-            className="w-10 h-10 rounded-full glass-card border border-amber-200/30 dark:border-stone-700/30 flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 shadow-sm transition-colors"
+            className="w-12 h-12 rounded-full glass-card border border-amber-200/30 dark:border-stone-700/30 flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 shadow-md transition-colors"
             aria-label="Paramètres"
           >
-            <Settings className="w-4 h-4" />
+            <Settings className="w-5 h-5" />
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => updateSettings({ darkMode: !settings.darkMode })}
-            className="w-10 h-10 rounded-full glass-card border border-amber-200/30 dark:border-stone-700/30 flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 shadow-sm transition-colors"
+            className="w-12 h-12 rounded-full glass-card border border-amber-200/30 dark:border-stone-700/30 flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 shadow-md transition-colors"
             aria-label={settings.darkMode ? 'Mode clair' : 'Mode sombre'}
           >
-            {settings.darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {settings.darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </motion.button>
         </div>
 
@@ -416,7 +416,7 @@ export function HomeScreen() {
             </motion.div>
             <div className="text-center">
               <p className="text-base font-bold text-stone-800 dark:text-stone-100">Je suis Nawfel, j&apos;ai 8 ans</p>
-              <p className="text-sm text-amber-600 dark:text-amber-400 font-medium">Prêt pour l&apos;aventure ?</p>
+              <p className="text-base font-bold text-amber-600 dark:text-amber-300">Prêt pour l&apos;aventure ?</p>
             </div>
           </motion.div>
 
