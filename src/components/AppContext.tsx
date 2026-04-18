@@ -104,7 +104,7 @@ interface AppContextType {
   checkAchievements: () => void;
 }
 
-const STORAGE_KEY = 'souhayl-save-v1';
+const STORAGE_KEY = 'wassim-save-v1';
 
 const defaultSettings: AppSettings = {
   darkMode: false,
@@ -132,9 +132,9 @@ const defaultState: AppState = {
   completedChallenges: [],
   challengeXP: 0,
   readingDays: [],
-  playerName: 'Souhayl',
-  playerAvatar: '🌟',
-  playerColor: 'blue',
+  playerName: 'Wassim',
+  playerAvatar: '⭐',
+  playerColor: 'orange',
   memoryBestScore: 0,
   memoryGamesPlayed: 0,
   totalDhikr: 0,
@@ -250,9 +250,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         completedChallenges: saved.completedChallenges || [],
         challengeXP: saved.challengeXP || 0,
         readingDays: saved.readingDays || [],
-        playerName: saved.playerName || 'Souhayl',
-        playerAvatar: saved.playerAvatar || '🌟',
-        playerColor: saved.playerColor || 'blue',
+        playerName: saved.playerName || 'Wassim',
+        playerAvatar: saved.playerAvatar || '⭐',
+        playerColor: saved.playerColor || 'orange',
         memoryBestScore: saved.memoryBestScore || 0,
         memoryGamesPlayed: saved.memoryGamesPlayed || 0,
         totalDhikr: saved.totalDhikr || 0,
@@ -299,6 +299,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     try {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem('nawfel-save-v2');
+      localStorage.removeItem('souhayl-save-v1');
     } catch { /* noop */ }
   }, []);
 

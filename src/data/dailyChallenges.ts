@@ -45,8 +45,8 @@ export function getDailyChallenge(): DailyChallenge {
 }
 
 export const categoryLabels: Record<string, { label: string; color: string }> = {
-  action: { label: 'Action', color: 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400' },
+  action: { label: 'Action', color: 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-400' },
   reflection: { label: 'Réflexion', color: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400' },
-  dhikr: { label: 'Dhikr', color: 'bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-400' },
+  dhikr: { label: 'Dhikr', color: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400' },
   kindness: { label: 'Gentillesse', color: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400' },
 };

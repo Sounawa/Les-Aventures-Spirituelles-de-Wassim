@@ -37,7 +37,7 @@ function FloatingParticles() {
       {particles.map((p) => (
         <motion.div
           key={p.id}
-          className="absolute rounded-full bg-blue-400"
+          className="absolute rounded-full bg-amber-400"
           style={{
             width: p.size,
             height: p.size,
@@ -153,9 +153,9 @@ function IslamicDecoration({ className = '' }: { className?: string }) {
   return (
     <div className={`absolute pointer-events-none ${className}`}>
       <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-[0.05]">
-        <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="0.8" className="text-sky-700 dark:text-sky-500" />
-        <circle cx="50" cy="50" r="28" stroke="currentColor" strokeWidth="0.4" className="text-sky-700 dark:text-sky-500" />
-        <circle cx="50" cy="50" r="16" stroke="currentColor" strokeWidth="0.4" className="text-sky-700 dark:text-sky-500" />
+        <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="0.8" className="text-orange-700 dark:text-orange-500" />
+        <circle cx="50" cy="50" r="28" stroke="currentColor" strokeWidth="0.4" className="text-orange-700 dark:text-orange-500" />
+        <circle cx="50" cy="50" r="16" stroke="currentColor" strokeWidth="0.4" className="text-orange-700 dark:text-orange-500" />
         {Array.from({ length: 8 }, (_, i) => {
           const angle = (i * 45) * (Math.PI / 180);
           return (
@@ -167,7 +167,7 @@ function IslamicDecoration({ className = '' }: { className?: string }) {
               y2={50 + 40 * Math.sin(angle)}
               stroke="currentColor"
               strokeWidth="0.4"
-              className="text-sky-700 dark:text-sky-500"
+              className="text-orange-700 dark:text-orange-500"
             />
           );
         })}
@@ -200,11 +200,11 @@ function DailyInspirationCard() {
   const [isFav, setIsFav] = useState(false);
 
   const funFacts = useMemo(() => [
-    "🌍 Le Maroc abrite les montagnes du Rif, où vit Souhayl",
-    "📚 Le Tassawuf enseigne la purification du cœur",
-    "🌙 Les rêves sont les portes du monde intérieur",
-    "⚔️ Le Nafs a 3 états : ammarah, lawwama, mutma'inna",
-    "🕯️ Le Dhikr est le rappel d'Allah dans le cœur",
+    "🌍 Allah a créé tout le monde ! Les arbres, les animaux, toi et moi !",
+    "🐱 Le Prophète Muhammad ﷺ aimait beaucoup les chats ! Il avait un chat qui s'appelait Muezza",
+    "⭐ Quand tu dis Alhamdulillah, les anges écrivent ça dans ton livre de bonnes actions !",
+    "🌙 La lune et le soleil sont des signes d'Allah. SubhanAllah !",
+    "🌱 Dis Bismillah avant de manger. Ça baraka ta nourriture !",
   ], []);
   const [currentFact, setCurrentFact] = useState(0);
   useEffect(() => {
@@ -224,13 +224,13 @@ function DailyInspirationCard() {
       transition={{ delay: 1.6 }}
       className="max-w-lg lg:max-w-2xl mx-auto"
     >
-      <div className="glass-card rounded-2xl border border-sky-200/30 dark:border-sky-700/20 shadow-sm overflow-hidden">
+      <div className="glass-card rounded-2xl border border-orange-200/30 dark:border-orange-700/20 shadow-sm overflow-hidden">
         {/* ── Tab Bar ── */}
         <div className="relative flex items-center px-2 pt-2 pb-0 gap-0.5">
           {/* Animated underline indicator */}
           <motion.div
             layoutId="tab-indicator"
-            className="absolute bottom-0 h-[3px] rounded-full bg-gradient-to-r from-sky-400 via-indigo-400 to-sky-500 dark:from-sky-500 dark:via-indigo-400 dark:to-sky-500 shadow-sm shadow-sky-500/20 dark:shadow-sky-500/30"
+            className="absolute bottom-0 h-[3px] rounded-full bg-gradient-to-r from-orange-400 via-violet-400 to-orange-500 dark:from-orange-500 dark:via-violet-400 dark:to-orange-500 shadow-sm shadow-orange-500/20 dark:shadow-orange-500/30"
             style={{
               width: `calc(${100 / 4}% - 6px)`,
               left: `calc(${(activeIdx * 100) / 4}% + 3px)`,
@@ -245,7 +245,7 @@ function DailyInspirationCard() {
                 flex-1 flex items-center justify-center gap-1 py-2.5 text-[11px] font-semibold
                 transition-all duration-200 rounded-t-lg relative z-10
                 ${activeTab === tab.id
-                  ? 'text-sky-700 dark:text-sky-300'
+                  ? 'text-orange-700 dark:text-orange-300'
                   : 'text-stone-400 dark:text-stone-500 hover:text-stone-500 dark:hover:text-stone-400'
                 }
               `}
@@ -257,7 +257,7 @@ function DailyInspirationCard() {
         </div>
 
         {/* ── Thin decorative separator ── */}
-        <div className="h-px bg-gradient-to-r from-transparent via-sky-300/40 dark:via-sky-500/30 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-orange-300/40 dark:via-orange-500/30 to-transparent" />
 
         {/* ── Content Area ── */}
         <div className="p-5 pt-4 min-h-[190px]">
@@ -293,7 +293,7 @@ function DailyInspirationCard() {
                 <div className="flex items-center justify-end">
                   <button
                     onClick={() => setShowWisdomAr(!showWisdomAr)}
-                    className="flex items-center gap-1.5 text-[11px] text-sky-600 dark:text-sky-400 font-semibold hover:text-sky-700 dark:hover:text-sky-300 transition-colors"
+                    className="flex items-center gap-1.5 text-[11px] text-orange-600 dark:text-orange-400 font-semibold hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
                   >
                     <span>{showWisdomAr ? 'Français' : 'Arabe'}</span>
                     <span className="text-sm">↺</span>
@@ -339,23 +339,23 @@ function DailyInspirationCard() {
                 </div>
                 <p className="text-[11px] text-stone-400 dark:text-stone-500 mb-3 italic">{dua.occasion}</p>
                 {/* Arabic text — elegant container */}
-                <div className="mb-3 py-4 px-5 rounded-2xl bg-gradient-to-br from-sky-50/80 via-indigo-50/40 to-sky-50/80 dark:from-stone-800/40 dark:via-stone-800/20 dark:to-stone-800/40 border border-sky-200/50 dark:border-sky-700/25 relative">
+                <div className="mb-3 py-4 px-5 rounded-2xl bg-gradient-to-br from-orange-50/80 via-violet-50/40 to-orange-50/80 dark:from-stone-800/40 dark:via-stone-800/20 dark:to-stone-800/40 border border-orange-200/50 dark:border-orange-700/25 relative">
                   {/* Decorative corner flourish */}
                   <div className="absolute top-0 left-0 w-6 h-6">
-                    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-sky-400/40 dark:text-sky-500/30">
+                    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-orange-400/40 dark:text-orange-500/30">
                       <path d="M2 2 L2 12 Q2 2 12 2 Q2 2 2 12 L2 2Z" stroke="currentColor" strokeWidth="1" fill="none"/>
                       <path d="M2 2 L8 2" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
                       <path d="M2 2 L2 8" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
                     </svg>
                   </div>
                   <div className="absolute bottom-0 right-0 w-6 h-6">
-                    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-sky-400/40 dark:text-sky-500/30">
+                    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-orange-400/40 dark:text-orange-500/30">
                       <path d="M22 22 L22 12 Q22 22 12 22 Q22 22 22 12 L22 22Z" stroke="currentColor" strokeWidth="1" fill="none"/>
                       <path d="M22 22 L16 22" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
                       <path d="M22 22 L22 16" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
                     </svg>
                   </div>
-                  <p className="text-xl text-stone-800 dark:text-sky-100 font-amiri leading-[2.2] text-center" dir="rtl">{dua.textAr}</p>
+                  <p className="text-xl text-stone-800 dark:text-orange-100 font-amiri leading-[2.2] text-center" dir="rtl">{dua.textAr}</p>
                 </div>
                 <p className="text-[13px] text-stone-600 dark:text-stone-300 leading-relaxed mb-2">{dua.textFr}</p>
                 <p className="text-[10px] text-stone-400 dark:text-stone-500/70 flex items-center gap-1">📖 <span>{dua.source}</span></p>
@@ -384,22 +384,22 @@ function DailyInspirationCard() {
                 </div>
                 <p className="text-[11px] text-stone-400 dark:text-stone-500 mb-3 font-medium">Sourate {verse.surahName}</p>
                 {/* Arabic text — elegant container */}
-                <div className="mb-3 py-4 px-5 rounded-2xl bg-gradient-to-br from-indigo-50/70 via-sky-50/40 to-indigo-50/70 dark:from-stone-800/40 dark:via-stone-800/20 dark:to-stone-800/40 border border-indigo-200/50 dark:border-indigo-700/25 relative">
+                <div className="mb-3 py-4 px-5 rounded-2xl bg-gradient-to-br from-violet-50/70 via-orange-50/40 to-violet-50/70 dark:from-stone-800/40 dark:via-stone-800/20 dark:to-stone-800/40 border border-violet-200/50 dark:border-violet-700/25 relative">
                   <div className="absolute top-0 left-0 w-6 h-6">
-                    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-indigo-400/40 dark:text-indigo-500/30">
+                    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-violet-400/40 dark:text-violet-500/30">
                       <path d="M2 2 L2 12 Q2 2 12 2 Q2 2 2 12 L2 2Z" stroke="currentColor" strokeWidth="1" fill="none"/>
                       <path d="M2 2 L8 2" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
                       <path d="M2 2 L2 8" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
                     </svg>
                   </div>
                   <div className="absolute bottom-0 right-0 w-6 h-6">
-                    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-indigo-400/40 dark:text-indigo-500/30">
+                    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-violet-400/40 dark:text-violet-500/30">
                       <path d="M22 22 L22 12 Q22 22 12 22 Q22 22 22 12 L22 22Z" stroke="currentColor" strokeWidth="1" fill="none"/>
                       <path d="M22 22 L16 22" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
                       <path d="M22 22 L22 16" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
                     </svg>
                   </div>
-                  <p className="text-xl text-stone-800 dark:text-indigo-100 font-amiri leading-[2.2] text-center" dir="rtl">{verse.textAr}</p>
+                  <p className="text-xl text-stone-800 dark:text-violet-100 font-amiri leading-[2.2] text-center" dir="rtl">{verse.textAr}</p>
                 </div>
                 <p className="text-[13px] text-stone-600 dark:text-stone-300 leading-relaxed mb-2">{verse.textFr}</p>
                 <p className="text-[10px] text-stone-400 dark:text-stone-500/70 flex items-center gap-1">📖 <span>{verse.source}</span></p>
@@ -440,7 +440,7 @@ function DailyInspirationCard() {
                     <button
                       key={i}
                       onClick={() => setCurrentFact(i)}
-                      className={`rounded-full transition-all duration-300 ${i === currentFact ? 'w-6 h-2 bg-sky-500 dark:bg-sky-400 shadow-sm shadow-sky-500/30' : 'w-2 h-2 bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 dark:hover:bg-stone-600'}`}
+                      className={`rounded-full transition-all duration-300 ${i === currentFact ? 'w-6 h-2 bg-orange-500 dark:bg-orange-400 shadow-sm shadow-orange-500/30' : 'w-2 h-2 bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 dark:hover:bg-stone-600'}`}
                       aria-label={`Fun fait ${i + 1}`}
                     />
                   ))}
@@ -553,7 +553,7 @@ function DiscoveriesFeed() {
               toast('Découvertes réinitialisées !');
             }
           }}
-          className="flex items-center gap-1 text-[11px] text-sky-600 dark:text-sky-400 font-semibold hover:text-sky-700 dark:hover:text-sky-300 transition-colors"
+          className="flex items-center gap-1 text-[11px] text-orange-600 dark:text-orange-400 font-semibold hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
         >
           Voir tout
           <ChevronRight className="w-3 h-3" />
@@ -616,7 +616,7 @@ function DiscoveriesFeed() {
                   <div className="flex items-center justify-between mb-2">
                     <motion.div
                       whileHover={{ scale: 1.15, rotate: 5 }}
-                      className="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-50 to-indigo-50 dark:from-sky-900/30 dark:to-indigo-900/30 flex items-center justify-center text-xl shadow-sm"
+                      className="w-9 h-9 rounded-lg bg-gradient-to-br from-orange-50 to-violet-50 dark:from-orange-900/30 dark:to-violet-900/30 flex items-center justify-center text-xl shadow-sm"
                     >
                       {item.icon}
                     </motion.div>
@@ -651,13 +651,13 @@ function DiscoveriesFeed() {
               {[0, 1, 2, 3, 4].map((i) => (
                 <div
                   key={i}
-                  className="w-1.5 h-1.5 rounded-full bg-sky-400 dark:bg-sky-500"
+                  className="w-1.5 h-1.5 rounded-full bg-orange-400 dark:bg-orange-500"
                 />
               ))}
             </motion.div>
           ) : (
             <motion.div
-              className="w-2 h-2 rounded-full bg-sky-500 dark:bg-sky-400"
+              className="w-2 h-2 rounded-full bg-orange-500 dark:bg-orange-400"
               animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             />
@@ -683,7 +683,7 @@ function DailyChallengeCard() {
       transition={{ delay: 2.1 }}
       className="max-w-lg lg:max-w-none mx-auto"
     >
-      <div className={`glass-card rounded-2xl border p-5 shadow-sm ${isCompleted ? 'border-green-200/40 dark:border-green-700/30' : 'border-sky-200/30 dark:border-sky-700/20'}`}>
+      <div className={`glass-card rounded-2xl border p-5 shadow-sm ${isCompleted ? 'border-green-200/40 dark:border-green-700/30' : 'border-orange-200/30 dark:border-orange-700/20'}`}>
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className="text-lg">{challenge.icon}</span>
@@ -695,7 +695,7 @@ function DailyChallengeCard() {
             <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${category.color}`}>
               {category.label}
             </span>
-            <span className="text-[10px] text-sky-600 dark:text-sky-400 font-semibold">
+            <span className="text-[10px] text-orange-600 dark:text-orange-400 font-semibold">
               +{challenge.xp} XP
             </span>
           </div>
@@ -731,7 +731,7 @@ function DailyChallengeCard() {
                   description: `+${challenge.xp} XP gagnés`,
                 });
               }}
-              className="flex items-center gap-1.5 px-4 py-1.5 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
+              className="flex items-center gap-1.5 px-4 py-1.5 bg-gradient-to-r from-orange-500 to-violet-500 hover:from-orange-600 hover:to-violet-600 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
             >
               <span>✓</span>
               J&apos;ai fait ce défi !
@@ -765,7 +765,7 @@ export function HomeScreen() {
       {/* Hero section */}
       <div className="relative flex-1 flex flex-col items-center justify-center px-4 py-8 overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-sky-50 via-indigo-50 to-sky-50 dark:from-stone-950 dark:via-indigo-950/20 dark:to-stone-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-orange-50 via-violet-50 to-orange-50 dark:from-stone-950 dark:via-violet-950/20 dark:to-stone-950" />
         <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233B82F6' fill-opacity='1'%3E%3Cpath d='M40 0l10 20h20l-15 15 5 20-20-10-20 10 5-20L10 20h20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
@@ -781,7 +781,7 @@ export function HomeScreen() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => navigateTo('settings')}
-            className="w-12 h-12 rounded-full glass-card border border-sky-200/30 dark:border-stone-600/40 flex items-center justify-center text-stone-500 dark:text-stone-200 hover:text-stone-700 dark:hover:text-stone-100 shadow-md transition-colors"
+            className="w-12 h-12 rounded-full glass-card border border-orange-200/30 dark:border-stone-600/40 flex items-center justify-center text-stone-500 dark:text-stone-200 hover:text-stone-700 dark:hover:text-stone-100 shadow-md transition-colors"
             aria-label="Paramètres"
           >
             <Settings className="w-5 h-5" />
@@ -790,7 +790,7 @@ export function HomeScreen() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => updateSettings({ darkMode: !settings.darkMode })}
-            className="w-12 h-12 rounded-full glass-card border border-sky-200/30 dark:border-stone-600/40 flex items-center justify-center text-stone-500 dark:text-stone-200 hover:text-stone-700 dark:hover:text-stone-100 shadow-md transition-colors"
+            className="w-12 h-12 rounded-full glass-card border border-orange-200/30 dark:border-stone-600/40 flex items-center justify-center text-stone-500 dark:text-stone-200 hover:text-stone-700 dark:hover:text-stone-100 shadow-md transition-colors"
             aria-label={settings.darkMode ? 'Mode clair' : 'Mode sombre'}
           >
             {settings.darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
@@ -817,7 +817,7 @@ export function HomeScreen() {
               <div className="absolute -inset-8 rounded-full hidden dark:block" style={{
                 background: 'radial-gradient(circle, rgba(96,165,250,0.12) 0%, rgba(96,165,250,0.05) 40%, transparent 70%)',
               }} />
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-sky-200 via-indigo-200 to-sky-300 shadow-lg shadow-sky-200/50 dark:shadow-sky-900/30 flex items-center justify-center relative">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-orange-200 via-violet-200 to-orange-300 shadow-lg shadow-orange-200/50 dark:shadow-orange-900/30 flex items-center justify-center relative">
                 <span className="text-5xl relative z-10">🌙</span>
                 {/* Orbiting stars */}
                 <motion.div
@@ -826,7 +826,7 @@ export function HomeScreen() {
                   transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
                   style={{ transformOrigin: '48px 48px' }}
                 >
-                  <span className="text-lg dark:text-sky-200/90 dark:brightness-110">✦</span>
+                  <span className="text-lg dark:text-orange-200/90 dark:brightness-110">✦</span>
                 </motion.div>
                 <motion.div
                   className="absolute -bottom-1 -left-1"
@@ -834,13 +834,13 @@ export function HomeScreen() {
                   transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
                   style={{ transformOrigin: '48px 48px' }}
                 >
-                  <span className="text-xs dark:text-sky-200/90 dark:brightness-110">✦</span>
+                  <span className="text-xs dark:text-orange-200/90 dark:brightness-110">✦</span>
                 </motion.div>
               </div>
             </div>
           </motion.div>
 
-          {/* Hero Character - Meet Souhayl */}
+          {/* Hero Character - Meet Wassim */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -859,8 +859,8 @@ export function HomeScreen() {
               <span className="text-4xl">🌟</span>
             </motion.div>
             <div className="text-center">
-              <p className="text-base font-bold text-stone-800 dark:text-stone-100">Je suis Souhayl, j'ai bientôt 10 ans</p>
-              <p className="text-base font-bold text-sky-600 dark:text-sky-300">Prêt pour l&apos;aventure ?</p>
+              <p className="text-base font-bold text-stone-800 dark:text-stone-100">Je suis Wassim, j'ai bientôt 7 ans</p>
+              <p className="text-base font-bold text-orange-600 dark:text-orange-300">On joue ensemble ? 🎮</p>
             </div>
           </motion.div>
 
@@ -877,15 +877,15 @@ export function HomeScreen() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 dark:from-sky-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2"
+            className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-orange-600 to-violet-600 dark:from-orange-400 dark:to-violet-400 bg-clip-text text-transparent mb-2"
           >
-            de Souhayl
+            de Wassim
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
-            className="text-xl text-sky-600/80 dark:text-sky-400/80 mb-1 font-amiri"
+            className="text-xl text-orange-600/80 dark:text-orange-400/80 mb-1 font-amiri"
             dir="rtl"
           >
             مغامرات سهيل الروحية
@@ -898,9 +898,9 @@ export function HomeScreen() {
             transition={{ delay: 0.8 }}
             className="flex items-center justify-center gap-3 mt-3 mb-3"
           >
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-sky-300 dark:to-sky-600" />
-            <Sparkles className="w-4 h-4 text-sky-400 dark:text-sky-500" />
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-sky-300 dark:to-sky-600" />
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-orange-300 dark:to-orange-600" />
+            <Sparkles className="w-4 h-4 text-orange-400 dark:text-orange-500" />
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-orange-300 dark:to-orange-600" />
           </motion.div>
 
           <motion.p
@@ -909,8 +909,8 @@ export function HomeScreen() {
             transition={{ delay: 0.9 }}
             className="text-sm text-stone-500 dark:text-stone-400 max-w-lg mx-auto leading-relaxed"
           >
-            Un livre dont tu es le héros — Découvre le cheminement spirituel de Souhayl,
-            un garçon de 9 ans bientôt 10 qui apprend à combattre son ego avec les armes de l'âme.
+            Un livre dont tu es le héros — Découvre le cheminement spirituel de Wassim,
+            un garçon de 6 ans bientôt 7 qui apprend à connaître Allah avec son cœur.
           </motion.p>
 
           {/* Streak display */}
@@ -926,7 +926,7 @@ export function HomeScreen() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.0 }}
-              className="mt-3 inline-flex items-center gap-2 px-4 py-2 glass-card rounded-full border border-sky-200/40 dark:border-stone-700/40 shadow-sm"
+              className="mt-3 inline-flex items-center gap-2 px-4 py-2 glass-card rounded-full border border-orange-200/40 dark:border-stone-700/40 shadow-sm"
             >
               <div className="w-32 h-2 bg-stone-100 dark:bg-stone-700 rounded-full overflow-hidden">
                 <motion.div
@@ -936,7 +936,7 @@ export function HomeScreen() {
                   transition={{ delay: 1.2, duration: 1 }}
                 />
               </div>
-              <span className="text-xs font-semibold text-sky-700 dark:text-sky-400">{progressPercent}%</span>
+              <span className="text-xs font-semibold text-orange-700 dark:text-orange-400">{progressPercent}%</span>
             </motion.div>
           )}
 
@@ -950,7 +950,7 @@ export function HomeScreen() {
             {hasProgress ? (
               <Button
                 onClick={() => { selectTome(tomes[0].id); navigateTo('tome_select'); }}
-                className="w-full max-w-xs mx-auto flex items-center justify-center gap-2 h-14 text-base bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 shadow-lg shadow-sky-200/50 dark:shadow-sky-900/30 rounded-xl golden-glow-hover animate-breathe"
+                className="w-full max-w-xs mx-auto flex items-center justify-center gap-2 h-14 text-base bg-gradient-to-r from-orange-600 to-violet-600 hover:from-orange-700 hover:to-violet-700 shadow-lg shadow-orange-200/50 dark:shadow-orange-900/30 rounded-xl golden-glow-hover animate-breathe"
               >
                 <Play className="w-5 h-5" />
                 Continuer l&apos;aventure
@@ -958,7 +958,7 @@ export function HomeScreen() {
             ) : (
               <Button
                 onClick={() => { selectTome(tomes[0].id); navigateTo('chapter_select'); }}
-                className="w-full max-w-xs mx-auto flex items-center justify-center gap-2 h-14 text-base bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 shadow-lg shadow-sky-200/50 dark:shadow-sky-900/30 rounded-xl golden-glow-hover animate-breathe"
+                className="w-full max-w-xs mx-auto flex items-center justify-center gap-2 h-14 text-base bg-gradient-to-r from-orange-600 to-violet-600 hover:from-orange-700 hover:to-violet-700 shadow-lg shadow-orange-200/50 dark:shadow-orange-900/30 rounded-xl golden-glow-hover animate-breathe"
               >
                 <Play className="w-5 h-5" />
                 Commencer l&apos;aventure
@@ -1016,10 +1016,10 @@ export function HomeScreen() {
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigateTo('tome_select')}
-            className="flex flex-col items-center gap-1.5 p-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all group border border-transparent hover:border-sky-200/40 dark:hover:border-sky-700/30 card-hover-lift"
+            className="flex flex-col items-center gap-1.5 p-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all group border border-transparent hover:border-orange-200/40 dark:hover:border-orange-700/30 card-hover-lift"
           >
-            <div className="w-10 h-10 rounded-xl bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center group-hover:bg-sky-200 dark:group-hover:bg-sky-800/30 transition-colors shadow-sm">
-              <BookOpen className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+            <div className="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center group-hover:bg-orange-200 dark:group-hover:bg-orange-800/30 transition-colors shadow-sm">
+              <BookOpen className="w-5 h-5 text-orange-600 dark:text-orange-400" />
             </div>
             <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200">Tomes</span>
             <span className="text-[9px] text-stone-400 dark:text-stone-500">{tomes.length} aventures</span>
@@ -1033,10 +1033,10 @@ export function HomeScreen() {
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigateTo('character_gallery')}
-            className="flex flex-col items-center gap-1.5 p-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all group border border-transparent hover:border-sky-200/40 dark:hover:border-sky-700/30"
+            className="flex flex-col items-center gap-1.5 p-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all group border border-transparent hover:border-orange-200/40 dark:hover:border-orange-700/30"
           >
-            <div className="w-10 h-10 rounded-xl bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center group-hover:bg-sky-200 dark:group-hover:bg-sky-800/30 transition-colors shadow-sm">
-              <Users className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+            <div className="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center group-hover:bg-orange-200 dark:group-hover:bg-orange-800/30 transition-colors shadow-sm">
+              <Users className="w-5 h-5 text-orange-600 dark:text-orange-400" />
             </div>
             <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200">Personnages</span>
             <span className="text-[9px] text-stone-400 dark:text-stone-500">6 personnages</span>
@@ -1067,10 +1067,10 @@ export function HomeScreen() {
             whileHover={{ scale: 1.03, y: -2 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigateTo('islamic_names')}
-            className="flex flex-col items-center gap-1.5 p-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all group border border-transparent hover:border-indigo-200/40 dark:hover:border-indigo-700/30"
+            className="flex flex-col items-center gap-1.5 p-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all group border border-transparent hover:border-violet-200/40 dark:hover:border-violet-700/30"
           >
-            <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center group-hover:bg-indigo-200 dark:group-hover:bg-indigo-800/30 transition-colors shadow-sm">
-              <ScrollText className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+            <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center group-hover:bg-violet-200 dark:group-hover:bg-violet-800/30 transition-colors shadow-sm">
+              <ScrollText className="w-5 h-5 text-violet-600 dark:text-violet-400" />
             </div>
             <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200">Noms</span>
             <span className="text-[9px] text-stone-400 dark:text-stone-500">Beaux prénoms</span>
@@ -1098,16 +1098,16 @@ export function HomeScreen() {
               whileHover={{ scale: 1.01, y: -1 }}
               whileTap={{ scale: 0.99 }}
               onClick={() => navigateTo('dhikr_counter')}
-              className="w-full flex items-center gap-3 px-3 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-sky-200/40 dark:hover:border-sky-700/30"
+              className="w-full flex items-center gap-3 px-3 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-orange-200/40 dark:hover:border-orange-700/30"
             >
-              <div className="w-10 h-10 rounded-xl bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center shrink-0">
                 <span className="text-lg">📿</span>
               </div>
               <div className="text-left flex-1 min-w-0">
                 <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200 block">Dhikr</span>
                 <span className="text-[9px] text-stone-400 dark:text-stone-500 hidden sm:block">Compteur de tasbih</span>
               </div>
-              <Sparkles className="w-4 h-4 text-sky-400 dark:text-sky-500 shrink-0" />
+              <Sparkles className="w-4 h-4 text-orange-400 dark:text-orange-500 shrink-0" />
             </motion.button>
           </motion.div>
           <motion.div
@@ -1142,16 +1142,16 @@ export function HomeScreen() {
               whileHover={{ scale: 1.01, y: -1 }}
               whileTap={{ scale: 0.99 }}
               onClick={() => navigateTo('greeting_cards')}
-              className="w-full flex items-center gap-3 px-3 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-indigo-200/40 dark:hover:border-indigo-700/30"
+              className="w-full flex items-center gap-3 px-3 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-violet-200/40 dark:hover:border-violet-700/30"
             >
-              <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center shrink-0">
-                <CreditCard className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center shrink-0">
+                <CreditCard className="w-5 h-5 text-violet-600 dark:text-violet-400" />
               </div>
               <div className="text-left flex-1 min-w-0">
                 <span className="text-[11px] font-semibold text-stone-700 dark:text-stone-200 block">Cartes</span>
                 <span className="text-[9px] text-stone-400 dark:text-stone-500 hidden sm:block">Cartes de vœux</span>
               </div>
-              <Sparkles className="w-4 h-4 text-indigo-400 dark:text-indigo-500 shrink-0" />
+              <Sparkles className="w-4 h-4 text-violet-400 dark:text-violet-500 shrink-0" />
             </motion.button>
           </motion.div>
         </motion.div>
@@ -1177,7 +1177,7 @@ export function HomeScreen() {
             onClick={() => navigateTo('stats')}
             className="flex flex-col items-center justify-center gap-1.5 px-3 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-stone-200/40 dark:hover:border-stone-700/30"
           >
-            <BarChart3 className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+            <BarChart3 className="w-4 h-4 text-orange-600 dark:text-orange-400" />
             <span className="text-[11px] font-medium">Statistiques</span>
           </motion.button>
 
@@ -1203,9 +1203,9 @@ export function HomeScreen() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigateTo('badge_collection')}
-            className="flex flex-col items-center justify-center gap-1.5 px-3 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-sky-200/40 dark:hover:border-sky-700/30"
+            className="flex flex-col items-center justify-center gap-1.5 px-3 py-3 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-600 dark:text-stone-300 border border-transparent hover:border-orange-200/40 dark:hover:border-orange-700/30"
           >
-            <Star className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+            <Star className="w-4 h-4 text-orange-600 dark:text-orange-400" />
             <span className="text-[11px] font-medium">Badges</span>
           </motion.button>
         </motion.div>
@@ -1221,9 +1221,9 @@ export function HomeScreen() {
           >
             <button
               onClick={() => navigateTo('lesson')}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 border border-transparent hover:border-sky-200/40 dark:hover:border-sky-700/30"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 glass-card rounded-xl shadow-sm hover:shadow-md transition-all text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 border border-transparent hover:border-orange-200/40 dark:hover:border-orange-700/30"
             >
-              <BookmarkCheck className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+              <BookmarkCheck className="w-4 h-4 text-orange-600 dark:text-orange-400" />
               <span className="text-[11px] font-medium">Mes signets ({bookmarkedScenes.length})</span>
             </button>
           </motion.div>

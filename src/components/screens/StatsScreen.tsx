@@ -123,11 +123,11 @@ function ProgressRing({
 
 function getMotivationalMessage(progress: number) {
   if (progress === 0) return { emoji: '🚀', text: 'Ton aventure t\'attend !', gradient: 'from-stone-400 to-stone-500 dark:from-stone-600 dark:to-stone-700' };
-  if (progress <= 25) return { emoji: '🌱', text: 'Tu as posé la première pierre de ton chemin', gradient: 'from-indigo-400 to-sky-500 dark:from-indigo-600 dark:to-sky-700' };
-  if (progress <= 50) return { emoji: '📈', text: 'Tu progresses avec persévérance', gradient: 'from-sky-400 to-cyan-500 dark:from-sky-600 dark:to-cyan-700' };
-  if (progress <= 75) return { emoji: '⭐', text: 'Plus de la moitié parcourue !', gradient: 'from-sky-400 to-indigo-500 dark:from-sky-600 dark:to-indigo-700' };
+  if (progress <= 25) return { emoji: '🌱', text: 'Tu as posé la première pierre de ton chemin', gradient: 'from-violet-400 to-orange-500 dark:from-violet-600 dark:to-orange-700' };
+  if (progress <= 50) return { emoji: '📈', text: 'Tu progresses avec persévérance', gradient: 'from-orange-400 to-cyan-500 dark:from-orange-600 dark:to-cyan-700' };
+  if (progress <= 75) return { emoji: '⭐', text: 'Plus de la moitié parcourue !', gradient: 'from-orange-400 to-violet-500 dark:from-orange-600 dark:to-violet-700' };
   if (progress < 100) return { emoji: '🏆', text: 'Presque au bout du voyage !', gradient: 'from-rose-400 to-pink-500 dark:from-rose-600 dark:to-pink-700' };
-  return { emoji: '🌟', text: 'Masha\'Allah ! Aventure complétée !', gradient: 'from-sky-300 via-yellow-400 to-sky-500 dark:from-sky-500 dark:via-yellow-500 dark:to-sky-600' };
+  return { emoji: '🌟', text: 'Masha\'Allah ! Aventure complétée !', gradient: 'from-orange-300 via-yellow-400 to-orange-500 dark:from-orange-500 dark:via-yellow-500 dark:to-orange-600' };
 }
 
 export function StatsScreen() {
@@ -194,16 +194,16 @@ export function StatsScreen() {
   const bestStreak = useMemo(() => computeBestStreak(readingDays), [readingDays]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-indigo-50 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-violet-50 to-orange-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-sky-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-10 bg-orange-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-orange-200/30 dark:border-stone-700/30">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0">
             <ArrowLeft className="w-4 h-4 mr-1" />
             Retour
           </Button>
           <h1 className="text-lg font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-sky-600" />
+            <TrendingUp className="w-5 h-5 text-orange-600" />
             Statistiques
           </h1>
         </div>
@@ -216,12 +216,12 @@ export function StatsScreen() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-12"
           >
-            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center">
-              <BookOpen className="w-10 h-10 text-sky-400" />
+            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+              <BookOpen className="w-10 h-10 text-orange-400" />
             </div>
             <h2 className="text-lg font-bold text-stone-700 dark:text-stone-300 mb-2">Aucune progression</h2>
             <p className="text-sm text-stone-500 dark:text-stone-400 mb-4">Commence ton aventure pour voir tes statistiques !</p>
-            <Button onClick={() => navigateTo('tome_select')} className="bg-sky-600 hover:bg-sky-700">
+            <Button onClick={() => navigateTo('tome_select')} className="bg-orange-600 hover:bg-orange-700">
               Commencer
             </Button>
           </motion.div>
@@ -319,7 +319,7 @@ export function StatsScreen() {
               className="glass-card rounded-xl p-5 space-y-4"
             >
               <h3 className="text-sm font-semibold text-stone-700 dark:text-stone-200 flex items-center gap-2">
-                <CalendarDays className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+                <CalendarDays className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                 Activité de la semaine
               </h3>
 
@@ -332,7 +332,7 @@ export function StatsScreen() {
                     <div key={day.dateStr} className="flex flex-col items-center gap-1.5 flex-1">
                       <span className={`text-[10px] font-medium ${
                         isToday
-                          ? 'text-sky-600 dark:text-sky-400'
+                          ? 'text-orange-600 dark:text-orange-400'
                           : 'text-stone-400 dark:text-stone-500'
                       }`}>
                         {day.dayLabel}
@@ -346,24 +346,24 @@ export function StatsScreen() {
                         {/* Pulsing ring for today */}
                         {isToday && (
                           <motion.div
-                            className="absolute inset-0 rounded-full border-2 border-sky-400 dark:border-sky-500"
+                            className="absolute inset-0 rounded-full border-2 border-orange-400 dark:border-orange-500"
                             animate={{ scale: [1, 1.25, 1], opacity: [0.6, 0, 0.6] }}
                             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                           />
                         )}
                         {isActive ? (
-                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-sky-400 via-indigo-400 to-sky-500 dark:from-sky-500 dark:via-indigo-500 dark:to-sky-600 flex items-center justify-center shadow-lg shadow-sky-400/30 dark:shadow-sky-500/20">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-orange-400 via-violet-400 to-orange-500 dark:from-orange-500 dark:via-violet-500 dark:to-orange-600 flex items-center justify-center shadow-lg shadow-orange-400/30 dark:shadow-orange-500/20">
                             <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white fill-white" />
                           </div>
                         ) : (
                           <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ${
                             isToday
-                              ? 'border-2 border-dashed border-sky-300 dark:border-sky-600 bg-sky-50/50 dark:bg-sky-900/10'
+                              ? 'border-2 border-dashed border-orange-300 dark:border-orange-600 bg-orange-50/50 dark:bg-orange-900/10'
                               : 'border-2 border-dashed border-stone-200 dark:border-stone-600 bg-stone-50/50 dark:bg-stone-800/30'
                           }`}>
                             <div className={`w-2 h-2 rounded-full ${
                               isToday
-                                ? 'bg-sky-300 dark:bg-sky-600'
+                                ? 'bg-orange-300 dark:bg-orange-600'
                                 : 'bg-stone-200 dark:bg-stone-600'
                             }`} />
                           </div>
@@ -389,9 +389,9 @@ export function StatsScreen() {
                   </div>
                 </div>
                 {/* Best streak */}
-                <div className="flex-1 flex items-center gap-2 p-2.5 rounded-lg bg-sky-50/60 dark:bg-sky-900/15 border border-sky-200/40 dark:border-sky-700/25">
-                  <div className="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-800/30 flex items-center justify-center shrink-0">
-                    <Trophy className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+                <div className="flex-1 flex items-center gap-2 p-2.5 rounded-lg bg-orange-50/60 dark:bg-orange-900/15 border border-orange-200/40 dark:border-orange-700/25">
+                  <div className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-800/30 flex items-center justify-center shrink-0">
+                    <Trophy className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                   </div>
                   <div className="min-w-0">
                     <p className="text-[10px] text-stone-400 dark:text-stone-500 font-medium">Meilleure série</p>
@@ -404,7 +404,7 @@ export function StatsScreen() {
 
               {/* Total reading days */}
               <div className="flex items-center justify-center gap-2 pt-1">
-                <BookOpen className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+                <BookOpen className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
                 <span className="text-xs font-semibold text-stone-600 dark:text-stone-300">
                   {readingDays.length} jour{readingDays.length > 1 ? 's' : ''} de lecture
                 </span>
@@ -423,9 +423,9 @@ export function StatsScreen() {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {/* Chapitre favori */}
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-sky-50/60 dark:bg-sky-900/20 border border-sky-200/40 dark:border-sky-700/30">
-                  <div className="w-9 h-9 rounded-lg bg-sky-100 dark:bg-sky-800/40 flex items-center justify-center shrink-0">
-                    <BookOpen className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-orange-50/60 dark:bg-orange-900/20 border border-orange-200/40 dark:border-orange-700/30">
+                  <div className="w-9 h-9 rounded-lg bg-orange-100 dark:bg-orange-800/40 flex items-center justify-center shrink-0">
+                    <BookOpen className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                   </div>
                   <div className="min-w-0">
                     <p className="text-[10px] text-stone-400 dark:text-stone-500 font-medium">Chapitre favori</p>
@@ -447,9 +447,9 @@ export function StatsScreen() {
                   </div>
                 </div>
                 {/* Prochaine étape */}
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-sky-50/60 dark:bg-sky-900/20 border border-sky-200/40 dark:border-sky-700/30">
-                  <div className="w-9 h-9 rounded-lg bg-sky-100 dark:bg-sky-800/40 flex items-center justify-center shrink-0">
-                    <Target className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-orange-50/60 dark:bg-orange-900/20 border border-orange-200/40 dark:border-orange-700/30">
+                  <div className="w-9 h-9 rounded-lg bg-orange-100 dark:bg-orange-800/40 flex items-center justify-center shrink-0">
+                    <Target className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                   </div>
                   <div className="min-w-0">
                     <p className="text-[10px] text-stone-400 dark:text-stone-500 font-medium">Prochaine étape</p>
@@ -469,13 +469,13 @@ export function StatsScreen() {
               className="parchment-card rounded-xl p-4 space-y-3"
             >
               <div className="flex items-center gap-2">
-                <Target className="w-4 h-4 text-sky-600" />
+                <Target className="w-4 h-4 text-orange-600" />
                 <h3 className="text-sm font-semibold text-stone-700 dark:text-stone-300">Scènes parcourues</h3>
                 <span className="ml-auto text-xs text-stone-400 dark:text-stone-500">{completedScenes.length}/{stats.totalScenes}</span>
               </div>
               <div className="w-full h-3 bg-stone-100 dark:bg-stone-700 rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-sky-400 to-indigo-400 rounded-full"
+                  className="h-full bg-gradient-to-r from-orange-400 to-violet-400 rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${stats.scenesProgress}%` }}
                   transition={{ duration: 1, delay: 0.4 }}

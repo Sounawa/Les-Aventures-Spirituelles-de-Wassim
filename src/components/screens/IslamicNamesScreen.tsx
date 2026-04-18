@@ -25,7 +25,7 @@ function StarRating({ value }: { value: number }) {
           key={i}
           className={`w-2.5 h-2.5 ${
             i < value
-              ? 'text-sky-500 dark:text-sky-400 fill-sky-500 dark:fill-sky-400'
+              ? 'text-orange-500 dark:text-orange-400 fill-orange-500 dark:fill-orange-400'
               : 'text-stone-200 dark:text-stone-600'
           }`}
         />
@@ -38,10 +38,10 @@ function NameCard({ name, index }: { name: IslamicName; index: number }) {
   const isBoy = name.gender === 'garcon';
   const genderEmoji = isBoy ? '👦' : '👧';
   const accentColor = isBoy
-    ? 'border-sky-300/40 dark:border-sky-700/30'
+    ? 'border-orange-300/40 dark:border-orange-700/30'
     : 'border-rose-300/40 dark:border-rose-700/30';
   const iconBg = isBoy
-    ? 'bg-sky-100 dark:bg-sky-900/30'
+    ? 'bg-orange-100 dark:bg-orange-900/30'
     : 'bg-rose-100 dark:bg-rose-900/30';
 
   return (
@@ -63,7 +63,7 @@ function NameCard({ name, index }: { name: IslamicName; index: number }) {
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
           <p
-            className="text-2xl font-amiri text-stone-800 dark:text-sky-100 leading-relaxed truncate"
+            className="text-2xl font-amiri text-stone-800 dark:text-orange-100 leading-relaxed truncate"
             dir="rtl"
           >
             {name.nameAr}
@@ -80,7 +80,7 @@ function NameCard({ name, index }: { name: IslamicName; index: number }) {
         <div className="flex items-center gap-2 mt-1">
           <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
             isBoy
-              ? 'bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300'
+              ? 'bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300'
               : 'bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300'
           }`}>
             {genderLabels[name.gender]}
@@ -127,9 +127,9 @@ export function IslamicNamesScreen() {
   }, [searchQuery, genderFilter]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-indigo-50/50 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-violet-50/50 to-orange-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-sky-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-10 bg-orange-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-orange-200/30 dark:border-stone-700/30">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0">
             <ArrowLeft className="w-4 h-4 mr-1" />
@@ -138,7 +138,7 @@ export function IslamicNamesScreen() {
           <div className="flex-1 min-w-0">
             <h1 className="text-lg font-bold text-stone-800 dark:text-stone-100">Les Plus Beaux Noms</h1>
           </div>
-          <Sparkles className="w-5 h-5 text-sky-500 dark:text-sky-400 shrink-0" />
+          <Sparkles className="w-5 h-5 text-orange-500 dark:text-orange-400 shrink-0" />
         </div>
       </div>
 
@@ -165,7 +165,7 @@ export function IslamicNamesScreen() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Rechercher un prénom..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 bg-white/70 dark:bg-stone-800/70 text-sm text-stone-700 dark:text-stone-300 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-sky-300 dark:focus:ring-sky-600 focus:border-sky-300 dark:focus:border-sky-600 transition-all"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 bg-white/70 dark:bg-stone-800/70 text-sm text-stone-700 dark:text-stone-300 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-orange-300 dark:focus:ring-orange-600 focus:border-orange-300 dark:focus:border-orange-600 transition-all"
           />
         </motion.div>
 
@@ -187,7 +187,7 @@ export function IslamicNamesScreen() {
                   flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold
                   transition-all duration-200
                   ${isActive
-                    ? 'bg-white dark:bg-stone-700 text-sky-700 dark:text-sky-300 shadow-sm'
+                    ? 'bg-white dark:bg-stone-700 text-orange-700 dark:text-orange-300 shadow-sm'
                     : 'text-stone-400 dark:text-stone-500 hover:text-stone-500 dark:hover:text-stone-400'
                   }
                 `}

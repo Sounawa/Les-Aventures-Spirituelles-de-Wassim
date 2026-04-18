@@ -13,71 +13,71 @@ interface BackgroundConfig {
 
 const backgrounds: Record<string, BackgroundConfig> = {
   bedroom: {
-    gradient: 'from-indigo-100 via-purple-50 to-blue-100',
-    darkGradient: 'from-indigo-950 via-purple-950 to-blue-950',
+    gradient: 'from-violet-100 via-purple-50 to-amber-100',
+    darkGradient: 'from-violet-950 via-purple-950 to-amber-950',
     pattern: '🌙',
     decorativeElements: ['✨', '⭐', '💫'],
     ambientColor: 'rgba(129, 140, 248, 0.06)',
   },
   garden: {
-    gradient: 'from-indigo-100 via-lime-50 to-sky-50',
-    darkGradient: 'from-indigo-950 via-lime-950 to-sky-950',
+    gradient: 'from-violet-100 via-lime-50 to-orange-50',
+    darkGradient: 'from-violet-950 via-lime-950 to-orange-950',
     pattern: '🌿',
     decorativeElements: ['🌿', '🌱', '🦋'],
     ambientColor: 'rgba(16, 185, 129, 0.06)',
   },
   zawiyah: {
-    gradient: 'from-sky-100 via-indigo-50 to-sky-50',
-    darkGradient: 'from-sky-950 via-indigo-950 to-sky-950',
+    gradient: 'from-orange-100 via-violet-50 to-orange-50',
+    darkGradient: 'from-orange-950 via-violet-950 to-orange-950',
     pattern: '🕌',
     decorativeElements: ['🕌', '📖', '🤲'],
     ambientColor: 'rgba(251, 191, 36, 0.08)',
   },
   kitchen: {
-    gradient: 'from-indigo-100 via-sky-50 to-yellow-50',
-    darkGradient: 'from-indigo-950 via-sky-950 to-yellow-950',
+    gradient: 'from-violet-100 via-orange-50 to-yellow-50',
+    darkGradient: 'from-violet-950 via-orange-950 to-yellow-950',
     pattern: '🍳',
     decorativeElements: ['🫖', '🍞', '🧆'],
     ambientColor: 'rgba(251, 146, 60, 0.06)',
   },
   school: {
-    gradient: 'from-sky-100 via-blue-50 to-cyan-50',
-    darkGradient: 'from-sky-950 via-blue-950 to-cyan-950',
+    gradient: 'from-orange-100 via-amber-50 to-cyan-50',
+    darkGradient: 'from-orange-950 via-amber-950 to-cyan-950',
     pattern: '📚',
     decorativeElements: ['📚', '✏️', '🎓'],
     ambientColor: 'rgba(56, 189, 248, 0.06)',
   },
   inner_world: {
-    gradient: 'from-violet-100 via-purple-50 to-sky-50',
-    darkGradient: 'from-violet-950 via-purple-950 to-sky-950',
+    gradient: 'from-violet-100 via-purple-50 to-orange-50',
+    darkGradient: 'from-violet-950 via-purple-950 to-orange-950',
     pattern: '✨',
     decorativeElements: ['✨', '🌟', '💫', '⭐'],
     ambientColor: 'rgba(167, 139, 250, 0.08)',
   },
   desert: {
-    gradient: 'from-sky-200 via-indigo-100 to-sky-100',
-    darkGradient: 'from-sky-950 via-indigo-950 to-sky-950',
+    gradient: 'from-orange-200 via-violet-100 to-orange-100',
+    darkGradient: 'from-orange-950 via-violet-950 to-orange-950',
     pattern: '🏜️',
     decorativeElements: ['🏜️', '🌵', '☀️'],
     ambientColor: 'rgba(251, 191, 36, 0.08)',
   },
   golden_city: {
-    gradient: 'from-sky-100 via-sky-100 to-indigo-50',
-    darkGradient: 'from-sky-950 via-sky-950 to-indigo-950',
+    gradient: 'from-orange-100 via-orange-100 to-violet-50',
+    darkGradient: 'from-orange-950 via-orange-950 to-violet-950',
     pattern: '🏙️',
     decorativeElements: ['🏙️', '✨', '👑'],
     ambientColor: 'rgba(250, 204, 21, 0.08)',
   },
   oasis: {
-    gradient: 'from-cyan-100 via-sky-50 to-indigo-50',
-    darkGradient: 'from-cyan-950 via-sky-950 to-indigo-950',
+    gradient: 'from-cyan-100 via-orange-50 to-violet-50',
+    darkGradient: 'from-cyan-950 via-orange-950 to-violet-950',
     pattern: '💦',
     decorativeElements: ['💦', '🌴', '🌊'],
     ambientColor: 'rgba(34, 211, 238, 0.06)',
   },
   door: {
-    gradient: 'from-purple-100 via-indigo-50 to-violet-50',
-    darkGradient: 'from-purple-950 via-indigo-950 to-violet-950',
+    gradient: 'from-purple-100 via-violet-50 to-violet-50',
+    darkGradient: 'from-purple-950 via-violet-950 to-violet-950',
     pattern: '🚪',
     decorativeElements: ['🚪', '🗝️', '✨'],
     ambientColor: 'rgba(168, 85, 247, 0.08)',
@@ -90,22 +90,22 @@ const backgrounds: Record<string, BackgroundConfig> = {
     ambientColor: 'rgba(239, 68, 68, 0.06)',
   },
   home: {
-    gradient: 'from-sky-50 via-indigo-50 to-sky-50',
-    darkGradient: 'from-sky-950 via-indigo-950 to-sky-950',
+    gradient: 'from-orange-50 via-violet-50 to-orange-50',
+    darkGradient: 'from-orange-950 via-violet-950 to-orange-950',
     pattern: '🏠',
     decorativeElements: ['🏠', '🌸', '🌿'],
     ambientColor: 'rgba(251, 191, 36, 0.06)',
   },
   street: {
-    gradient: 'from-sky-100 via-blue-50 to-indigo-50',
-    darkGradient: 'from-sky-950 via-blue-950 to-indigo-950',
+    gradient: 'from-orange-100 via-amber-50 to-violet-50',
+    darkGradient: 'from-orange-950 via-amber-950 to-violet-950',
     pattern: '🌅',
     decorativeElements: ['🌅', '🏘️', '🌳'],
     ambientColor: 'rgba(56, 189, 248, 0.06)',
   },
   classroom: {
-    gradient: 'from-stone-100 via-sky-50 to-yellow-50',
-    darkGradient: 'from-stone-900 via-sky-950 to-yellow-950',
+    gradient: 'from-stone-100 via-orange-50 to-yellow-50',
+    darkGradient: 'from-stone-900 via-orange-950 to-yellow-950',
     pattern: '✏️',
     decorativeElements: ['✏️', '📝', '📐'],
     ambientColor: 'rgba(251, 191, 36, 0.05)',
@@ -208,13 +208,13 @@ export function StoryBackground({ background }: StoryBackgroundProps) {
       ))}
 
       {/* Islamic geometric border corners */}
-      <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-sky-300/30 dark:border-sky-500/20 rounded-tl-lg" />
-      <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-sky-300/30 dark:border-sky-500/20 rounded-tr-lg" />
-      <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-sky-300/30 dark:border-sky-500/20 rounded-bl-lg" />
-      <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-sky-300/30 dark:border-sky-500/20 rounded-br-lg" />
+      <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-orange-300/30 dark:border-orange-500/20 rounded-tl-lg" />
+      <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-orange-300/30 dark:border-orange-500/20 rounded-tr-lg" />
+      <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-orange-300/30 dark:border-orange-500/20 rounded-bl-lg" />
+      <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-orange-300/30 dark:border-orange-500/20 rounded-br-lg" />
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-sky-50/50 via-sky-50/20 to-transparent dark:from-stone-950/50 dark:via-stone-950/20 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-orange-50/50 via-orange-50/20 to-transparent dark:from-stone-950/50 dark:via-stone-950/20 pointer-events-none" />
     </motion.div>
   );
 }

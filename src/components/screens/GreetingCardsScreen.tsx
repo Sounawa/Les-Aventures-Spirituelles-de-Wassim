@@ -186,7 +186,7 @@ function CardPreview({ card, playerName, message }: { card: GreetingCard; player
 export function GreetingCardsScreen() {
   const { navigateTo, playerName } = useApp();
   const [selectedCard, setSelectedCard] = useState<GreetingCard | null>(null);
-  const [customName, setCustomName] = useState(playerName || 'Souhayl');
+  const [customName, setCustomName] = useState(playerName || 'Wassim');
   const [customMessage, setCustomMessage] = useState('');
   const [isPreview, setIsPreview] = useState(false);
 
@@ -205,13 +205,13 @@ export function GreetingCardsScreen() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <div className="sticky top-0 z-30 glass-card border-b border-sky-200/30 dark:border-sky-700/20 px-4 py-3">
+      <div className="sticky top-0 z-30 glass-card border-b border-orange-200/30 dark:border-orange-700/20 px-4 py-3">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => navigateTo(selectedCard ? 'greeting_cards' : 'home')}
-            className="w-10 h-10 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center text-sky-600 dark:text-sky-400 hover:bg-sky-200 dark:hover:bg-sky-800/30 transition-colors"
+            className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400 hover:bg-orange-200 dark:hover:bg-orange-800/30 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
           </motion.button>
@@ -228,7 +228,7 @@ export function GreetingCardsScreen() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsPreview(true)}
-              className="flex items-center gap-1.5 px-3 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-full text-xs font-semibold shadow-sm transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-xs font-semibold shadow-sm transition-colors"
             >
               <Eye className="w-3.5 h-3.5" />
               Aperçu
@@ -327,7 +327,7 @@ export function GreetingCardsScreen() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setIsPreview(false)}
-                    className="flex-1 py-3 rounded-xl border border-sky-200 dark:border-sky-700 text-sky-600 dark:text-sky-400 text-sm font-semibold hover:bg-sky-50 dark:hover:bg-sky-900/20 transition-colors"
+                    className="flex-1 py-3 rounded-xl border border-orange-200 dark:border-orange-700 text-orange-600 dark:text-orange-400 text-sm font-semibold hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors"
                   >
                     Modifier
                   </motion.button>
@@ -335,7 +335,7 @@ export function GreetingCardsScreen() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={handleSave}
-                    className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white text-sm font-semibold shadow-md transition-all"
+                    className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-violet-500 hover:from-orange-600 hover:to-violet-600 text-white text-sm font-semibold shadow-md transition-all"
                   >
                     <Download className="w-4 h-4" />
                     Sauvegarder
@@ -362,7 +362,7 @@ export function GreetingCardsScreen() {
                 </div>
 
                 {/* Customization form */}
-                <div className="w-full max-w-sm space-y-4 glass-card rounded-2xl border border-sky-200/30 dark:border-sky-700/20 p-5">
+                <div className="w-full max-w-sm space-y-4 glass-card rounded-2xl border border-orange-200/30 dark:border-orange-700/20 p-5">
                   <h3 className="text-sm font-bold text-stone-700 dark:text-stone-200 uppercase tracking-wider">
                     ✏️ Personnaliser
                   </h3>
@@ -375,7 +375,7 @@ export function GreetingCardsScreen() {
                       value={customName}
                       onChange={(e) => setCustomName(e.target.value)}
                       placeholder="Entre ton nom..."
-                      className="bg-white dark:bg-stone-800 border-sky-200 dark:border-sky-700 focus:border-sky-400 dark:focus:border-sky-500"
+                      className="bg-white dark:bg-stone-800 border-orange-200 dark:border-orange-700 focus:border-orange-400 dark:focus:border-orange-500"
                     />
                   </div>
 
@@ -388,7 +388,7 @@ export function GreetingCardsScreen() {
                       onChange={(e) => setCustomMessage(e.target.value)}
                       placeholder="Écris ton message ici..."
                       rows={3}
-                      className="w-full px-3 py-2 text-sm rounded-lg border border-sky-200 dark:border-sky-700 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:border-sky-400 dark:focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-400/20 dark:focus:ring-sky-500/20 resize-none transition-colors"
+                      className="w-full px-3 py-2 text-sm rounded-lg border border-orange-200 dark:border-orange-700 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:border-orange-400 dark:focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-400/20 dark:focus:ring-orange-500/20 resize-none transition-colors"
                     />
                   </div>
 
@@ -397,7 +397,7 @@ export function GreetingCardsScreen() {
                       variant="ghost"
                       size="sm"
                       onClick={() => setCustomMessage(selectedCard.messageDefault)}
-                      className="text-xs text-stone-500 hover:text-sky-600 dark:hover:text-sky-400"
+                      className="text-xs text-stone-500 hover:text-orange-600 dark:hover:text-orange-400"
                     >
                       Réinitialiser
                     </Button>
@@ -408,7 +408,7 @@ export function GreetingCardsScreen() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setIsPreview(true)}
-                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white rounded-xl text-sm font-semibold shadow-md transition-all"
+                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-violet-500 hover:from-orange-600 hover:to-violet-600 text-white rounded-xl text-sm font-semibold shadow-md transition-all"
                 >
                   <Eye className="w-4 h-4" />
                   Voir l&apos;aperçu complet

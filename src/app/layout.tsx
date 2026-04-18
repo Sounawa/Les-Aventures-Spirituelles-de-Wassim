@@ -9,9 +9,9 @@ const amiri = Amiri({
 });
 
 export const metadata: Metadata = {
-  title: "Les Aventures Spirituelles de Souhayl | مغامرات سهيل الروحية",
-  description: "Un livre dont tu es le héros — Découvre le cheminement spirituel de Souhayl, un garçon de 9 ans qui apprend à combattre son ego avec les armes de l'âme. Application interactive pour enfants de 8-12 ans basée sur les enseignements du Tassawuf.",
-  keywords: ["Souhayl", "spiritual", "islam", "soufisme", "tassawuf", "enfant", "livre interactif", "dhikr", "nafs"],
+  title: "Les Aventures Spirituelles de Wassim | مغامرات وسيم الروحية",
+  description: "Un livre dont tu es le héros — Découvre le cheminement spirituel de Wassim, un garçon de 6 ans qui apprend à connaître Allah avec son cœur. Application interactive pour enfants basée sur les enseignements de l'Islam.",
+  keywords: ["Wassim", "spiritual", "islam", "enfant", "livre interactif", "dhikr"],
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>",
   },

@@ -2,15 +2,26 @@ import { Character } from '@/types/story';
 
 export const characters: Character[] = [
   {
+    id: 'wassim',
+    name: 'Wassim',
+    nameAr: 'وسيم',
+    role: 'Héros principal',
+    description: "Le plus jeune de la famille, innocent et lumineux. Wassim possède un don naturel pour percevoir la sincérité chez les gens. Sa pureté de cœur fait de lui un allié précieux, même s'il est trop jeune pour comprendre tous les mystères de la bibliothèque. Sa curiosité et sa gentillesse illuminent chaque aventure.",
+    age: '6 ans (bientôt 7)',
+    appearance: 'Petit garçon de 6 ans, grands yeux innocents et lumineux, joues rondes, souvent avec un jouet ou son doudou, expression émerveillée',
+    color: '#F97316',
+    icon: '🌟',
+  },
+  {
     id: 'souhayl',
     name: 'Souhayl',
     nameAr: 'سهيل',
-    role: 'Héros principal',
-    description: "Curieux, mature et réfléchi. Il porte en lui une soif de savoir et de compréhension qui le pousse à chercher la vérité dans chaque situation. Souhayl approche le monde avec la patience et la rigueur d'un futur savant. Il est le gardien de la bibliothèque secrète sous la Qarawiyyin.",
+    role: 'Grand frère — Le sage',
+    description: "Curieux, mature et réfléchi. Il porte en lui une soif de savoir et de compréhension qui le pousse à chercher la vérité dans chaque situation. Souhayl approche le monde avec la patience et la rigueur d'un futur savant. Il est le gardien de la bibliothèque secrète sous la Qarawiyyin et guide son petit frère Wassim avec sagesse.",
     age: '9 ans (bientôt 10)',
     appearance: 'Garçon de 9 ans, cheveux noirs et bouclés, yeux bruns profonds et curieux, bonnet blanc, tenue simple et soignée, expression réfléchie mais déterminée',
     color: '#3B82F6',
-    icon: '🌟',
+    icon: '🧑',
   },
   {
     id: 'nawfel',
@@ -50,22 +61,11 @@ export const characters: Character[] = [
     name: 'Sidi Mu\'adh',
     nameAr: 'سيدي معاذ',
     role: 'Shaykh — Maître spirituel et savant',
-    description: "Le maître spirituel de la famille et gardien de la bibliothèque secrète sous la Qarawiyyin. Ses yeux verts extraordinaires portent la lumière de siècles de savoir. Il initie Souhayl aux histoires des plus grands savants de l'Islam à travers un manuscrit magique qui fait revivre les mémoires du passé.",
+    description: "Le maître spirituel de la famille et gardien de la bibliothèque secrète sous la Qarawiyyin. Ses yeux verts extraordinaires portent la lumière de siècles de savoir. Il initie les enfants aux histoires des plus grands savants de l'Islam à travers un manuscrit magique qui fait revivre les mémoires du passé.",
     age: 'Âgé',
     appearance: "Homme âgé, barbe blanche comme la laine, yeux verts d'émeraude extraordinaires, djellaba blanche immaculée, auréole de lumière subtile",
     color: '#7C3AED',
     icon: '🧓',
-  },
-  {
-    id: 'wassim',
-    name: 'Wassim',
-    nameAr: 'وسيم',
-    role: 'Petit frère — Le pur',
-    description: "Le plus jeune de la famille, innocent et lumineux. Wassim possède un don naturel pour percevoir la sincérité chez les gens. Sa pureté de cœur fait de lui un allié précieux pour Souhayl, même s'il est trop jeune pour comprendre les mystères de la bibliothèque.",
-    age: '6 ans (bientôt 7)',
-    appearance: 'Petit garçon de 6 ans, grands yeux innocents et lumineux, joues rondes, souvent avec un jouet ou son doudou, expression émerveillée',
-    color: '#EAB308',
-    icon: '👶',
   },
 ];
 

@@ -23,16 +23,16 @@ export const discoveryCategoryConfig: Record<DiscoveryCategory, {
   histoire: {
     label: 'Histoire',
     icon: '📜',
-    color: 'text-sky-700 dark:text-sky-300',
-    bg: 'bg-sky-100 dark:bg-sky-900/40',
-    cardAccent: 'border-t-sky-400 dark:border-t-sky-500',
+    color: 'text-orange-700 dark:text-orange-300',
+    bg: 'bg-orange-100 dark:bg-orange-900/40',
+    cardAccent: 'border-t-orange-400 dark:border-t-orange-500',
   },
   science: {
     label: 'Science',
     icon: '🔬',
-    color: 'text-indigo-700 dark:text-indigo-300',
-    bg: 'bg-indigo-100 dark:bg-indigo-900/40',
-    cardAccent: 'border-t-indigo-400 dark:border-t-indigo-500',
+    color: 'text-violet-700 dark:text-violet-300',
+    bg: 'bg-violet-100 dark:bg-violet-900/40',
+    cardAccent: 'border-t-violet-400 dark:border-t-violet-500',
   },
   art: {
     label: 'Art',
@@ -44,9 +44,9 @@ export const discoveryCategoryConfig: Record<DiscoveryCategory, {
   geographie: {
     label: 'Géographie',
     icon: '🗺️',
-    color: 'text-sky-700 dark:text-sky-300',
-    bg: 'bg-sky-100 dark:bg-sky-900/40',
-    cardAccent: 'border-t-sky-400 dark:border-t-sky-500',
+    color: 'text-orange-700 dark:text-orange-300',
+    bg: 'bg-orange-100 dark:bg-orange-900/40',
+    cardAccent: 'border-t-orange-400 dark:border-t-orange-500',
   },
   nature: {
     label: 'Nature',

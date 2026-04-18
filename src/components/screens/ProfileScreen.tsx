@@ -16,12 +16,12 @@ const AVATAR_OPTIONS = [
 ];
 
 const COLOR_OPTIONS = [
-  { value: 'amber', label: 'Ambre', tw: 'bg-sky-500', ring: 'ring-sky-400', bg: 'bg-sky-100 dark:bg-sky-900/40', text: 'text-sky-600 dark:text-sky-400' },
-  { value: 'emerald', label: 'Émeraude', tw: 'bg-indigo-500', ring: 'ring-indigo-400', bg: 'bg-indigo-100 dark:bg-indigo-900/40', text: 'text-indigo-600 dark:text-indigo-400' },
+  { value: 'amber', label: 'Ambre', tw: 'bg-orange-500', ring: 'ring-orange-400', bg: 'bg-orange-100 dark:bg-orange-900/40', text: 'text-orange-600 dark:text-orange-400' },
+  { value: 'emerald', label: 'Émeraude', tw: 'bg-violet-500', ring: 'ring-violet-400', bg: 'bg-violet-100 dark:bg-violet-900/40', text: 'text-violet-600 dark:text-violet-400' },
   { value: 'purple', label: 'Violet', tw: 'bg-purple-500', ring: 'ring-purple-400', bg: 'bg-purple-100 dark:bg-purple-900/40', text: 'text-purple-600 dark:text-purple-400' },
   { value: 'rose', label: 'Rose', tw: 'bg-rose-500', ring: 'ring-rose-400', bg: 'bg-rose-100 dark:bg-rose-900/40', text: 'text-rose-600 dark:text-rose-400' },
-  { value: 'teal', label: 'Turquoise', tw: 'bg-sky-500', ring: 'ring-sky-400', bg: 'bg-sky-100 dark:bg-sky-900/40', text: 'text-sky-600 dark:text-sky-400' },
-  { value: 'sky', label: 'Ciel', tw: 'bg-sky-500', ring: 'ring-sky-400', bg: 'bg-sky-100 dark:bg-sky-900/40', text: 'text-sky-600 dark:text-sky-400' },
+  { value: 'teal', label: 'Turquoise', tw: 'bg-orange-500', ring: 'ring-orange-400', bg: 'bg-orange-100 dark:bg-orange-900/40', text: 'text-orange-600 dark:text-orange-400' },
+  { value: 'sky', label: 'Ciel', tw: 'bg-orange-500', ring: 'ring-orange-400', bg: 'bg-orange-100 dark:bg-orange-900/40', text: 'text-orange-600 dark:text-orange-400' },
 ] as const;
 
 function getColorMap(color: string) {
@@ -64,9 +64,9 @@ export function ProfileScreen() {
   const totalXP = challengeXP;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-50 via-indigo-50 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-stone-50 via-violet-50 to-orange-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-10 bg-stone-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-10 bg-stone-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-orange-200/30 dark:border-stone-700/30">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0">
             <ArrowLeft className="w-4 h-4 mr-1" />
@@ -97,7 +97,7 @@ export function ProfileScreen() {
           </AnimatePresence>
           <div className="text-center">
             <h2 className={`text-xl font-bold ${colorMap.text} transition-colors duration-300`}>
-              {localName || 'Souhayl'}
+              {localName || 'Wassim'}
             </h2>
             <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5">Aventurier spirituel</p>
           </div>
@@ -123,7 +123,7 @@ export function ProfileScreen() {
               onChange={(e) => setLocalName(e.target.value.slice(0, 20))}
               placeholder="Ton nom d&apos;aventurier..."
               maxLength={20}
-              className="w-full bg-white/60 dark:bg-stone-800/60 rounded-lg px-3 py-2.5 text-sm text-stone-700 dark:text-stone-200 placeholder:text-stone-300 dark:placeholder:text-stone-600 border border-stone-200 dark:border-stone-700 focus:outline-none focus:ring-2 focus:ring-sky-400/50 dark:focus:ring-sky-500/40 transition-all"
+              className="w-full bg-white/60 dark:bg-stone-800/60 rounded-lg px-3 py-2.5 text-sm text-stone-700 dark:text-stone-200 placeholder:text-stone-300 dark:placeholder:text-stone-600 border border-stone-200 dark:border-stone-700 focus:outline-none focus:ring-2 focus:ring-orange-400/50 dark:focus:ring-orange-500/40 transition-all"
             />
             <div className="flex justify-between mt-1.5">
               <p className="text-[10px] text-stone-400 dark:text-stone-500">Choisis un joli nom !</p>
@@ -154,8 +154,8 @@ export function ProfileScreen() {
                     onClick={() => setLocalAvatar(emoji)}
                     className={`w-full aspect-square rounded-xl text-2xl flex items-center justify-center transition-all relative ${
                       isSelected
-                        ? `bg-sky-100 dark:bg-sky-900/30 ring-2 ring-sky-400 shadow-sm`
-                        : 'bg-white/50 dark:bg-stone-800/50 hover:bg-sky-50 dark:hover:bg-stone-800 border border-stone-200/50 dark:border-stone-700/50'
+                        ? `bg-orange-100 dark:bg-orange-900/30 ring-2 ring-orange-400 shadow-sm`
+                        : 'bg-white/50 dark:bg-stone-800/50 hover:bg-orange-50 dark:hover:bg-stone-800 border border-stone-200/50 dark:border-stone-700/50'
                     }`}
                     aria-label={`Avatar ${emoji}`}
                   >
@@ -164,7 +164,7 @@ export function ProfileScreen() {
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-sky-500 flex items-center justify-center"
+                        className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-orange-500 flex items-center justify-center"
                       >
                         <Check className="w-2.5 h-2.5 text-white" />
                       </motion.div>
@@ -235,8 +235,8 @@ export function ProfileScreen() {
           <div className="glass-card rounded-xl p-4">
             <div className="grid grid-cols-2 gap-3">
               <div className="flex items-center gap-3 bg-white/40 dark:bg-stone-800/40 rounded-lg p-3">
-                <div className="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center shrink-0">
-                  <Star className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                <div className="w-9 h-9 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center shrink-0">
+                  <Star className="w-4 h-4 text-violet-600 dark:text-violet-400" />
                 </div>
                 <div>
                   <p className="text-lg font-bold text-stone-700 dark:text-stone-200">{totalChapters}</p>
@@ -244,8 +244,8 @@ export function ProfileScreen() {
                 </div>
               </div>
               <div className="flex items-center gap-3 bg-white/40 dark:bg-stone-800/40 rounded-lg p-3">
-                <div className="w-9 h-9 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center shrink-0">
-                  <Trophy className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+                <div className="w-9 h-9 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center shrink-0">
+                  <Trophy className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                 </div>
                 <div>
                   <p className="text-lg font-bold text-stone-700 dark:text-stone-200">{totalBadges}</p>
@@ -307,8 +307,8 @@ export function ProfileScreen() {
             disabled={!hasChanges || !localName.trim()}
             className={`w-full py-3 text-sm font-semibold transition-all ${
               saved
-                ? 'bg-indigo-500 hover:bg-indigo-500 text-white'
-                : 'bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white shadow-md hover:shadow-lg'
+                ? 'bg-violet-500 hover:bg-violet-500 text-white'
+                : 'bg-gradient-to-r from-orange-500 to-violet-500 hover:from-orange-600 hover:to-violet-600 text-white shadow-md hover:shadow-lg'
             } disabled:opacity-40 disabled:cursor-not-allowed`}
           >
             {saved ? (

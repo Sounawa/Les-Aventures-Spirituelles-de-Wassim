@@ -71,7 +71,7 @@ export default function NavigationMenu({ open, onClose }: NavigationMenuProps) {
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2 text-primary">
             <span role="img" aria-hidden="true">🌙</span>
-            Souhayl
+            Wassim
           </SheetTitle>
         </SheetHeader>
 

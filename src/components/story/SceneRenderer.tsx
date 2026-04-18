@@ -46,7 +46,7 @@ function SparkleBurst() {
           {particles.map((p) => (
             <motion.span
               key={p.id}
-              className="absolute text-sky-400 text-lg select-none"
+              className="absolute text-orange-400 text-lg select-none"
               initial={{ opacity: 1, scale: 0.5, x: 0, y: 0 }}
               animate={{
                 opacity: [1, 1, 0],
@@ -235,7 +235,7 @@ export function SceneRenderer() {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-            className="w-8 h-8 mx-auto mb-3 border-2 border-sky-400 border-t-transparent rounded-full"
+            className="w-8 h-8 mx-auto mb-3 border-2 border-orange-400 border-t-transparent rounded-full"
           />
           <p className="text-stone-400 text-sm">Chargement...</p>
         </div>
@@ -261,7 +261,7 @@ export function SceneRenderer() {
         <div className="mb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 min-w-0">
-              <BookOpen className="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0" />
+              <BookOpen className="w-4 h-4 text-orange-600 dark:text-orange-400 shrink-0" />
               <span className="text-xs text-stone-500 dark:text-stone-400 truncate">
                 {chapter?.titleAr} — {chapter?.title}
               </span>
@@ -274,8 +274,8 @@ export function SceneRenderer() {
                 onClick={handleNarrate}
                 className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                   isSpeaking
-                    ? 'bg-sky-500 text-white shadow-md shadow-sky-200/50'
-                    : 'bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm text-stone-500 dark:text-stone-400 hover:text-sky-600 border border-sky-200/30 dark:border-stone-700/30'
+                    ? 'bg-orange-500 text-white shadow-md shadow-orange-200/50'
+                    : 'bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm text-stone-500 dark:text-stone-400 hover:text-orange-600 border border-orange-200/30 dark:border-stone-700/30'
                 }`}
                 aria-label={isSpeaking ? 'Arrêter la narration' : 'Écouter la narration'}
               >
@@ -288,15 +288,15 @@ export function SceneRenderer() {
                 onClick={handleToggleBookmark}
                 className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
                   isBookmarked
-                    ? 'bg-sky-500 text-white shadow-md shadow-sky-200/50'
-                    : 'bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm text-stone-500 dark:text-stone-400 hover:text-sky-600 border border-sky-200/30 dark:border-stone-700/30'
+                    ? 'bg-orange-500 text-white shadow-md shadow-orange-200/50'
+                    : 'bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm text-stone-500 dark:text-stone-400 hover:text-orange-600 border border-orange-200/30 dark:border-stone-700/30'
                 }`}
                 aria-label={isBookmarked ? 'Retirer le signet' : 'Ajouter un signet'}
               >
                 {isBookmarked ? <BookmarkCheck className="w-3.5 h-3.5" /> : <Bookmark className="w-3.5 h-3.5" />}
               </motion.button>
               {/* Star-based progress indicator */}
-              <span className="flex items-center gap-1 bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm px-2 py-1.5 rounded-full border border-sky-200/20 dark:border-stone-700/20">
+              <span className="flex items-center gap-1 bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm px-2 py-1.5 rounded-full border border-orange-200/20 dark:border-stone-700/20">
                 <StarProgress
                   totalScenes={totalScenes}
                   completedSceneIds={completedScenes}
@@ -327,7 +327,7 @@ export function SceneRenderer() {
             exit={{ opacity: 0, y: 10 }}
             className="text-lg md:text-xl font-bold text-stone-800 dark:text-stone-100 mb-4 flex items-center gap-2"
           >
-            <Sparkles className="w-4 h-4 text-sky-500 animate-sparkle" />
+            <Sparkles className="w-4 h-4 text-orange-500 animate-sparkle" />
             {scene.title}
           </motion.h2>
         </AnimatePresence>
@@ -353,7 +353,7 @@ export function SceneRenderer() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleNarrate}
-              className="mt-3 flex items-center gap-1.5 text-xs text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition-colors"
+              className="mt-3 flex items-center gap-1.5 text-xs text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
             >
               <Volume2 className="w-3 h-3" />
               <span>Écouter</span>
@@ -387,15 +387,15 @@ export function SceneRenderer() {
             >
               {/* Choice section glass-card with gradient */}
               <div className="relative rounded-xl overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-sky-100/50 via-indigo-50/30 to-sky-100/20 dark:from-sky-900/20 dark:via-indigo-900/10 dark:to-sky-900/10" />
-                <div className="relative backdrop-blur-sm border border-sky-200/40 dark:border-sky-700/20 rounded-xl p-4 md:p-5">
+                <div className="absolute inset-0 bg-gradient-to-b from-orange-100/50 via-violet-50/30 to-orange-100/20 dark:from-orange-900/20 dark:via-violet-900/10 dark:to-orange-900/10" />
+                <div className="relative backdrop-blur-sm border border-orange-200/40 dark:border-orange-700/20 rounded-xl p-4 md:p-5">
                   {/* Header with title and instruction */}
                   <div className="flex items-center gap-2 mb-1">
-                    <div className="h-px flex-1 bg-sky-300/30 dark:bg-sky-500/20" />
+                    <div className="h-px flex-1 bg-orange-300/30 dark:bg-orange-500/20" />
                     <p className="text-sm font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-1">
                       ✦ Que fais-tu ? ✦
                     </p>
-                    <div className="h-px flex-1 bg-sky-300/30 dark:bg-sky-500/20" />
+                    <div className="h-px flex-1 bg-orange-300/30 dark:bg-orange-500/20" />
                   </div>
                   <p className="text-center text-xs text-stone-400 dark:text-stone-500 mb-3">
                     Choisis ta réponse :
@@ -432,7 +432,7 @@ export function SceneRenderer() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={handleContinue}
-                className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 text-white rounded-xl shadow-lg golden-glow-hover transition-all min-h-[48px]"
+                className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-orange-600 to-violet-600 hover:from-orange-700 hover:to-violet-700 text-white rounded-xl shadow-lg golden-glow-hover transition-all min-h-[48px]"
               >
                 Continuer
                 <ChevronRight className="w-4 h-4" />
@@ -447,16 +447,16 @@ export function SceneRenderer() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="mt-6 parchment-card rounded-xl p-5 islamic-border bg-gradient-to-br from-sky-50 to-indigo-50 dark:from-stone-800/80 dark:to-stone-800/60"
+              className="mt-6 parchment-card rounded-xl p-5 islamic-border bg-gradient-to-br from-orange-50 to-violet-50 dark:from-stone-800/80 dark:to-stone-800/60"
             >
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-8 h-8 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center">
-                  <BookOpen className="w-4 h-4 text-sky-700 dark:text-sky-400" />
+                <div className="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                  <BookOpen className="w-4 h-4 text-orange-700 dark:text-orange-400" />
                 </div>
-                <h3 className="font-bold text-sky-800 dark:text-sky-300">{scene.lesson.title}</h3>
+                <h3 className="font-bold text-orange-800 dark:text-orange-300">{scene.lesson.title}</h3>
               </div>
               <p className={`${fontSizeClass} text-stone-600 dark:text-stone-300 mb-4 leading-relaxed`}>{scene.lesson.content}</p>
-              <blockquote className="border-l-3 border-sky-400 pl-4 italic text-stone-500 dark:text-stone-400 text-sm mb-4 bg-sky-50/50 dark:bg-sky-900/10 py-2 rounded-r-lg">
+              <blockquote className="border-l-3 border-orange-400 pl-4 italic text-stone-500 dark:text-stone-400 text-sm mb-4 bg-orange-50/50 dark:bg-orange-900/10 py-2 rounded-r-lg">
                 « {scene.lesson.quote} »
               </blockquote>
               <p className="text-xs text-stone-400 dark:text-stone-500 mb-3">— {scene.lesson.source}</p>
@@ -465,7 +465,7 @@ export function SceneRenderer() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleContinue}
-                  className="mt-2 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 text-white rounded-xl shadow-lg golden-glow-hover transition-all min-h-[48px]"
+                  className="mt-2 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-orange-600 to-violet-600 hover:from-orange-700 hover:to-violet-700 text-white rounded-xl shadow-lg golden-glow-hover transition-all min-h-[48px]"
                 >
                   Continuer
                   <ChevronRight className="w-4 h-4" />
@@ -487,7 +487,7 @@ export function SceneRenderer() {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ type: 'spring', delay: 0.1, stiffness: 200 }}
-              className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-sky-600 via-indigo-500 to-sky-600 bg-clip-text text-transparent"
+              className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-orange-600 via-violet-500 to-orange-600 bg-clip-text text-transparent"
             >
               🎉 Masha&apos;Allah !
             </motion.h3>
@@ -518,7 +518,7 @@ export function SceneRenderer() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', delay: 0.9 }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-sky-300 to-indigo-400 shadow-lg golden-glow"
+              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-orange-300 to-violet-400 shadow-lg golden-glow"
             >
               <Award className="w-8 h-8 text-white" />
             </motion.div>
@@ -533,7 +533,7 @@ export function SceneRenderer() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => navigateTo('quiz')}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white rounded-xl shadow-lg golden-glow-hover transition-all min-h-[48px] font-bold"
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-violet-500 hover:from-orange-600 hover:to-violet-600 text-white rounded-xl shadow-lg golden-glow-hover transition-all min-h-[48px] font-bold"
               >
                 <Brain className="w-5 h-5" />
                 Passer le quiz

@@ -37,7 +37,7 @@ export function ScrollToTop() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-24 md:bottom-8 right-4 z-50 w-12 h-12 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 shadow-lg shadow-sky-500/30 flex items-center justify-center text-white glass-card border border-sky-300/40 dark:border-sky-600/40 hover:shadow-xl hover:shadow-sky-500/40 transition-shadow"
+          className="fixed bottom-24 md:bottom-8 right-4 z-50 w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-violet-600 shadow-lg shadow-orange-500/30 flex items-center justify-center text-white glass-card border border-orange-300/40 dark:border-orange-600/40 hover:shadow-xl hover:shadow-orange-500/40 transition-shadow"
           aria-label="Remonter en haut"
         >
           <span className="text-xl">🌙</span>

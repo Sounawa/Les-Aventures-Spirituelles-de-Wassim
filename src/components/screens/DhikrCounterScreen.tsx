@@ -83,7 +83,7 @@ function ProgressRing({
         r={radius}
         fill="none"
         strokeWidth={strokeWidth}
-        className="stroke-sky-200/40 dark:stroke-sky-700/30"
+        className="stroke-orange-200/40 dark:stroke-orange-700/30"
       />
       {/* Progress ring */}
       <circle
@@ -93,7 +93,7 @@ function ProgressRing({
         fill="none"
         strokeWidth={strokeWidth}
         strokeLinecap="round"
-        className={isComplete ? 'stroke-indigo-400 dark:stroke-indigo-500' : 'stroke-sky-400 dark:stroke-sky-500'}
+        className={isComplete ? 'stroke-violet-400 dark:stroke-violet-500' : 'stroke-orange-400 dark:stroke-orange-500'}
         strokeDasharray={circumference}
         strokeDashoffset={offset}
         style={{
@@ -183,9 +183,9 @@ export function DhikrCounterScreen() {
   }, [selectedIdx, handleScrollToSelected]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-50 via-indigo-50/50 to-sky-50/30 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-stone-50 via-violet-50/50 to-orange-50/30 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-10 bg-stone-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-10 bg-stone-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-orange-200/30 dark:border-stone-700/30">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0">
             <ArrowLeft className="w-4 h-4 mr-1" />
@@ -219,8 +219,8 @@ export function DhikrCounterScreen() {
                   onClick={() => handleSelectPhrase(idx)}
                   className={`shrink-0 snap-center px-4 py-2 rounded-full text-xs font-medium transition-all whitespace-nowrap border ${
                     isActive
-                      ? 'bg-gradient-to-r from-sky-500 to-indigo-500 text-white border-sky-400 shadow-md'
-                      : 'bg-white/60 dark:bg-stone-800/60 text-stone-600 dark:text-stone-300 border-stone-200/50 dark:border-stone-700/50 hover:bg-sky-50 dark:hover:bg-stone-800'
+                      ? 'bg-gradient-to-r from-orange-500 to-violet-500 text-white border-orange-400 shadow-md'
+                      : 'bg-white/60 dark:bg-stone-800/60 text-stone-600 dark:text-stone-300 border-stone-200/50 dark:border-stone-700/50 hover:bg-orange-50 dark:hover:bg-stone-800'
                   }`}
                 >
                   <span className="mr-1">{p.emoji}</span>
@@ -287,8 +287,8 @@ export function DhikrCounterScreen() {
               disabled={isComplete}
               className={`absolute inset-0 m-auto rounded-full flex items-center justify-center transition-all duration-150 ${
                 isComplete
-                  ? 'bg-gradient-to-br from-indigo-400 to-sky-500 shadow-lg shadow-indigo-500/30 cursor-default'
-                  : 'bg-gradient-to-br from-sky-400 via-indigo-500 to-indigo-500 shadow-lg shadow-sky-500/30 active:shadow-md cursor-pointer'
+                  ? 'bg-gradient-to-br from-violet-400 to-orange-500 shadow-lg shadow-violet-500/30 cursor-default'
+                  : 'bg-gradient-to-br from-orange-400 via-violet-500 to-violet-500 shadow-lg shadow-orange-500/30 active:shadow-md cursor-pointer'
               } ${isPressed && !isComplete ? 'brightness-90' : ''}`}
               style={{ width: 140, height: 140 }}
               aria-label={`Compter ${phrase.french.split(' — ')[0]}. ${count} sur ${phrase.target}`}
@@ -346,10 +346,10 @@ export function DhikrCounterScreen() {
             <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700/40"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700/40"
             >
-              <Sparkles className="w-4 h-4 text-indigo-500" />
-              <span className="text-sm font-semibold text-indigo-700 dark:text-indigo-400">
+              <Sparkles className="w-4 h-4 text-violet-500" />
+              <span className="text-sm font-semibold text-violet-700 dark:text-violet-400">
                 Masha&apos;Allah ! Objectif atteint : {phrase.target} / {phrase.target} ✅
               </span>
             </motion.div>
@@ -359,7 +359,7 @@ export function DhikrCounterScreen() {
                 Objectif : {count} / {phrase.target}
               </span>
               {count > 0 && (
-                <span className="text-xs text-sky-600 dark:text-sky-400 font-medium">
+                <span className="text-xs text-orange-600 dark:text-orange-400 font-medium">
                   ({Math.round(progress * 100)}%)
                 </span>
               )}
@@ -397,24 +397,24 @@ export function DhikrCounterScreen() {
             <div className="grid grid-cols-3 gap-3">
               {/* Total this session */}
               <div className="flex flex-col items-center bg-white/40 dark:bg-stone-800/40 rounded-lg p-3">
-                <div className="w-9 h-9 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center mb-1.5">
-                  <Sparkles className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+                <div className="w-9 h-9 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mb-1.5">
+                  <Sparkles className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                 </div>
                 <p className="text-lg font-bold text-stone-700 dark:text-stone-200 tabular-nums">{sessionCount}</p>
                 <p className="text-[10px] text-stone-400 dark:text-stone-500">Cette session</p>
               </div>
               {/* Rounds completed */}
               <div className="flex flex-col items-center bg-white/40 dark:bg-stone-800/40 rounded-lg p-3">
-                <div className="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mb-1.5">
-                  <Star className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                <div className="w-9 h-9 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mb-1.5">
+                  <Star className="w-4 h-4 text-violet-600 dark:text-violet-400" />
                 </div>
                 <p className="text-lg font-bold text-stone-700 dark:text-stone-200 tabular-nums">{roundsCompleted}</p>
                 <p className="text-[10px] text-stone-400 dark:text-stone-500">Tours terminés</p>
               </div>
               {/* Lifetime total */}
               <div className="flex flex-col items-center bg-white/40 dark:bg-stone-800/40 rounded-lg p-3">
-                <div className="w-9 h-9 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center mb-1.5">
-                  <Trophy className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+                <div className="w-9 h-9 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mb-1.5">
+                  <Trophy className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                 </div>
                 <p className="text-lg font-bold text-stone-700 dark:text-stone-200 tabular-nums">{totalDhikr}</p>
                 <p className="text-[10px] text-stone-400 dark:text-stone-500">Total dhikr</p>

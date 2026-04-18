@@ -22,7 +22,7 @@ const speedOptions = [
   { value: 45, label: 'Lent', desc: 'Pour bien lire chaque mot' },
 ];
 
-const STORAGE_KEY = 'souhayl-save-v1';
+const STORAGE_KEY = 'wassim-save-v1';
 
 export function SettingsScreen() {
   const { navigateTo, settings, updateSettings, resetProgress } = useApp();
@@ -71,9 +71,9 @@ export function SettingsScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-50 via-indigo-50 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-stone-50 via-violet-50 to-orange-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-stone-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-10 bg-stone-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-orange-200/30 dark:border-stone-700/30">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0">
             <ArrowLeft className="w-4 h-4 mr-1" />
@@ -97,8 +97,8 @@ export function SettingsScreen() {
 
           <div className="parchment-card rounded-xl p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center">
-                {settings.darkMode ? <Moon className="w-5 h-5 text-sky-700 dark:text-sky-400" /> : <Sun className="w-5 h-5 text-sky-600" />}
+              <div className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                {settings.darkMode ? <Moon className="w-5 h-5 text-orange-700 dark:text-orange-400" /> : <Sun className="w-5 h-5 text-orange-600" />}
               </div>
               <div>
                 <p className="text-sm font-medium text-stone-700 dark:text-stone-300">Mode sombre</p>
@@ -108,7 +108,7 @@ export function SettingsScreen() {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => updateSettings({ darkMode: !settings.darkMode })}
-              className={`w-12 h-7 rounded-full transition-colors duration-300 relative ${settings.darkMode ? 'bg-sky-600' : 'bg-stone-200 dark:bg-stone-600'}`}
+              className={`w-12 h-7 rounded-full transition-colors duration-300 relative ${settings.darkMode ? 'bg-orange-600' : 'bg-stone-200 dark:bg-stone-600'}`}
             >
               <motion.div className="w-5 h-5 rounded-full bg-white shadow-sm absolute top-1" animate={{ left: settings.darkMode ? '24px' : '4px' }} transition={{ type: 'spring', stiffness: 500, damping: 30 }} />
             </motion.button>
@@ -126,10 +126,10 @@ export function SettingsScreen() {
             </div>
             <div className="grid grid-cols-3 gap-2">
               {fontSizeOptions.map((opt) => (
-                <button key={opt.value} onClick={() => updateSettings({ fontSize: opt.value })} className={`px-3 py-2 rounded-lg border-2 transition-all text-center ${settings.fontSize === opt.value ? 'border-sky-400 bg-sky-50 dark:bg-sky-900/20 shadow-sm' : 'border-stone-200 dark:border-stone-700 bg-white/50 dark:bg-stone-800/50 hover:border-sky-200 dark:hover:border-stone-600'}`}>
+                <button key={opt.value} onClick={() => updateSettings({ fontSize: opt.value })} className={`px-3 py-2 rounded-lg border-2 transition-all text-center ${settings.fontSize === opt.value ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 shadow-sm' : 'border-stone-200 dark:border-stone-700 bg-white/50 dark:bg-stone-800/50 hover:border-orange-200 dark:hover:border-stone-600'}`}>
                   <p className={`font-medium text-stone-700 dark:text-stone-300 ${opt.size}`}>Aa</p>
                   <p className="text-[10px] text-stone-400 dark:text-stone-500 mt-0.5">{opt.label}</p>
-                  {settings.fontSize === opt.value && <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex justify-center mt-1"><Check className="w-3 h-3 text-sky-600" /></motion.div>}
+                  {settings.fontSize === opt.value && <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex justify-center mt-1"><Check className="w-3 h-3 text-orange-600" /></motion.div>}
                 </button>
               ))}
             </div>
@@ -144,8 +144,8 @@ export function SettingsScreen() {
           </h2>
           <div className="parchment-card rounded-xl p-4 space-y-3">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center">
-                <Gauge className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+              <div className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                <Gauge className="w-5 h-5 text-orange-600 dark:text-orange-400" />
               </div>
               <div>
                 <p className="text-sm font-medium text-stone-700 dark:text-stone-300">Vitesse de l&apos;histoire</p>
@@ -154,10 +154,10 @@ export function SettingsScreen() {
             </div>
             <div className="grid grid-cols-3 gap-2">
               {speedOptions.map((opt) => (
-                <button key={opt.value} onClick={() => updateSettings({ typewriterSpeed: opt.value })} className={`px-3 py-2 rounded-lg border-2 transition-all text-center ${settings.typewriterSpeed === opt.value ? 'border-sky-400 bg-sky-50 dark:bg-sky-900/20 shadow-sm' : 'border-stone-200 dark:border-stone-700 bg-white/50 dark:bg-stone-800/50 hover:border-sky-200 dark:hover:border-sky-600'}`}>
+                <button key={opt.value} onClick={() => updateSettings({ typewriterSpeed: opt.value })} className={`px-3 py-2 rounded-lg border-2 transition-all text-center ${settings.typewriterSpeed === opt.value ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 shadow-sm' : 'border-stone-200 dark:border-stone-700 bg-white/50 dark:bg-stone-800/50 hover:border-orange-200 dark:hover:border-orange-600'}`}>
                   <p className="text-xs font-medium text-stone-700 dark:text-stone-300">{opt.label}</p>
                   <p className="text-[10px] text-stone-400 dark:text-stone-500 mt-0.5">{opt.desc}</p>
-                  {settings.typewriterSpeed === opt.value && <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex justify-center mt-1"><Check className="w-3 h-3 text-sky-600" /></motion.div>}
+                  {settings.typewriterSpeed === opt.value && <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex justify-center mt-1"><Check className="w-3 h-3 text-orange-600" /></motion.div>}
                 </button>
               ))}
             </div>
@@ -189,8 +189,8 @@ export function SettingsScreen() {
           {/* Export */}
           <div className="parchment-card rounded-xl p-4 space-y-3">
             <div className="flex items-center gap-3 mb-1">
-              <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                <Download className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                <Download className="w-5 h-5 text-amber-600 dark:text-amber-400" />
               </div>
               <div>
                 <p className="text-sm font-medium text-stone-700 dark:text-stone-300">Exporter la sauvegarde</p>
@@ -266,8 +266,8 @@ export function SettingsScreen() {
             <div className="text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
               <p className="font-medium text-stone-600 dark:text-stone-300 mb-1">À propos</p>
               <p>
-                Les Aventures Spirituelles de Souhayl est un livre interactif qui enseigne les
-                concepts du Tassawuf (soufisme) aux enfants de 8 à 12 ans à travers une aventure
+                Les Aventures Spirituelles de Wassim est un livre interactif qui enseigne les
+                concepts du Tassawuf (soufisme) aux enfants de 6 à 10 ans à travers une aventure
                 passionnante. Basé sur les enseignements authentiques de l&apos;Islam.
               </p>
               <p className="mt-2 text-stone-400 dark:text-stone-500">Version 1.0 — Défis quotidiens, onboarding, navigation mobile, défis XP</p>

@@ -10,28 +10,28 @@ const slides = [
   {
     icon: '🌙',
     title: 'Bienvenue, aventurier !',
-    description: "Je suis Souhayl, un garçon de 9 ans qui vit à Fès, au Maroc. Prêt à découvrir le chemin du savoir et de la sagesse ?",
-    gradient: 'from-sky-400 to-indigo-400',
+    description: "Je suis Wassim, un garçon de 6 ans ! 🌟 Viens jouer avec moi et découvrir plein de choses sur Allah et notre belle religion ! C'est magique ! ✨",
+    gradient: 'from-orange-400 to-violet-400',
     emoji: '✨',
   },
   {
     icon: '📖',
-    title: 'Un livre interactif',
-    description: "Tu vas faire des choix qui changent l'histoire ! Chaque décision te rapproche de la sagesse et du savoir des grands savants de l'Islam.",
-    gradient: 'from-indigo-400 to-sky-400',
+    title: 'Un livre magique ! 🪄',
+    description: "Tu vas faire des choix qui changent l'histoire ! 📖 C'est comme un jeu où TU décides ce qui se passe ! Chaque choix t'apprend quelque chose de beau ! 💫",
+    gradient: 'from-violet-400 to-orange-400',
     emoji: '🎮',
   },
   {
     icon: '🧠',
-    title: 'Découvre le Savoir Islamique',
-    description: "Découvre les enseignements des plus grands savants de l'Islam : la sincérité, la confiance, la sagesse et le bon caractère.",
+    title: 'Apprends en t&apos;amusant ! 🎓',
+    description: "Tu vas apprendre à être gentil, sincère et courageux ! 💪 Comme les grands héros de l'Islam ! Des histoires, des quiz, des badges à collectionner ! 🏅",
     gradient: 'from-purple-400 to-violet-400',
     emoji: '📿',
   },
   {
     icon: '🏆',
-    title: 'Gagne des badges !',
-    description: 'Complète des chapitres, passe des quiz, relève des défis quotidiens et collecte des badges de vertus spirituelles.',
+    title: 'Collectionne des badges ! 🎖️',
+    description: 'Fais des chapitres, passe des quiz, relève des défis chaque jour et gagne des super badges ! ⭐ Plus tu joues, plus tu apprends ! 🚀',
     gradient: 'from-rose-400 to-pink-400',
     emoji: '⭐',
   },
@@ -130,7 +130,7 @@ export function OnboardingModal() {
                   onClick={() => setCurrentSlide(i)}
                   className={`rounded-full transition-all duration-300 ${
                     i === currentSlide
-                      ? 'w-6 h-2 bg-sky-500 dark:bg-sky-400'
+                      ? 'w-6 h-2 bg-orange-500 dark:bg-orange-400'
                       : 'w-2 h-2 bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 dark:hover:bg-stone-600'
                   }`}
                   aria-label={`Diapositive ${i + 1}`}
@@ -143,8 +143,8 @@ export function OnboardingModal() {
               onClick={handleNext}
               className={`w-full h-12 rounded-xl text-white font-semibold transition-all ${
                 isLastSlide
-                  ? 'bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 shadow-lg shadow-sky-200/50 dark:shadow-sky-900/30'
-                  : 'bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600'
+                  ? 'bg-gradient-to-r from-orange-500 to-violet-500 hover:from-orange-600 hover:to-violet-600 shadow-lg shadow-orange-200/50 dark:shadow-orange-900/30'
+                  : 'bg-gradient-to-r from-orange-500 to-violet-500 hover:from-orange-600 hover:to-violet-600'
               }`}
             >
               {isLastSlide ? "C'est parti !" : 'Suivant'}
