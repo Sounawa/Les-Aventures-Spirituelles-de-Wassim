@@ -14,9 +14,9 @@ export function CharacterGalleryScreen() {
   const character = selectedCharacter ? characters.find(c => c.id === selectedCharacter) : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-teal-50 via-emerald-50/30 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-indigo-50/30 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Header */}
-      <div className="sticky top-0 z-20 bg-teal-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-teal-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-20 bg-sky-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button
             variant="ghost"
@@ -31,7 +31,7 @@ export function CharacterGalleryScreen() {
             {selectedCharacter ? character?.name : 'Personnages'}
           </h1>
           {!selectedCharacter && (
-            <span className="ml-auto text-xs font-medium text-teal-700 dark:text-teal-400 bg-teal-100 dark:bg-teal-900/30 px-2 py-1 rounded-full">
+            <span className="ml-auto text-xs font-medium text-sky-700 dark:text-sky-400 bg-sky-100 dark:bg-sky-900/30 px-2 py-1 rounded-full">
               {characters.length} personnages
             </span>
           )}

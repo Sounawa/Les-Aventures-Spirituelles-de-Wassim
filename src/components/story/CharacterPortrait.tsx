@@ -69,7 +69,7 @@ export function CharacterPortrait({
         </span>
         {isSpeaking && (
           <motion.div
-            className="absolute -bottom-1 -right-1 w-4 h-4 bg-teal-500 rounded-full border-2 border-white"
+            className="absolute -bottom-1 -right-1 w-4 h-4 bg-sky-500 rounded-full border-2 border-white"
             animate={{ scale: [1, 1.3, 1], opacity: [1, 0.7, 1] }}
             transition={{ repeat: Infinity, duration: 1 }}
           />

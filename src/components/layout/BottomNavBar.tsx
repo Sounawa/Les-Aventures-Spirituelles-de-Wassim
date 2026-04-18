@@ -27,7 +27,7 @@ export function BottomNavBar() {
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
       >
-        <div className="glass-card border-t border-teal-200/30 dark:border-stone-700/30 rounded-none px-2 py-1">
+        <div className="glass-card border-t border-sky-200/30 dark:border-stone-700/30 rounded-none px-2 py-1">
           <div className="flex items-center justify-around max-w-lg mx-auto">
             {tabs.map((tab) => {
               const isActive = screen === tab.screen;
@@ -43,21 +43,21 @@ export function BottomNavBar() {
                   {isActive && (
                     <motion.div
                       layoutId="bottomNavIndicator"
-                      className="absolute -top-1 w-8 h-1 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500"
+                      className="absolute -top-1 w-8 h-1 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500"
                       transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                     />
                   )}
                   <Icon
                     className={`w-5 h-5 transition-colors duration-200 ${
                       isActive
-                        ? 'text-teal-600 dark:text-teal-400'
+                        ? 'text-sky-600 dark:text-sky-400'
                         : 'text-stone-400 dark:text-stone-500'
                     }`}
                   />
                   <span
                     className={`text-[11px] font-medium transition-colors duration-200 ${
                       isActive
-                        ? 'text-teal-600 dark:text-teal-400'
+                        ? 'text-sky-600 dark:text-sky-400'
                         : 'text-stone-400 dark:text-stone-500'
                     }`}
                   >

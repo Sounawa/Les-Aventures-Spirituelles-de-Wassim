@@ -12,7 +12,7 @@ export function ChapterSelectScreen() {
 
   if (!tome) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-teal-50 via-emerald-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-50 via-indigo-50 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
         <p className="text-stone-400">Tome non trouvé</p>
       </div>
     );
@@ -35,9 +35,9 @@ export function ChapterSelectScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-teal-50 via-emerald-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-indigo-50 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-teal-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-teal-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-10 bg-sky-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => navigateTo('tome_select')} className="shrink-0">
             <ArrowLeft className="w-4 h-4 mr-1" />
@@ -45,9 +45,9 @@ export function ChapterSelectScreen() {
           </Button>
           <div className="min-w-0 flex-1">
             <h1 className="text-sm font-bold text-stone-800 dark:text-stone-100 truncate">Tome {tome.number} — {tome.title}</h1>
-            <p className="text-xs text-teal-600 dark:text-teal-400 truncate font-amiri" dir="rtl">{tome.titleAr}</p>
+            <p className="text-xs text-sky-600 dark:text-sky-400 truncate font-amiri" dir="rtl">{tome.titleAr}</p>
           </div>
-          <div className="flex items-center gap-1 text-xs font-medium text-teal-700 dark:text-teal-400 bg-teal-100 dark:bg-teal-900/30 px-2 py-1 rounded-full shrink-0">
+          <div className="flex items-center gap-1 text-xs font-medium text-sky-700 dark:text-sky-400 bg-sky-100 dark:bg-sky-900/30 px-2 py-1 rounded-full shrink-0">
             {completedChapters.filter(id => tome.chapters.some(c => c.id === id)).length}/{tome.chapters.length}
           </div>
         </div>
@@ -63,7 +63,7 @@ export function ChapterSelectScreen() {
           <p className="text-xs text-stone-500 dark:text-stone-400 italic mb-2">{tome.subtitle}</p>
           <p className="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">{tome.description}</p>
           <div className="flex items-center gap-2 mt-3">
-            <span className="text-[10px] px-2 py-0.5 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 rounded-full font-medium">
+            <span className="text-[10px] px-2 py-0.5 bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-400 rounded-full font-medium">
               {tome.theme}
             </span>
             <span className="text-[10px] text-stone-400 dark:text-stone-500">
@@ -75,7 +75,7 @@ export function ChapterSelectScreen() {
         {/* Chapter path */}
         <div className="relative">
           {/* Vertical path line */}
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-teal-300/50 via-teal-200/30 to-transparent dark:from-teal-500/30 dark:via-teal-400/20" />
+          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-300/50 via-sky-200/30 to-transparent dark:from-sky-500/30 dark:via-sky-400/20" />
 
           <div className="space-y-4">
             {tome.chapters.map((chapter, idx) => {
@@ -104,7 +104,7 @@ export function ChapterSelectScreen() {
                     {isCompleted ? (
                       <CheckCircle2 className="w-5 h-5 text-green-500" />
                     ) : isUnlocked ? (
-                      <span className="text-xs font-bold text-teal-600">{chapter.number}</span>
+                      <span className="text-xs font-bold text-sky-600">{chapter.number}</span>
                     ) : (
                       <Lock className="w-3 h-3 text-stone-300" />
                     )}
@@ -124,10 +124,10 @@ export function ChapterSelectScreen() {
                         <p className="text-[10px] text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-1">
                           Chapitre {chapter.number}
                         </p>
-                        <h3 className="font-bold text-stone-800 dark:text-stone-100 text-sm group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors">
+                        <h3 className="font-bold text-stone-800 dark:text-stone-100 text-sm group-hover:text-sky-700 dark:group-hover:text-sky-400 transition-colors">
                           {chapter.title}
                         </h3>
-                        <p className="text-sm text-teal-600 dark:text-teal-400 font-amiri" dir="rtl">{chapter.titleAr}</p>
+                        <p className="text-sm text-sky-600 dark:text-sky-400 font-amiri" dir="rtl">{chapter.titleAr}</p>
                         <div className="flex items-center gap-3 mt-2">
                           <span className="text-[10px] text-stone-400 dark:text-stone-500">
                             {chapter.scenes.length} scènes
@@ -142,8 +142,8 @@ export function ChapterSelectScreen() {
                       </div>
                       <div className="flex flex-col items-end gap-2 shrink-0">
                         {isUnlocked && !isCompleted && (
-                          <div className="w-8 h-8 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                            <Play className="w-4 h-4 text-teal-600" />
+                          <div className="w-8 h-8 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center">
+                            <Play className="w-4 h-4 text-sky-600" />
                           </div>
                         )}
                         {isCompleted && (

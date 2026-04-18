@@ -38,11 +38,11 @@ export function ChoiceButton({ choice, index, onClick, disabled, soundEnabled, o
       aria-label={`Choix ${String.fromCharCode(65 + index)} : ${choice.text}`}
       className={
         'w-full text-left px-5 py-4 rounded-xl border-2 shadow-md transition-all duration-300 group relative overflow-hidden min-h-[56px] disabled:opacity-50 disabled:cursor-not-allowed ' +
-        'border-teal-300/50 dark:border-stone-600/30 ' +
+        'border-sky-300/50 dark:border-stone-600/30 ' +
         'parchment-card dark:bg-stone-800/60 ' +
         'hover:shadow-lg ' +
-        'hover:border-teal-400 dark:hover:border-stone-500/50 ' +
-        'hover:bg-teal-50/50 dark:hover:bg-stone-800/80'
+        'hover:border-sky-400 dark:hover:border-stone-500/50 ' +
+        'hover:bg-sky-50/50 dark:hover:bg-stone-800/80'
       }
     >
       {/* Left accent bar */}
@@ -53,12 +53,12 @@ export function ChoiceButton({ choice, index, onClick, disabled, soundEnabled, o
 
       {/* Geometric pattern overlay */}
       <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity">
-        <div className="absolute top-0 right-0 w-20 h-20 border border-teal-600 rotate-45 translate-x-10 -translate-y-10" />
-        <div className="absolute bottom-0 left-0 w-16 h-16 border border-teal-600 rotate-45 -translate-x-8 translate-y-8" />
+        <div className="absolute top-0 right-0 w-20 h-20 border border-sky-600 rotate-45 translate-x-10 -translate-y-10" />
+        <div className="absolute bottom-0 left-0 w-16 h-16 border border-sky-600 rotate-45 -translate-x-8 translate-y-8" />
       </div>
 
       {/* Shimmer on hover */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-r from-transparent via-teal-100/20 dark:via-teal-500/10 to-transparent" />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-r from-transparent via-sky-100/20 dark:via-sky-500/10 to-transparent" />
 
       <div className="relative flex items-center gap-3">
         {/* Letter badge with hover scale */}

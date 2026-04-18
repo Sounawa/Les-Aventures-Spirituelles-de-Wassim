@@ -72,7 +72,7 @@ function AppInner() {
   const ScreenComponent = screenComponents[screen];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-teal-50 via-emerald-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950 transition-colors duration-500">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-sky-50 via-indigo-50 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950 transition-colors duration-500">
       <ThemeHandler />
       <OnboardingModal />
       <main className="flex-1">
@@ -91,18 +91,18 @@ function AppInner() {
 
       <footer className="mt-auto relative transition-colors duration-500">
         {/* Top gradient border */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teal-400/40 dark:via-teal-500/30 to-transparent" />
-        <div className="glass-card border-t border-teal-200/30 dark:border-stone-700/30 py-4 pb-20 md:pb-4">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 dark:via-sky-500/30 to-transparent" />
+        <div className="glass-card border-t border-sky-200/30 dark:border-stone-700/30 py-4 pb-20 md:pb-4">
           <div className="max-w-2xl mx-auto px-4 text-center">
             <p className="text-[10px] text-stone-500 dark:text-stone-400">
               Les Aventures Spirituelles de Souhayl — مغامرات سهيل الروحية
             </p>
             <div className="flex items-center justify-center gap-2 my-1">
-              <span className="text-teal-400 dark:text-teal-500 text-xs">🌙</span>
+              <span className="text-sky-400 dark:text-sky-500 text-xs">🌙</span>
               <span className="text-stone-300 dark:text-stone-600">✦</span>
-              <span className="text-teal-300 dark:text-teal-500 text-[10px]">⭐</span>
+              <span className="text-sky-300 dark:text-sky-500 text-[10px]">⭐</span>
               <span className="text-stone-300 dark:text-stone-600">✦</span>
-              <span className="text-teal-400 dark:text-teal-500 text-xs">🌙</span>
+              <span className="text-sky-400 dark:text-sky-500 text-xs">🌙</span>
             </div>
             <p className="text-[10px] text-stone-400 dark:text-stone-600">
               Un livre dont tu es le héros • Basé sur les enseignements du Tassawuf

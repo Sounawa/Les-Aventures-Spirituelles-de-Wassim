@@ -100,9 +100,9 @@ export default function QuizScreen() {
   const bestScore = chapter ? (quizScores[chapter.id] || 0) : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-teal-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 via-sky-50 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-purple-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-teal-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-10 bg-purple-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={handleBack} className="shrink-0">
             <ArrowLeft className="w-4 h-4 mr-1" />
@@ -112,7 +112,7 @@ export default function QuizScreen() {
             <h1 className="text-lg font-bold text-stone-800 dark:text-stone-100">
               {chapter ? `Quiz — ${chapter.title}` : 'Quiz'}
             </h1>
-            {chapter && <p className="text-xs text-teal-600 dark:text-teal-400" dir="rtl">{chapter.titleAr}</p>}
+            {chapter && <p className="text-xs text-sky-600 dark:text-sky-400" dir="rtl">{chapter.titleAr}</p>}
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <motion.button
@@ -164,7 +164,7 @@ export default function QuizScreen() {
                 </div>
                 <div className="w-full h-2 bg-stone-100 dark:bg-stone-700 rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-purple-400 to-teal-400 rounded-full"
+                    className="h-full bg-gradient-to-r from-purple-400 to-sky-400 rounded-full"
                     animate={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
                     transition={{ duration: 0.4 }}
                   />
@@ -187,7 +187,7 @@ export default function QuizScreen() {
                   {questions[currentQuestion]?.options.map((option, idx) => {
                     const isCorrect = idx === questions[currentQuestion].correctIndex;
                     const isSelected = idx === selectedAnswer;
-                    let optionStyle = 'border-stone-200/50 dark:border-stone-700/50 bg-stone-50/50 dark:bg-stone-700/50 hover:bg-teal-50 dark:hover:bg-stone-700 hover:border-teal-200 dark:hover:border-stone-600';
+                    let optionStyle = 'border-stone-200/50 dark:border-stone-700/50 bg-stone-50/50 dark:bg-stone-700/50 hover:bg-sky-50 dark:hover:bg-stone-700 hover:border-sky-200 dark:hover:border-stone-600';
 
                     if (showResult) {
                       if (isCorrect) optionStyle = 'border-green-300 dark:border-green-600 bg-green-50 dark:bg-green-900/20';
@@ -236,7 +236,7 @@ export default function QuizScreen() {
                       <div className={`p-3 rounded-lg text-sm leading-relaxed ${
                         selectedAnswer === questions[currentQuestion].correctIndex
                           ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 text-green-800 dark:text-green-300'
-                          : 'bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-700 text-teal-800 dark:text-teal-300'
+                          : 'bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-700 text-sky-800 dark:text-sky-300'
                       }`}>
                         <p className="font-medium mb-1">
                           {selectedAnswer === questions[currentQuestion].correctIndex ? '✅ Bravo !' : '💡 Pas tout à fait...'}
@@ -258,7 +258,7 @@ export default function QuizScreen() {
                   >
                     <Button
                       onClick={handleNext}
-                      className="w-full h-12 bg-gradient-to-r from-purple-500 to-teal-500 hover:from-purple-600 hover:to-teal-600 text-white rounded-xl font-medium"
+                      className="w-full h-12 bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white rounded-xl font-medium"
                     >
                       {currentQuestion + 1 >= questions.length ? 'Voir le résultat' : 'Question suivante'}
                     </Button>
@@ -274,7 +274,7 @@ export default function QuizScreen() {
             animate={{ opacity: 1, scale: 1 }}
             className="text-center"
           >
-            <div className="bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm rounded-2xl p-8 border border-teal-200/30 dark:border-stone-700/30 shadow-sm mb-4">
+            <div className="bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm rounded-2xl p-8 border border-sky-200/30 dark:border-stone-700/30 shadow-sm mb-4">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -282,7 +282,7 @@ export default function QuizScreen() {
                 className="mb-4"
               >
                 {score >= Math.ceil(questions.length * 0.8) ? (
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-teal-300 to-emerald-400 shadow-lg">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-300 to-green-400 shadow-lg">
                     <Trophy className="w-10 h-10 text-white" />
                   </div>
                 ) : score >= Math.ceil(questions.length * 0.5) ? (
@@ -300,7 +300,7 @@ export default function QuizScreen() {
                 {score >= Math.ceil(questions.length * 0.8) ? 'Excellent !' :
                  score >= Math.ceil(questions.length * 0.5) ? 'Bien joué !' : 'Continue d\'apprendre !'}
               </h2>
-              <p className="text-4xl font-bold text-teal-600 dark:text-teal-400 mb-2">
+              <p className="text-4xl font-bold text-sky-600 dark:text-sky-400 mb-2">
                 {score} / {questions.length}
               </p>
               <p className="text-sm text-stone-500 dark:text-stone-400 mb-4">
@@ -335,7 +335,7 @@ export default function QuizScreen() {
               </Button>
               <Button
                 onClick={handleBack}
-                className="flex-1 h-12 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 rounded-xl"
+                className="flex-1 h-12 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 rounded-xl"
               >
                 Continuer
               </Button>

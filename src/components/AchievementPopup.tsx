@@ -68,7 +68,7 @@ export function AchievementPopup() {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
               >
-                <Sparkles className="w-5 h-5 text-teal-400 dark:text-teal-500" />
+                <Sparkles className="w-5 h-5 text-sky-400 dark:text-sky-500" />
               </motion.div>
 
               <motion.div
@@ -76,7 +76,7 @@ export function AchievementPopup() {
                 animate={{ rotate: -360 }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
               >
-                <Sparkles className="w-4 h-4 text-teal-300/60 dark:text-teal-600/60" />
+                <Sparkles className="w-4 h-4 text-sky-300/60 dark:text-sky-600/60" />
               </motion.div>
 
               {/* Close button */}
@@ -111,7 +111,7 @@ export function AchievementPopup() {
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-[10px] font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-0.5"
+                    className="text-[10px] font-bold uppercase tracking-widest text-sky-600 dark:text-sky-400 mb-0.5"
                   >
                     🏆 Succès débloqué !
                   </motion.p>

@@ -48,9 +48,9 @@ export default function AchievementsScreen() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-teal-50 via-emerald-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-indigo-50 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-teal-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-teal-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-10 bg-sky-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0">
@@ -58,12 +58,12 @@ export default function AchievementsScreen() {
               Retour
             </Button>
             <h1 className="text-lg font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
-              <Trophy className="w-5 h-5 text-teal-600" />
+              <Trophy className="w-5 h-5 text-sky-600" />
               Succès
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-teal-700 dark:text-teal-400 bg-teal-100 dark:bg-teal-900/30 px-3 py-1 rounded-full">
+            <span className="text-sm font-semibold text-sky-700 dark:text-sky-400 bg-sky-100 dark:bg-sky-900/30 px-3 py-1 rounded-full">
               {earnedCount}/{totalAchievements}
             </span>
           </div>
@@ -127,7 +127,7 @@ export default function AchievementsScreen() {
             className="space-y-3"
           >
             <h3 className="text-sm font-semibold text-stone-600 dark:text-stone-400 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-teal-500" />
+              <Sparkles className="w-4 h-4 text-sky-500" />
               Derniers badges débloqués
             </h3>
             <div className="flex gap-3 overflow-x-auto pb-2">
@@ -155,7 +155,7 @@ export default function AchievementsScreen() {
                       <p className="text-xs font-bold text-stone-800 dark:text-stone-100 truncate">{achievement.title}</p>
                       <p className="text-[10px] text-stone-500 dark:text-stone-400 truncate">{achievement.description}</p>
                     </div>
-                    <Check className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <Check className="w-4 h-4 text-indigo-500 shrink-0" />
                   </motion.div>
                 );
               })}

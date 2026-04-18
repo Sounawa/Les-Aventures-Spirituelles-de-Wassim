@@ -54,9 +54,9 @@ export function JournalScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-rose-50 via-teal-50 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-rose-50 via-sky-50 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-rose-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-teal-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-10 bg-rose-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0">
@@ -102,7 +102,7 @@ export function JournalScreen() {
                   <select
                     value={selectedChapter}
                     onChange={(e) => setSelectedChapter(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-stone-200 dark:border-stone-700 bg-white/70 dark:bg-stone-800/70 text-sm text-stone-700 dark:text-stone-300 focus:outline-none focus:ring-2 focus:ring-teal-300 focus:border-teal-300"
+                    className="w-full px-3 py-2 rounded-lg border border-stone-200 dark:border-stone-700 bg-white/70 dark:bg-stone-800/70 text-sm text-stone-700 dark:text-stone-300 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-sky-300"
                   >
                     <option value="">Choisir un chapitre...</option>
                     {completedChaptersList.map((c) => (
@@ -118,7 +118,7 @@ export function JournalScreen() {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Qu'as-tu appris de ce chapitre ? Comment peux-tu appliquer cette leçon dans ta vie quotidienne ?"
-                    className="w-full px-3 py-3 rounded-lg border border-stone-200 dark:border-stone-700 bg-white/70 dark:bg-stone-800/70 text-sm text-stone-700 dark:text-stone-300 resize-none focus:outline-none focus:ring-2 focus:ring-teal-300 focus:border-teal-300 min-h-[120px] custom-scrollbar"
+                    className="w-full px-3 py-3 rounded-lg border border-stone-200 dark:border-stone-700 bg-white/70 dark:bg-stone-800/70 text-sm text-stone-700 dark:text-stone-300 resize-none focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-sky-300 min-h-[120px] custom-scrollbar"
                   />
                   <p className="text-[10px] text-stone-400 dark:text-stone-500 mt-1">{text.length} caractères</p>
                 </div>
@@ -165,7 +165,7 @@ export function JournalScreen() {
             </p>
             <div className="parchment-card rounded-xl p-4 max-w-xs mx-auto text-left">
               <div className="flex items-start gap-2">
-                <Quote className="w-4 h-4 text-teal-500 mt-0.5 shrink-0" />
+                <Quote className="w-4 h-4 text-sky-500 mt-0.5 shrink-0" />
                 <p className="text-xs text-stone-500 dark:text-stone-400 italic leading-relaxed">
                   « Le savoir sans l&apos;action est comme un arbre sans fruits. »
                 </p>
@@ -221,7 +221,7 @@ export function JournalScreen() {
                         exit={{ height: 0, opacity: 0 }}
                         className="overflow-hidden"
                       >
-                        <div className="px-4 pb-4 border-t border-teal-200/30 dark:border-stone-700/30 pt-3">
+                        <div className="px-4 pb-4 border-t border-sky-200/30 dark:border-stone-700/30 pt-3">
                           <p className="text-sm text-stone-700 dark:text-stone-300 leading-relaxed whitespace-pre-wrap mb-3">
                             {entry.text}
                           </p>

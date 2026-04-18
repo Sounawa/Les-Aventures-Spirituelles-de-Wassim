@@ -26,16 +26,16 @@ export function StoryScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-stone-50 to-teal-50 dark:from-stone-900 dark:to-stone-950 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-stone-50 to-sky-50 dark:from-stone-900 dark:to-stone-950 flex flex-col">
       {/* Header */}
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="sticky top-0 z-20 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-teal-200/30 dark:border-stone-700/30 shadow-sm"
+        className="sticky top-0 z-20 bg-white/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-sky-200/30 dark:border-stone-700/30 shadow-sm"
       >
         <div className="max-w-2xl mx-auto px-4 py-2 flex items-center justify-between">
           <div className="flex items-center gap-2 min-w-0">
-            <Button variant="ghost" size="sm" onClick={handleBack} className="shrink-0 hover:bg-teal-50 dark:hover:bg-teal-900/20">
+            <Button variant="ghost" size="sm" onClick={handleBack} className="shrink-0 hover:bg-sky-50 dark:hover:bg-sky-900/20">
               <ArrowLeft className="w-4 h-4 mr-1" />
               <span className="hidden sm:inline text-xs">Chapitres</span>
             </Button>
@@ -49,7 +49,7 @@ export function StoryScreen() {
                 <p className="text-xs font-medium text-stone-800 dark:text-stone-100 truncate">
                   Chapitre {chapter.number} — {chapter.title}
                 </p>
-                <p className="text-[10px] text-teal-600 dark:text-teal-400 truncate font-amiri" dir="rtl">{chapter.titleAr}</p>
+                <p className="text-[10px] text-sky-600 dark:text-sky-400 truncate font-amiri" dir="rtl">{chapter.titleAr}</p>
               </motion.div>
             )}
           </div>
@@ -63,7 +63,7 @@ export function StoryScreen() {
                 ✓ Terminé
               </motion.span>
             )}
-            <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0 hover:bg-teal-50 dark:hover:bg-teal-900/20">
+            <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0 hover:bg-sky-50 dark:hover:bg-sky-900/20">
               <Home className="w-4 h-4" />
             </Button>
           </div>

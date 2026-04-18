@@ -20,22 +20,22 @@ const backgrounds: Record<string, BackgroundConfig> = {
     ambientColor: 'rgba(129, 140, 248, 0.06)',
   },
   garden: {
-    gradient: 'from-emerald-100 via-lime-50 to-teal-50',
-    darkGradient: 'from-emerald-950 via-lime-950 to-teal-950',
+    gradient: 'from-indigo-100 via-lime-50 to-sky-50',
+    darkGradient: 'from-indigo-950 via-lime-950 to-sky-950',
     pattern: '🌿',
     decorativeElements: ['🌿', '🌱', '🦋'],
     ambientColor: 'rgba(16, 185, 129, 0.06)',
   },
   zawiyah: {
-    gradient: 'from-teal-100 via-emerald-50 to-teal-50',
-    darkGradient: 'from-teal-950 via-emerald-950 to-teal-950',
+    gradient: 'from-sky-100 via-indigo-50 to-sky-50',
+    darkGradient: 'from-sky-950 via-indigo-950 to-sky-950',
     pattern: '🕌',
     decorativeElements: ['🕌', '📖', '🤲'],
     ambientColor: 'rgba(251, 191, 36, 0.08)',
   },
   kitchen: {
-    gradient: 'from-emerald-100 via-teal-50 to-yellow-50',
-    darkGradient: 'from-emerald-950 via-teal-950 to-yellow-950',
+    gradient: 'from-indigo-100 via-sky-50 to-yellow-50',
+    darkGradient: 'from-indigo-950 via-sky-950 to-yellow-950',
     pattern: '🍳',
     decorativeElements: ['🫖', '🍞', '🧆'],
     ambientColor: 'rgba(251, 146, 60, 0.06)',
@@ -48,29 +48,29 @@ const backgrounds: Record<string, BackgroundConfig> = {
     ambientColor: 'rgba(56, 189, 248, 0.06)',
   },
   inner_world: {
-    gradient: 'from-violet-100 via-purple-50 to-teal-50',
-    darkGradient: 'from-violet-950 via-purple-950 to-teal-950',
+    gradient: 'from-violet-100 via-purple-50 to-sky-50',
+    darkGradient: 'from-violet-950 via-purple-950 to-sky-950',
     pattern: '✨',
     decorativeElements: ['✨', '🌟', '💫', '⭐'],
     ambientColor: 'rgba(167, 139, 250, 0.08)',
   },
   desert: {
-    gradient: 'from-teal-200 via-emerald-100 to-teal-100',
-    darkGradient: 'from-teal-950 via-emerald-950 to-teal-950',
+    gradient: 'from-sky-200 via-indigo-100 to-sky-100',
+    darkGradient: 'from-sky-950 via-indigo-950 to-sky-950',
     pattern: '🏜️',
     decorativeElements: ['🏜️', '🌵', '☀️'],
     ambientColor: 'rgba(251, 191, 36, 0.08)',
   },
   golden_city: {
-    gradient: 'from-teal-100 via-teal-100 to-emerald-50',
-    darkGradient: 'from-teal-950 via-teal-950 to-emerald-950',
+    gradient: 'from-sky-100 via-sky-100 to-indigo-50',
+    darkGradient: 'from-sky-950 via-sky-950 to-indigo-950',
     pattern: '🏙️',
     decorativeElements: ['🏙️', '✨', '👑'],
     ambientColor: 'rgba(250, 204, 21, 0.08)',
   },
   oasis: {
-    gradient: 'from-cyan-100 via-teal-50 to-emerald-50',
-    darkGradient: 'from-cyan-950 via-teal-950 to-emerald-950',
+    gradient: 'from-cyan-100 via-sky-50 to-indigo-50',
+    darkGradient: 'from-cyan-950 via-sky-950 to-indigo-950',
     pattern: '💦',
     decorativeElements: ['💦', '🌴', '🌊'],
     ambientColor: 'rgba(34, 211, 238, 0.06)',
@@ -90,8 +90,8 @@ const backgrounds: Record<string, BackgroundConfig> = {
     ambientColor: 'rgba(239, 68, 68, 0.06)',
   },
   home: {
-    gradient: 'from-teal-50 via-emerald-50 to-teal-50',
-    darkGradient: 'from-teal-950 via-emerald-950 to-teal-950',
+    gradient: 'from-sky-50 via-indigo-50 to-sky-50',
+    darkGradient: 'from-sky-950 via-indigo-950 to-sky-950',
     pattern: '🏠',
     decorativeElements: ['🏠', '🌸', '🌿'],
     ambientColor: 'rgba(251, 191, 36, 0.06)',
@@ -104,8 +104,8 @@ const backgrounds: Record<string, BackgroundConfig> = {
     ambientColor: 'rgba(56, 189, 248, 0.06)',
   },
   classroom: {
-    gradient: 'from-stone-100 via-teal-50 to-yellow-50',
-    darkGradient: 'from-stone-900 via-teal-950 to-yellow-950',
+    gradient: 'from-stone-100 via-sky-50 to-yellow-50',
+    darkGradient: 'from-stone-900 via-sky-950 to-yellow-950',
     pattern: '✏️',
     decorativeElements: ['✏️', '📝', '📐'],
     ambientColor: 'rgba(251, 191, 36, 0.05)',
@@ -208,13 +208,13 @@ export function StoryBackground({ background }: StoryBackgroundProps) {
       ))}
 
       {/* Islamic geometric border corners */}
-      <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-teal-300/30 dark:border-teal-500/20 rounded-tl-lg" />
-      <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-teal-300/30 dark:border-teal-500/20 rounded-tr-lg" />
-      <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-teal-300/30 dark:border-teal-500/20 rounded-bl-lg" />
-      <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-teal-300/30 dark:border-teal-500/20 rounded-br-lg" />
+      <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-sky-300/30 dark:border-sky-500/20 rounded-tl-lg" />
+      <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-sky-300/30 dark:border-sky-500/20 rounded-tr-lg" />
+      <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-sky-300/30 dark:border-sky-500/20 rounded-bl-lg" />
+      <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-sky-300/30 dark:border-sky-500/20 rounded-br-lg" />
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-teal-50/50 via-teal-50/20 to-transparent dark:from-stone-950/50 dark:via-stone-950/20 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-sky-50/50 via-sky-50/20 to-transparent dark:from-stone-950/50 dark:via-stone-950/20 pointer-events-none" />
     </motion.div>
   );
 }

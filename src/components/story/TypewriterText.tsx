@@ -132,7 +132,7 @@ export function TypewriterText({ text, speed = 25, onComplete, className = '' }:
           >
             {paragraph}
             {idx === state.displayedTexts.length - 1 && !state.isComplete && (
-              <span className="inline-block w-0.5 h-4 bg-teal-600 ml-0.5 animate-pulse align-middle" />
+              <span className="inline-block w-0.5 h-4 bg-sky-600 ml-0.5 animate-pulse align-middle" />
             )}
           </motion.p>
         ))}
@@ -140,7 +140,7 @@ export function TypewriterText({ text, speed = 25, onComplete, className = '' }:
       {!state.isComplete && state.displayedTexts.length > 0 && (
         <button
           onClick={handleSkip}
-          className="mt-2 flex items-center gap-1 text-xs text-teal-700/60 hover:text-teal-700 transition-colors"
+          className="mt-2 flex items-center gap-1 text-xs text-sky-700/60 hover:text-sky-700 transition-colors"
           aria-label="Passer l'animation"
         >
           <SkipForward className="w-3 h-3" />

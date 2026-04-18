@@ -11,14 +11,14 @@ const slides = [
     icon: '🌙',
     title: 'Bienvenue, aventurier !',
     description: "Je suis Souhayl, un garçon de 9 ans qui vit à Fès, au Maroc. Prêt à découvrir le chemin du savoir et de la sagesse ?",
-    gradient: 'from-teal-400 to-emerald-400',
+    gradient: 'from-sky-400 to-indigo-400',
     emoji: '✨',
   },
   {
     icon: '📖',
     title: 'Un livre interactif',
     description: "Tu vas faire des choix qui changent l'histoire ! Chaque décision te rapproche de la sagesse et du savoir des grands savants de l'Islam.",
-    gradient: 'from-emerald-400 to-teal-400',
+    gradient: 'from-indigo-400 to-sky-400',
     emoji: '🎮',
   },
   {
@@ -130,7 +130,7 @@ export function OnboardingModal() {
                   onClick={() => setCurrentSlide(i)}
                   className={`rounded-full transition-all duration-300 ${
                     i === currentSlide
-                      ? 'w-6 h-2 bg-teal-500 dark:bg-teal-400'
+                      ? 'w-6 h-2 bg-sky-500 dark:bg-sky-400'
                       : 'w-2 h-2 bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 dark:hover:bg-stone-600'
                   }`}
                   aria-label={`Diapositive ${i + 1}`}
@@ -143,8 +143,8 @@ export function OnboardingModal() {
               onClick={handleNext}
               className={`w-full h-12 rounded-xl text-white font-semibold transition-all ${
                 isLastSlide
-                  ? 'bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 shadow-lg shadow-teal-200/50 dark:shadow-teal-900/30'
-                  : 'bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600'
+                  ? 'bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 shadow-lg shadow-sky-200/50 dark:shadow-sky-900/30'
+                  : 'bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600'
               }`}
             >
               {isLastSlide ? "C'est parti !" : 'Suivant'}

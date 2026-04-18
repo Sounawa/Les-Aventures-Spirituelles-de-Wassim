@@ -9,7 +9,7 @@ export const characters: Character[] = [
     description: "Curieux, mature et réfléchi. Il porte en lui une soif de savoir et de compréhension qui le pousse à chercher la vérité dans chaque situation. Souhayl approche le monde avec la patience et la rigueur d'un futur savant. Il est le gardien de la bibliothèque secrète sous la Qarawiyyin.",
     age: '9 ans (bientôt 10)',
     appearance: 'Garçon de 9 ans, cheveux noirs et bouclés, yeux bruns profonds et curieux, bonnet blanc, tenue simple et soignée, expression réfléchie mais déterminée',
-    color: '#0D9488',
+    color: '#3B82F6',
     icon: '🌟',
   },
   {

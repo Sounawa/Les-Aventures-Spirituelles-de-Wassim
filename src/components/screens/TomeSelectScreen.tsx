@@ -10,10 +10,10 @@ import {
 } from 'lucide-react';
 
 const tomeGradients = [
-  { from: '#D97706', to: '#EA580C', light: 'from-teal-500 to-emerald-600' },
+  { from: '#D97706', to: '#EA580C', light: 'from-sky-500 to-indigo-600' },
   { from: '#E11D48', to: '#DB2777', light: 'from-rose-500 to-pink-600' },
-  { from: '#CA8A04', to: '#D97706', light: 'from-yellow-500 to-teal-600' },
-  { from: '#0D9488', to: '#0891B2', light: 'from-teal-500 to-cyan-600' },
+  { from: '#CA8A04', to: '#D97706', light: 'from-yellow-500 to-sky-600' },
+  { from: '#0D9488', to: '#0891B2', light: 'from-sky-500 to-cyan-600' },
   { from: '#7C3AED', to: '#6D28D9', light: 'from-purple-500 to-violet-600' },
 ];
 
@@ -23,9 +23,9 @@ export function TomeSelectScreen() {
   const { navigateTo, selectTome, completedChapters } = useApp();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-teal-50 via-emerald-50/30 to-teal-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
+    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-indigo-50/30 to-sky-50 dark:from-stone-900 dark:via-stone-900 dark:to-stone-950">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-teal-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-teal-200/30 dark:border-stone-700/30">
+      <div className="sticky top-0 z-10 bg-sky-50/80 dark:bg-stone-900/80 backdrop-blur-sm border-b border-sky-200/30 dark:border-stone-700/30">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={() => navigateTo('home')} className="shrink-0">
             <ArrowLeft className="w-4 h-4 mr-1" />
@@ -33,8 +33,8 @@ export function TomeSelectScreen() {
           </Button>
           <h1 className="text-lg font-bold text-stone-800 dark:text-stone-100">Les Tomes</h1>
           <div className="ml-auto flex items-center gap-2">
-            <BookOpen className="w-4 h-4 text-teal-600" />
-            <span className="text-xs font-medium text-teal-700 dark:text-teal-400 bg-teal-100 dark:bg-teal-900/30 px-2 py-1 rounded-full">
+            <BookOpen className="w-4 h-4 text-sky-600" />
+            <span className="text-xs font-medium text-sky-700 dark:text-sky-400 bg-sky-100 dark:bg-sky-900/30 px-2 py-1 rounded-full">
               {tomes.length} tomes
             </span>
           </div>
@@ -48,7 +48,7 @@ export function TomeSelectScreen() {
           animate={{ opacity: 1 }}
           className="parchment-card rounded-xl p-4 flex items-center gap-3"
         >
-          <div className="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center">
             <span className="text-xl">📖</span>
           </div>
           <div className="flex-1 min-w-0">
@@ -69,7 +69,7 @@ export function TomeSelectScreen() {
               })()}
             </div>
           </div>
-          <span className="text-sm font-bold text-teal-700 dark:text-teal-400">
+          <span className="text-sm font-bold text-sky-700 dark:text-sky-400">
             {completedChapters.length}/{tomes.reduce((s, t) => s + t.chapters.length, 0)}
           </span>
         </motion.div>
@@ -142,10 +142,10 @@ export function TomeSelectScreen() {
                   <div className="flex items-start justify-between">
                     <div className="min-w-0 flex-1">
                       <h3 className="font-bold text-stone-800 dark:text-stone-100 text-base">{tome.title}</h3>
-                      <p className="text-sm text-teal-600 dark:text-teal-400 font-amiri" dir="rtl">{tome.titleAr}</p>
+                      <p className="text-sm text-sky-600 dark:text-sky-400 font-amiri" dir="rtl">{tome.titleAr}</p>
                     </div>
                     {isUnlocked && (
-                      <ChevronRight className="w-4 h-4 text-stone-400 dark:text-stone-500 group-hover:text-teal-600 transition-colors mt-1 shrink-0" />
+                      <ChevronRight className="w-4 h-4 text-stone-400 dark:text-stone-500 group-hover:text-sky-600 transition-colors mt-1 shrink-0" />
                     )}
                   </div>
                   <p className="text-xs text-stone-500 dark:text-stone-400 mt-1 italic">{tome.subtitle}</p>
@@ -184,7 +184,7 @@ export function TomeSelectScreen() {
                       {completedInTome}/{tome.chapters.length}
                     </span>
                     {isTomeComplete && (
-                      <Sparkles className="w-3 h-3 text-teal-500" />
+                      <Sparkles className="w-3 h-3 text-sky-500" />
                     )}
                   </div>
                 </div>
