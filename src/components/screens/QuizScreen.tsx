@@ -10,37 +10,7 @@ import { quizQuestions } from '@/data/quizData';
 import type { QuizQuestion } from '@/data/quizData';
 import { useNarration } from '@/hooks/useNarration';
 
-const chapterQuizzes: Record<string, QuizQuestion[]> = {
-  // Tome 1 quizzes are in quizData.ts — see that file
-  t1c1: [
-    { question: "Comment s'appelle le village où habite Nawfel ?", options: ["Marrakech", "Chefchaouen", "Fès", "Casablanca"], correctIndex: 1, explanation: "Nawfel habite dans un petit village au pied des montagnes du Rif, Chefchaouen, connu pour ses maisons bleues et blanches." },
-    { question: "Que signifie le mot gravé au-dessus de la porte dans le rêve de Nawfel ?", options: ["Rûh (l'esprit)", "Qalb (le cœur)", "Nafs (l'âme)", "Aql (l'intellect)"], correctIndex: 1, explanation: "Le mot « قلب » (Qalb) signifie « le cœur ». C'est la porte du monde intérieur de Nawfel." },
-    { question: "Qui est le grand frère de Nawfel ?", options: ["Wassim", "Sidi Mu'adh", "Souhayl", "Mehdi"], correctIndex: 2, explanation: "Souhayl est le grand frère de Nawfel. Il a 10 ans et il est protecteur et raisonnable." },
-    { question: "Quel petit frère de Nawfel a également vu le jardin magique en rêve ?", options: ["Souhayl", "Aucun", "Wassim", "Mehdi"], correctIndex: 2, explanation: "Wassim, le petit frère de 6 ans, a vu le même jardin que Nawfel. Il possède un don appelé Basira." },
-    { question: "Que fait Nawfel chaque soir avant de dormir ?", options: ["Il lit un livre", "Il récite la sourate Al-Fatiha", "Il joue avec ses frères", "Il dessine"], correctIndex: 1, explanation: "Sa mère Aziza lui a appris à réciter la sourate Al-Fatiha chaque soir avant de dormir." },
-  ],
-  t1c2: [
-    { question: "Comment s'appelle le maître spirituel qui accueille Nawfel ?", options: ["Sidi Ahmad", "Sidi Mu'adh", "Sidi Omar", "Sidi Ali"], correctIndex: 1, explanation: "Sidi Mu'adh est le shaykh (maître spirituel) de la zawiyah du village." },
-    { question: "Qu'est-ce qu'une zawiyah ?", options: ["Une école", "Un lieu de prière et d'enseignement spirituel", "Un marché", "Un jardin"], correctIndex: 1, explanation: "La zawiyah est un lieu sacré dédié à l'enseignement spirituel et à la pratique du dhikr." },
-    { question: "Combien d'états du Nafs a expliqués Sidi Mu'adh ?", options: ["Deux", "Trois", "Quatre", "Cinq"], correctIndex: 1, explanation: "Le Nafs a trois états : Al-Ammara (qui commande le mal), Al-Lawwama (qui se reproche), et Al-Mutma'inna (en paix)." },
-    { question: "Que signifie An-Nafs Al-Ammara ?", options: ["L'âme en paix", "L'âme qui se reproche", "L'âme qui commande le mal", "L'âme pure"], correctIndex: 2, explanation: "An-Nafs Al-Ammara est l'âme qui commande le mal — c'est la voix de la colère, la jalousie et l'égoïsme." },
-    { question: "Selon Sidi Mu'adh, que fait-on des monstres intérieurs ?", options: ["On les détruit", "On les transforme", "On les ignore", "On s'enfuit"], correctIndex: 1, explanation: "On ne détruit pas une partie de soi-même. On apprend à transformer l'énergie des monstres, comme le feu qui peut cuire un repas." },
-  ],
-  t1c3: [
-    { question: "Comment Nawfel entre-t-il dans son monde intérieur la deuxième fois ?", options: ["En dormant", "Par la prière et le dhikr", "En touchant la porte", "En buvant une potion"], correctIndex: 1, explanation: "Sidi Mu'adh lui enseigne le dhikr du cœur comme clé pour ouvrir la porte de son monde intérieur." },
-    { question: "Quel est le premier monstre que Nawfel affronte ?", options: ["Al-Hasad", "Al-Bukhl", "Al-Ghadab (la colère)", "Al-Jabbara"], correctIndex: 2, explanation: "Al-Ghadab (la colère) est le premier monstre intérieur que Nawfel doit affronter dans le Tome 1." },
-    { question: "Quelle sourate Nawfel récite-t-il pour invoquer la lumière ?", options: ["Al-Fatiha", "Al-Ikhlas", "An-Nur (la Lumière)", "Al-Baqarah"], correctIndex: 2, explanation: "Nawfel récite des versets de la sourate An-Nur pour invoquer la lumière divine contre l'obscurité." },
-    { question: "Que signifie le mot 'dhikr' ?", options: ["Le jeûne", "Le rappel d'Allah", "La prière", "Le pèlerinage"], correctIndex: 1, explanation: "Le dhikr (ذكر) est le rappel d'Allah — c'est une arme spirituelle puissante contre les monstres intérieurs." },
-    { question: "Quelle arme spirituelle Sidi Mu'adh donne-t-il à Nawfel ?", options: ["Une épée", "Un bouclier", "Le dhikr du cœur (La ilaha illa Allah)", "Un talisman"], correctIndex: 2, explanation: "Sidi Mu'adh enseigne à Nawfel que la plus puissante des armes est le dhikr sincère du cœur." },
-  ],
-  t1c4: [
-    { question: "Comment Nawfel réussit-il à vaincre Al-Ghadab ?", options: ["Par la force physique", "Par la patience et le sabr", "Par la fuite", "Par la ruse"], correctIndex: 1, explanation: "C'est par la patience (Sabr) et la constance dans le dhikr que Nawfel transforme la colère en force intérieure." },
-    { question: "Que se passe-t-il quand un monstre est transformé ?", options: ["Il disparaît", "Il devient une lumière", "Il redevient une énergie positive", "Il grandit"], correctIndex: 2, explanation: "Quand un monstre est transformé, il redevient une énergie positive qui renforce le cœur au lieu de le détruire." },
-    { question: "Quel verset du Coran parle de l'âme en paix (Al-Mutma'inna) ?", options: ["Al-Fatiha", "Al-Baqarah", "Al-Fajr (89:27-30)", "Yasin"], correctIndex: 2, explanation: "La sourate Al-Fajr (versets 27-30) parle de l'âme en paix : « Ô âme apaisée, retourne vers ton Seigneur... »" },
-    { question: "Comment Wassim aide-t-il Nawfel depuis le monde réel ?", options: ["Il entre aussi dans le monde intérieur", "Il utilise sa Basira pour voir les auras", "Il prie sans s'arrêter", "Il lit des livres de spiritualité"], correctIndex: 1, explanation: "Wassim possède le don de Basira (vision du cœur) qui lui permet de voir les auras spirituelles depuis le monde réel." },
-    { question: "Qu'arrive-t-il au jardin intérieur après la victoire de Nawfel ?", options: ["Il disparaît", "Il devient encore plus beau", "Il devient désert", "Il gèle"], correctIndex: 1, explanation: "Après la victoire sur Al-Ghadab, le jardin intérieur de Nawfel s'embellit — les fleurs chantent plus fort et la lumière est plus intense." },
-  ],
-};
+const chapterQuizzes: Record<string, QuizQuestion[]> = {};
 
 export default function QuizScreen() {
   const { navigateTo, selectedTomeId, selectedChapterId, completeChapter, setQuizScore, quizScores, settings, updateSettings } = useApp();
@@ -55,8 +25,8 @@ export default function QuizScreen() {
     ? getChapter(selectedTomeId, selectedChapterId)
     : null;
 
-  // Merge all quiz data sources
-  const allQuizzes = { ...chapterQuizzes, ...quizQuestions };
+  // All quiz data is in quizData.ts
+  const allQuizzes = quizQuestions;
   const questions = chapter ? (allQuizzes[chapter.id] || generateDefaultQuiz(chapter)) : [];
 
   const handleAnswer = useCallback((index: number) => {
@@ -350,7 +320,7 @@ export default function QuizScreen() {
 function generateDefaultQuiz(chapter: { title: string; titleAr: string }): QuizQuestion[] {
   return [
     { question: `Quel est le titre de ce chapitre en arabe ?`, options: [chapter.titleAr, "الفصل الأول", "الباب الأخير", "مقدمة"], correctIndex: 0, explanation: `Le titre arabe de ce chapitre est « ${chapter.titleAr} ».` },
-    { question: "Dans quel pays se déroule l'histoire de Nawfel ?", options: ["Maroc", "Algérie", "Tunisie", "Égypte"], correctIndex: 0, explanation: "L'histoire se déroule au Maroc, dans le village de Chefchaouen." },
-    { question: "Comment s'appelle le père de Nawfel ?", options: ["Sidi Mu'adh", "Souhayl", "Mehdi", "Ahmad"], correctIndex: 2, explanation: "Le père de Nawfel s'appelle Mehdi Benali." },
+    { question: "Dans quelle ville habite Wassim ?", options: ["Marrakech", "Fès", "Casablanca", "Rabat"], correctIndex: 1, explanation: "Wassim habite à Fès, la plus ancienne ville impériale du Maroc, avec sa magnifique médina !" },
+    { question: "Comment s'appelle le papa de Wassim ?", options: ["Sidi Mu'adh", "Souhayl", "Mehdi", "Ahmad"], correctIndex: 2, explanation: "Le papa de Wassim s'appelle Mehdi. Il est professeur à la madrasa de Fès !" },
   ];
 }
