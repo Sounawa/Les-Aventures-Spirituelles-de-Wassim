@@ -23,7 +23,7 @@ const slides = [
   },
   {
     icon: '🧠',
-    title: 'Apprends en t&apos;amusant ! 🎓',
+    title: 'Joue et découvre ! 🎓',
     description: "Tu vas apprendre à être gentil, sincère et courageux ! 💪 Comme les grands héros de l'Islam ! Des histoires, des quiz, des badges à collectionner ! 🏅",
     gradient: 'from-purple-400 to-violet-400',
     emoji: '📿',
