@@ -8,14 +8,12 @@ import { DialogueBubble } from './DialogueBubble';
 import { ChoiceButton } from './ChoiceButton';
 import { StoryBackground } from './StoryBackground';
 import { TypewriterText } from './TypewriterText';
-import { useNarration } from '@/hooks/useNarration';
 import { badges } from '@/data/badges';
 import { useSoundEffects } from '@/hooks/useSoundEffects';
 import {
   Award, BookOpen, ChevronRight, Brain,
   Home, ArrowLeft, BookHeart, Sparkles,
-  Volume2, VolumeX, Bookmark, BookmarkCheck,
-  Pause,
+  Bookmark, BookmarkCheck,
 } from 'lucide-react';
 
 /* ── SparkleBurst: CSS-only confetti particles ── */
@@ -139,12 +137,10 @@ export function SceneRenderer() {
   } = useApp();
 
   const { playClick, playSuccess, playBadge, playTransition, playComplete } = useSoundEffects();
-  const { speak, stop, isSpeaking } = useNarration();
-
   const [showLesson, setShowLesson] = useState(false);
   const [earnedBadge, setEarnedBadge] = useState<string | null>(null);
   const [dialoguesStarted, setDialoguesStarted] = useState(false);
-  const [narrationComplete, setNarrationComplete] = useState(false);
+  const [textComplete, setTextComplete] = useState(false);
   const [sparkleKey, setSparkleKey] = useState(0);
 
   const scene = selectedTomeId && selectedChapterId && currentSceneId
@@ -159,20 +155,6 @@ export function SceneRenderer() {
   const totalScenes = chapter?.scenes.length ?? 0;
 
   const isBookmarked = currentSceneId ? bookmarkedScenes.includes(currentSceneId) : false;
-
-  // Stop narration on scene change
-  useEffect(() => {
-    stop();
-  }, [currentSceneId, stop]);
-
-  const handleNarrate = useCallback(() => {
-    if (!scene) return;
-    if (isSpeaking) {
-      stop();
-    } else {
-      speak(scene.narration, 'fr');
-    }
-  }, [scene, isSpeaking, speak, stop]);
 
   const handleToggleBookmark = useCallback(() => {
     if (currentSceneId) {
@@ -191,7 +173,7 @@ export function SceneRenderer() {
     }
     if (scene) completeScene(scene.id);
     setCurrentScene(choice.nextSceneId);
-    setNarrationComplete(false);
+    setTextComplete(false);
     setDialoguesStarted(false);
     setShowLesson(false);
   }, [earnBadge, completeScene, setCurrentScene, scene, settings.soundEnabled, playTransition, playBadge]);
@@ -208,7 +190,7 @@ export function SceneRenderer() {
     if (scene.nextSceneId) {
       completeScene(scene.id);
       setCurrentScene(scene.nextSceneId);
-      setNarrationComplete(false);
+      setTextComplete(false);
       setDialoguesStarted(false);
       setShowLesson(false);
     } else {
@@ -220,13 +202,13 @@ export function SceneRenderer() {
     }
   }, [scene, showLesson, completeScene, setCurrentScene, completeChapter, selectedChapterId, settings.soundEnabled, playClick, playComplete]);
 
-  // Track scene changes to trigger dialogues after narration
+  // Track scene changes to trigger dialogues after text completes
   useEffect(() => {
-    if (narrationComplete) {
+    if (textComplete) {
       const timer = setTimeout(() => setDialoguesStarted(true), 500);
       return () => clearTimeout(timer);
     }
-  }, [narrationComplete]);
+  }, [textComplete]);
 
   if (!scene) {
     return (
@@ -244,8 +226,8 @@ export function SceneRenderer() {
   }
 
   const hasChoices = scene.choices && scene.choices.length > 0;
-  const showContinue = narrationComplete && !hasChoices && !showLesson;
-  const showContinueAfterLesson = showLesson && narrationComplete;
+  const showContinue = textComplete && !hasChoices && !showLesson;
+  const showContinueAfterLesson = showLesson && textComplete;
 
   // Dynamic font size class based on settings
   const fontSizeClass = settings.fontSize === 'large' ? 'text-base' : settings.fontSize === 'xlarge' ? 'text-lg' : 'text-sm';
@@ -267,20 +249,6 @@ export function SceneRenderer() {
               </span>
             </div>
             <div className="flex items-center gap-2 shrink-0 ml-2">
-              {/* Audio narration button */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={handleNarrate}
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                  isSpeaking
-                    ? 'bg-orange-500 text-white shadow-md shadow-orange-200/50'
-                    : 'bg-white/60 dark:bg-stone-800/60 backdrop-blur-sm text-stone-500 dark:text-stone-400 hover:text-orange-600 border border-orange-200/30 dark:border-stone-700/30'
-                }`}
-                aria-label={isSpeaking ? 'Arrêter la narration' : 'Écouter la narration'}
-              >
-                {isSpeaking ? <Pause className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-              </motion.button>
               {/* Bookmark button */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -343,22 +311,10 @@ export function SceneRenderer() {
           <TypewriterText
             text={scene.narration}
             speed={settings.typewriterSpeed}
-            onComplete={() => setNarrationComplete(true)}
+            onComplete={() => setTextComplete(true)}
             className={`${fontSizeClass} text-stone-700 dark:text-stone-300 leading-relaxed`}
           />
-          {narrationComplete && !isSpeaking && (
-            <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleNarrate}
-              className="mt-3 flex items-center gap-1.5 text-xs text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
-            >
-              <Volume2 className="w-3 h-3" />
-              <span>Écouter</span>
-            </motion.button>
-          )}
+
         </motion.div>
 
         {/* Dialogues */}
@@ -378,7 +334,7 @@ export function SceneRenderer() {
 
         {/* Choices - Enhanced */}
         <AnimatePresence>
-          {narrationComplete && hasChoices && (
+          {textComplete && hasChoices && (
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -476,7 +432,7 @@ export function SceneRenderer() {
         </AnimatePresence>
 
         {/* Chapter end - Enhanced celebration */}
-        {narrationComplete && scene.isEnding && (
+        {textComplete && scene.isEnding && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
