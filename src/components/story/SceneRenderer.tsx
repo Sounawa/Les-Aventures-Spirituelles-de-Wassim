@@ -244,7 +244,7 @@ export function SceneRenderer() {
   }
 
   const hasChoices = scene.choices && scene.choices.length > 0;
-  const showContinue = narrationComplete && !hasChoices && !scene.lesson;
+  const showContinue = narrationComplete && !hasChoices && !showLesson;
   const showContinueAfterLesson = showLesson && narrationComplete;
 
   // Dynamic font size class based on settings
