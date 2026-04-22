@@ -5,16 +5,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '@/components/AppContext';
 import { getChapter } from '@/data/tomes';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Brain, CheckCircle2, XCircle, Trophy, Star, Volume2, VolumeX } from 'lucide-react';
+import { ArrowLeft, Brain, CheckCircle2, XCircle, Trophy, Star } from 'lucide-react';
 import { quizQuestions } from '@/data/quizData';
 import type { QuizQuestion } from '@/data/quizData';
-import { useNarration } from '@/hooks/useNarration';
 
 const chapterQuizzes: Record<string, QuizQuestion[]> = {};
 
 export default function QuizScreen() {
   const { navigateTo, selectedTomeId, selectedChapterId, completeChapter, setQuizScore, quizScores, settings, updateSettings } = useApp();
-  const { speak, stop: stopNarration, isSpeaking } = useNarration();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -85,18 +83,6 @@ export default function QuizScreen() {
             {chapter && <p className="text-xs text-orange-600 dark:text-orange-400" dir="rtl">{chapter.titleAr}</p>}
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => {
-                if (isSpeaking) { stopNarration(); }
-                else { speak(questions[currentQuestion]?.question || ''); }
-              }}
-              className="w-9 h-9 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 hover:bg-purple-200 dark:hover:bg-purple-800/30 transition-colors"
-              title={isSpeaking ? 'Arrêter la lecture' : 'Écouter la question'}
-            >
-              {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-            </motion.button>
             <Brain className="w-5 h-5 text-purple-500" />
             <span className="text-sm font-bold text-purple-700 dark:text-purple-400">{score}/{questions.length}</span>
           </div>
