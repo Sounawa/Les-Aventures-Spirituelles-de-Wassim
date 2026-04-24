@@ -486,7 +486,767 @@ BRAVO ! 🎉 Tu as appris quelque chose de très important : tout ce qui est bea
       ],
       lessons: [],
     },
+
+    // ============================================================
+    // CHAPTER 3 — L'Oiseau Tombé du Nid (العصفور الساقط من العش)
+    // ============================================================
+    {
+      id: 'wt1c3',
+      tomeId: 'wassim_tome1',
+      number: 3,
+      title: 'L\'Oiseau Tombé du Nid',
+      titleAr: 'العصفور الساقط من العش',
+      scenes: [
+        // --- wt1c3s1: Un bruit bizarre ---
+        {
+          id: 'wt1c3s1',
+          chapterId: 'wt1c3',
+          title: 'Un bruit bizarre',
+          narration: `C'est le matin ! ☀️ Wassim se réveille tout de suite ! Il a hâte de retourner dans le jardin magique ! 🏃
+
+Il prend son petit déjeuner vite fait. 🥛🥐 Miam ! Et il court vers la petite porte verte ! 🚪 Crique !
+
+Le jardin est encore plus beau ce matin ! 💦 Des petites gouttes de rosée brillent sur les fleurs. Des abeilles butinent. 🐝 Bzzz ! Le petit chat gris vient droit vers Wassim en courant ! 🐱 Miiiaou !
+
+Wassim caresse son copain chat. 💛 Mais soudain... il entend un drôle de bruit.
+
+« Piou... Piou... Piou... » 🐣
+
+C'est un tout petit bruit. Très faible. Ça vient de derrière le grand buisson de roses ! 🌹 Wassim tend l'oreille. Quelque chose a besoin d'aide !`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'Un bruit bizarre... « Piou... Piou... » 🐣 Qu\'est-ce que c\'est ?',
+              emotion: 'surprised',
+            },
+            {
+              characterId: 'wassim',
+              text: 'Viens, petit chat ! On va voir ensemble ! 🐱🔍',
+              emotion: 'determined',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c3s2',
+          background: 'garden',
+        },
+
+        // --- wt1c3s2: Le petit oiseau ---
+        {
+          id: 'wt1c3s2',
+          chapterId: 'wt1c3',
+          title: 'Le petit oiseau',
+          narration: `Wassim pousse doucement les branches du buisson. 🌹 Et là, il voit quelque chose qui lui serre le cœur. 😢
+
+Un TOUT PETIT oiseau est par terre ! 🐦 Il est tout jaune avec un petit bec orange. Il a des plumes toutes douces mais il tremble. Il a froid ! 🥶
+
+Wassim regarde en haut. Là, dans l'arbre, il y a un nid ! 🪹 Un nid fait avec des brindilles et des feuilles. Le petit oiseau est tombé de son nid ! 😮
+
+— Oh non ! Le pauvre petit ! dit Wassim. 💔 Le petit oiseau ouvre grand son bec. « Piou... Piou... » Il a faim. Et il a peur. Il appelle sa maman !
+
+Deux gros oiseaux volent au-dessus. Ce sont ses parents ! 🐦🐦 Ils tournent en rond et font beaucoup de bruit. Ils sont inquiets pour leur bébé ! 😟`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'Oh non ! Un petit oiseau est tombé ! 😢 Il tremble de froid !',
+              emotion: 'sad',
+            },
+            {
+              characterId: 'wassim',
+              text: 'Regarde ! Ses parents volent au-dessus ! Ils cherchent leur bébé ! 🐦🐦',
+              emotion: 'sad',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c3s3',
+          background: 'garden',
+        },
+
+        // --- wt1c3s3: Que faire ? ---
+        {
+          id: 'wt1c3s3',
+          chapterId: 'wt1c3',
+          title: 'Que faire ?',
+          narration: `Wassim regarde le petit oiseau. Puis il regarde le nid en haut de l'arbre. 🌳 L'arbre est GRAND. Très grand. Le nid est tout en haut.
+
+Le petit chat s'approche et renifle l'oiseau. 🐱👃 Wassim se méfie. Il met sa main entre le chat et l'oiseau. Non, non ! Pas de ça !
+
+— Doucement, petit chat ! L'oiseau n'est pas à manger ! C'est notre ami ! 🐱✋
+
+Mais comment faire pour remettre l'oiseau dans son nid ? Wassim est petit. L'arbre est grand. 😟
+
+Wassim réfléchit très fort. Il peut :
+- Appeler Souhayl pour l'aider 💪
+- Essayer tout seul de grimper 🧗
+
+Que va choisir Wassim ?`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'L\'arbre est trop grand pour moi seul ! 😟 Mais le petit oiseau a besoin d\'aide !',
+              emotion: 'scared',
+            },
+            {
+              characterId: 'wassim',
+              text: 'Je dois faire quelque chose ! Qu\'est-ce que je vais faire ? 🤔',
+              emotion: 'determined',
+            },
+          ],
+          choices: [
+            {
+              id: 'wt1c3s3_c1',
+              text: 'Appeler Souhayl à l\'aide 📢 — Ensemble on est plus forts !',
+              nextSceneId: 'wt1c3s4a',
+              badgeId: 'sabr',
+              isCorrect: true,
+            },
+            {
+              id: 'wt1c3s3_c2',
+              text: 'Grimper tout seul sur l\'arbre 🧗 — Je peux le faire !',
+              nextSceneId: 'wt1c3s4b',
+            },
+          ],
+          background: 'garden',
+        },
+
+        // --- wt1c3s4a: Appeler Souhayl ---
+        {
+          id: 'wt1c3s4a',
+          chapterId: 'wt1c3',
+          title: 'Souhayl à la rescousse',
+          narration: `Wassim court vers la maison ! 🏃💨
+
+— SOUHAYL ! SOUHAYL ! VITE ! 📢
+
+Souhayl arrive en courant. Il a un livre à la main. 👦📖
+
+— Qu'est-ce qu'il y a, Wassim ?! 😮
+
+— Il y a un petit oiseau tombé de son nid ! Il a froid ! Il a peur ! Ses parents volent au-dessus ! On doit l'aider ! S'il-te-plaît ! 🐦😢
+
+Souhayl regarde son petit frère. Wassim a les yeux brillants de larmes. Son cœur est gros. 💛
+
+— Ne t'inquiète pas, dit Souhayl. On va l'aider ensemble. 🌟
+
+Wassim se sent mieux. Il n'est pas tout seul ! Avec Souhayl, ils peuvent tout ! 💪`,
+          dialogues: [
+            {
+              characterId: 'souhayl',
+              text: 'Ne t\'inquiète pas, petit frère ! 🌟 On va le sauver ensemble !',
+              emotion: 'wise',
+            },
+            {
+              characterId: 'wassim',
+              text: 'Merci Souhayl ! 💛 Je savais que tu m\'aiderais !',
+              emotion: 'happy',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c3s5',
+          background: 'garden',
+          earnedBadgeId: 'sabr',
+          lesson: {
+            title: 'As-Sabr — La Patience',
+            content:
+              'Wassim a eu PATIENCE ! 💛 Il n\'a pas paniqué. Il a réfléchi et il a demandé de l\'aide. En Islam, la patience c\'est très important ! Le Prophète ﷺ disait que la patience est une lumière. ⏳ Quand on a un problème, on ne se dépêche pas. On réfléchit. Et on demande de l\'aide à Allah et aux autres ! 🤲',
+            quote: 'إِنَّمَا يُوَفَّى الصَّابِرُونَ أَجْرَهُمْ بِغَيْرِ حِسَابٍ',
+            source: 'Coran, Sourate Az-Zumar (39:10)',
+          },
+        },
+
+        // --- wt1c3s4b: Grimper seul ---
+        {
+          id: 'wt1c3s4b',
+          chapterId: 'wt1c3',
+          title: 'L\'arbre est trop grand',
+          narration: `Wassim essaie de grimper à l'arbre ! 🧗 Il met ses petites mains sur l'écorce. Il met son pied sur une branche basse. Il monte un peu... un peu plus...
+
+Mais l'arbre est trop grand ! 😟 Wassim n'arrive qu'au milieu. Le nid est tout en haut. Il ne peut pas y aller tout seul !
+
+Wassim redescend. 😔 Il regarde le petit oiseau qui tremble. « Piou... Piou... »
+
+— Je suis désolé, petit oiseau... dit Wassim. Je suis trop petit...
+
+Mais Wassim ne se décourage pas ! 💪 Il court vers la maison pour chercher Souhayl ! Il a appris quelque chose : parfois, on ne peut pas faire les choses tout seul. Et ce n'est pas grave ! Demander de l'aide, c'est être intelligent ! 🧠`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'Oh non... L\'arbre est trop grand pour moi ! 😟',
+              emotion: 'sad',
+            },
+            {
+              characterId: 'wassim',
+              text: 'Je vais chercher Souhayl ! Ensemble on sera plus forts ! 💪🏃',
+              emotion: 'determined',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c3s5',
+          background: 'garden',
+        },
+
+        // --- wt1c3s5: L'opération sauvetage ---
+        {
+          id: 'wt1c3s5',
+          chapterId: 'wt1c3',
+          title: 'L\'opération sauvetage',
+          narration: `Souhayl et Wassim retournent ensemble au jardin. 🚶👦 Souhayl porte le petit oiseau très doucement dans ses mains. 🐦💛
+
+Wassim montre l'arbre à Souhayl. Souhayl regarde le nid en haut.
+
+— Ok, dit Souhayl. Moi, je vais grimper. Et toi, Wassim, tu vas me guider depuis en bas. Tu me dis si je vais dans la bonne direction ! 👀
+
+— D'accord ! dit Wassim. Je suis tes yeux ! 👀✨
+
+Souhayl commence à grimper. 🧗 Branche après branche. Il monte, il monte, il monte... Wassim regarde en bas.
+
+— Plus haut, Souhayl ! Un peu à gauche ! 📍 dit Wassim.
+
+— C'est bon ? demande Souhayl.
+
+— OUI ! Le nid est juste là, au-dessus de ta tête ! 🪹
+
+Souhayl tend la main. Il pose le petit oiseau DÉLICATEMENT dans le nid. 🐦🪹 Le petit oiseau est à la maison ! Il fait « Piou ! Piou ! » tout joyeux ! 🎉
+
+Les parents volent vers le nid ! 🐦🐦 Ils font des cercles de joie dans le ciel ! Ils sont si contents de retrouver leur bébé ! 💛`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'Plus haut ! À gauche ! Le nid est juste là ! 🪹📍',
+              emotion: 'determined',
+            },
+            {
+              characterId: 'souhayl',
+              text: 'Je le pose dans le nid... Doucement... C\'est fait ! 🐦✨',
+              emotion: 'happy',
+            },
+            {
+              characterId: 'wassim',
+              text: 'YES ! On l\'a sauvé ! 🎉 Les parents sont contents ! Regarde comme ils volent ! 🐦🐦💛',
+              emotion: 'happy',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c3s6',
+          background: 'garden',
+        },
+
+        // --- wt1c3s6: La leçon de Sidi Mu'adh ---
+        {
+          id: 'wt1c3s6',
+          chapterId: 'wt1c3',
+          title: 'La leçon de Sidi Mu\'adh',
+          narration: `— Mashallah ! 💚
+
+Une voix douce résonne derrière eux. Wassim et Souhayl se retournent. C'est Sidi Mu'adh ! 🧓 Il est assis sous l'olivier, comme toujours. Son sourire est plus grand que jamais.
+
+— Vous avez sauvé un oiseau, mes petits. C'est un acte magnifique ! 💚
+
+Wassim est si fier ! 🌟
+
+— Sidi Mu'adh ! J'ai vu le petit oiseau tombé et j'ai eu envie de pleurer ! 😢 Mais Souhayl m'a aidé et on l'a remis dans son nid !
+
+— C'est bien, Wassim. Tu as fait preuve de RAHMA — miséricorde — envers l'oiseau. 💝 Et tu as fait preuve de SABR — patience — en attendant l'aide de ton frère. ⏳
+
+— Qu'est-ce que c'est, Sabr ? demande Wassim.
+
+— Sabr, c'est la patience ! 💚 C'est ne pas se dépêcher quand c'est difficile. C'est attendre calmement. C'est faire les choses avec douceur, même quand on a envie de pleurer. Le Prophète ﷺ a dit : « Celui qui n'est pas patient avec les petits, ne sera pas patient avec les grands. » 🌟
+
+Wassim sourit. Il serre la main de Souhayl. 💛 Ensemble, ils sont plus forts !`,
+          dialogues: [
+            {
+              characterId: 'sidimuadh',
+              text: 'Sabr, la patience, est très importante ! ⏳ Quand tu es patient, Allah est avec toi ! 💚',
+              emotion: 'wise',
+            },
+            {
+              characterId: 'wassim',
+              text: 'Alors être patient, c\'est être fort ? 💪',
+              emotion: 'surprised',
+            },
+            {
+              characterId: 'sidimuadh',
+              text: 'OUI ! La patience, c\'est la plus grande force ! 🌟 Le Prophète ﷺ a dit que la patience est une lumière ! ✨',
+              emotion: 'wise',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c3s7',
+          background: 'garden',
+          lesson: {
+            title: 'As-Sabr — La Patience',
+            content:
+              'Wassim a été patient ! 💛 Il n\'a pas abandonné le petit oiseau. Il a réfléchi, demandé de l\'aide, et ensemble avec Souhayl, ils ont réussi ! ⏳ Le Prophète ﷺ disait : « La patience est une lumière. » Quand tu es patient, Allah est avec toi ! 🌟',
+            quote: 'وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ',
+            source: 'Coran, Sourate Al-Baqara (2:45)',
+          },
+        },
+
+        // --- wt1c3s7: Le soir à la maison ---
+        {
+          id: 'wt1c3s7',
+          chapterId: 'wt1c3',
+          title: 'Le soir à la maison',
+          narration: `Ce soir, Wassim est assis avec toute la famille. 🏡 Papa Mehdi est rentré de la madrasa. Il a un beau sourire. 🧔
+
+— Wassim, ta maman m'a raconté ce que tu as fait pour le petit oiseau ! 💚 C'est un acte de bonté magnifique ! Le Prophète ﷺ serait très fier de toi !
+
+— VRAI, papa ?! 😍 dit Wassim les yeux brillants.
+
+— Vrai ! 💛 Tu sais, le Prophète ﷺ a raconté qu'une femme est allée en Paradis parce qu\'elle avait donné à boire à un chien assoiffé. Imagine ! Un simple acte de gentillesse... et le Paradis ! 🌟
+
+— WOW ! dit Wassim. Moi aussi je veux aller au Paradis ! 🏰
+
+— Continue à être gentil, Wassim. Continue à être patient. Continue à dire Alhamdulillah. Et un jour, inshallah, tu seras au Paradis ! 🌟🤲
+
+Wassim serre son papa très fort. 💛 Puis il serre sa maman. Puis Souhayl. Puis même le petit chat qui est venu se coucher sur ses genoux. 🐱💕
+
+— Alhamdulillah pour ma famille ! dit Wassim. Et Alhamdulillah pour le petit oiseau ! 🐦💛
+
+Ce soir, Wassim s'endort avec le sourire le plus grand du monde. 😴🌟 Il a appris quelque chose de TROP bien : être gentil, c'est être fort ! 💪💛
+
+BRAVO, Wassim ! 🎉 Tu es un vrai héros ! 🦸‍♂️✨`,
+          dialogues: [
+            {
+              characterId: 'mehdi',
+              text: 'Wassim, je suis fier de toi ! 💚 Le Prophète ﷺ aimait les animaux. Tu es sur le bon chemin ! 🌟',
+              emotion: 'happy',
+            },
+            {
+              characterId: 'wassim',
+              text: 'Merci papa ! 💛 Je veux être gentil comme le Prophète pour toute ma vie ! 🤲',
+              emotion: 'happy',
+            },
+          ],
+          choices: [],
+          background: 'home',
+          isEnding: true,
+          earnedBadgeId: 'hikma',
+          lesson: {
+            title: 'Al-Hikma — La Sagesse du cœur',
+            content:
+              'Wassim a appris que la vraie force, c\'est la gentillesse et la patience ! 💛 Le Prophète ﷺ a dit qu\'une femme est allée au Paradis juste parce qu\'elle a donné à boire à un chien. 🐕 Chaque acte de bonté compte chez Allah ! Même les plus petits ! 🌟 Sois gentil avec tout le monde et tout le monde : les gens, les animaux, les plantes... Et Allah sera gentil avec toi ! 💚',
+            quote: 'فَمَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ',
+            source: 'Coran, Sourate Az-Zalzala (99:7)',
+          },
+        },
+      ],
+      lessons: [],
+    },
+
+    // ============================================================
+    // CHAPTER 4 — Le Trésor du Jardin (كنز الحديقة)
+    // ============================================================
+    {
+      id: 'wt1c4',
+      tomeId: 'wassim_tome1',
+      number: 4,
+      title: 'Le Trésor du Jardin',
+      titleAr: 'كنز الحديقة',
+      scenes: [
+        // --- wt1c4s1: Un matin spécial ---
+        {
+          id: 'wt1c4s1',
+          chapterId: 'wt1c4',
+          title: 'Un matin spécial',
+          narration: `Wassim est dans le jardin depuis quelques jours maintenant. 🌸 Chaque matin, il vient voir le petit chat 🐱 et les fleurs. 🌺
+
+Mais aujourd'hui, quelque chose est DIFFÉRENT ! 🌟
+
+En marchant dans le jardin, Wassim voit une lumière qui brille derrière les rosiers. ✨ Non, pas une seule lumière... DES LUMIÈRES ! Des petites lumières dorées qui dansent comme des étoiles ! ⭐✨⭐
+
+Le petit chat s'arrête. Ses poils se hérissent. Il regarde les lumières avec ses grands yeux dorés. 🐱👀
+
+— Woaaaah... murmure Wassim. C'est MAGIQUE ! ✨
+
+Les petites lumières dorées volent vers Wassim ! Elles tournent autour de lui ! Une lui chatouille le nez ! 😄Une autre se pose sur son épaule ! C'est comme des fées, mais en lumière ! ✨🧚
+
+Wassim rit de toutes ses forces ! 😂 C'est trop drôle et trop beau !`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'WAOUH ! Des lumières dorées ! ✨ Elles volent ! Elles dansent ! 🌟',
+              emotion: 'surprised',
+            },
+            {
+              characterId: 'wassim',
+              text: 'Chaton, tu vois ça ?! 🐱✨ C\'est le plus beau truc du MONDE ! 😍',
+              emotion: 'happy',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c4s2',
+          background: 'garden',
+        },
+
+        // --- wt1c4s2: Sidi Mu'adh et le secret ---
+        {
+          id: 'wt1c4s2',
+          chapterId: 'wt1c4',
+          title: 'Sidi Mu\'adh et le secret',
+          narration: `Les lumières guident Wassim plus loin dans le jardin. 🌟 Il les suit avec le petit chat. 🐱✨ Et là, il arrive dans un endroit qu'il n'avait JAMAIS vu !
+
+C'est une petite clairière. 🌿 Au centre, il y a un ARBRE MAGNIFIQUE ! 🌳 C'est le plus bel arbre que Wassim ait jamais vu ! Ses feuilles sont dorées et lumineuses. Ses racines brillent comme si on avait jeté de la poudre d'étoiles dessus ! ✨🌳⭐
+
+Et sous l'arbre... Sidi Mu'adh est là ! 🧓 Il sourit comme s'il attendait Wassim.
+
+— Ah ! Te voilà enfin, petit Wassim ! 💚
+
+— Sidi Mu'adh ! Vous étiez au courant ? 😮
+
+— Bien sûr ! Les lumières ne se montrent qu'aux cœurs purs. Et Allah m'a dit que tu viendrais aujourd'hui. 🌟
+
+Wassim ouvre grand ses yeux. 😮 Allah lui a parlé de lui ?! LUI ?!`,
+          dialogues: [
+            {
+              characterId: 'sidimuadh',
+              text: 'Assieds-toi, Wassim. Aujourd\'hui, je vais te montrer un secret très spécial ! 🌟',
+              emotion: 'wise',
+            },
+            {
+              characterId: 'wassim',
+              text: 'Un secret ?! MOI ?! 😍 Quel secret ?!',
+              emotion: 'surprised',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c4s3',
+          background: 'garden',
+        },
+
+        // --- wt1c4s3: Les cinq trésors ---
+        {
+          id: 'wt1c4s3',
+          chapterId: 'wt1c4',
+          title: 'Les cinq trésors',
+          narration: `Sidi Mu'adh touche le tronc de l'arbre doré. ✨🌳 Et soudain... WOW ! Cinq FLEURS géantes poussent devant eux ! 🌺🌺🌺🌺🌺
+
+Chaque fleur est d'une couleur différente :
+- Une fleur ROUGE 🌹
+- Une fleur BLEUE 🌸
+- Une fleur VERTE 🌿
+- Une fleur DORÉE 🌻
+- Une fleur BLANCHE 🤍
+
+— Wassim, dit Sidi Mu'adh. Chaque fleur est un TRÉSOR ! 💎 Pas un trésor avec de l'or et des diamants. Non ! Un trésor BEAUCOUP plus précieux ! 🌟
+
+— Plus précieux que l'or ?! 😮 demande Wassim.
+
+— OUI ! Mille fois plus précieux ! 💚 Ce sont les trésors du cœur. Ceux qui font de toi un super héros !
+
+Les yeux de Wassim brillent comme des étoiles ! ⭐ Il est prêt à découvrir les trésors !`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'Un trésor plus précieux que l\'or ?! 😮 J\'adore les trésors ! Dis-moi, Sidi Mu\'adh !',
+              emotion: 'happy',
+            },
+            {
+              characterId: 'sidimuadh',
+              text: 'Patience, petit Wassim ! ⏳ Écoute bien, et tu comprendras ! 💚',
+              emotion: 'wise',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c4s4',
+          background: 'garden',
+        },
+
+        // --- wt1c4s4: La fleur rouge ---
+        {
+          id: 'wt1c4s4',
+          chapterId: 'wt1c4',
+          title: 'La fleur rouge — Al-Rahma',
+          narration: `Sidi Mu'adh touche la fleur ROUGE. 🌹 Elle brille d'une lumière rouge chaude. ❤️✨
+
+— Le premier trésor s'appelle AL-RAHMA ! 🌹 La MISÉRICORDE !
+
+— C'est quoi, la miséricorde ? demande Wassim.
+
+— C'est être doux et gentil avec tout le monde ! 💝 Quand tu as donné ton biscuit au petit chat... ça, c'était Al-Rahma ! 🐱
+
+— Oh ! Alors je l'ai déjà ?! 😃
+
+— OUI ! 💚 Et chaque fois que tu es gentil, cette fleur grandit un peu plus ! Regarde ! 🌹✨
+
+La fleur rouge pulse et brille ! Wassim sent une chaleur douce dans son cœur. ❤️
+
+— Al-Rahma, c'est comme un manteau chaud pour le cœur des autres ! 💝 Quand tu es gentil, tu réchauffes le cœur de quelqu'un. Et tu sais quoi ? Le Prophète ﷺ était appelé « Rahma lil-'Alamin » — « Miséricorde pour les mondes » ! 🌟
+
+— Rahma lil-'Alamin... répète Wassim doucement. C'est trop beau ! 😍`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'Al-Rahma ! La miséricorde ! 💝 Je veux être doux comme le Prophète ! 🌟',
+              emotion: 'happy',
+            },
+            {
+              characterId: 'sidimuadh',
+              text: 'Chaque acte de gentillesse fait grandir ta fleur rouge ! Continue, Wassim ! 🌹💚',
+              emotion: 'wise',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c4s5',
+          background: 'garden',
+        },
+
+        // --- wt1c4s5: La fleur bleue ---
+        {
+          id: 'wt1c4s5',
+          chapterId: 'wt1c4',
+          title: 'La fleur bleue — As-Sabr',
+          narration: `Maintenant, Sidi Mu'adh touche la fleur BLEUE. 🌸 Une lumière bleue douce l'entoure. 💙✨
+
+— Le deuxième trésor s'appelle AS-SABR ! 🌸 La PATIENCE !
+
+— Ah ! La patience ! Je connais ! dit Wassim. Quand j\'ai attendu Souhayl pour sauver l\'oiseau !
+
+— Exactement ! 💚 Tu as été patient au lieu de paniquer. As-Sabr, c'est attendre calmement quand c\'est difficile. ⏳
+
+La fleur bleue se met à briller. Wassim se sent CALME. Tranquille. Comme l'eau du ruisseau. 💦
+
+— Tu sais, Wassim, la patience est la clé de tout ! 🗝️ Avec la patience, on peut tout supporter. Le Prophète ﷺ a dit : « Celui qui est patient, Allah est avec lui. » 🌟
+
+— Allah est avec moi ?! 😍 dit Wassim.
+
+— OUI ! Quand tu es patient, Allah est TOUJOURS avec toi ! 💚 Pas seulement à tes côtés, mais dans ton cœur ! 💙`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'As-Sabr ! Quand je suis patient, Allah est avec moi ?! 💙😍',
+              emotion: 'happy',
+            },
+            {
+              characterId: 'sidimuadh',
+              text: 'OUI ! Allah aime les patients ! ⏳ Ta fleur bleue est magnifique ! 🌸💚',
+              emotion: 'wise',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c4s6',
+          background: 'garden',
+        },
+
+        // --- wt1c4s6: La fleur verte ---
+        {
+          id: 'wt1c4s6',
+          chapterId: 'wt1c4',
+          title: 'La fleur verte — Al-Shukr',
+          narration: `Sidi Mu'adh touche la fleur VERTE. 🌿 Une lumière verte fraîche l'entoure. 💚✨
+
+— Le troisième trésor s'appelle AL-SHUKR ! 🌿 La GRATITUDE !
+
+— Al-Shukr ! Ça veut dire Alhamdulillah ! dit Wassim tout de suite ! 🌟
+
+— BRAVO ! 💚 Tu te souviens ! Al-Shukr, c\'est dire MERCI à Allah pour TOUT ! Pour les fleurs, le soleil, la pluie, tes parents, tes frères, les animaux... TOUT ! 🌟
+
+La fleur verte grandit et grandit ! 🌿✨ Wassim sent une joie immense dans son cœur ! C'est comme un feu d'artifice de bonheur ! 🎆💛
+
+— Le Coran dit : « Si vous êtes reconnaissants, Je vous donnerai encore plus ! » 📖 Quand tu dis merci à Allah, Il te donne ENCORE PLUS ! 🎁
+
+— VRAI ?! Mais alors, je dois dire Alhamdulillah TOUT LE TEMPS ! dit Wassim.
+
+— Exactement, petit héros ! 💚🌟`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'Al-Shukr ! Alhamdulillah pour TOUT ! 🌿💛 Je vais dire merci tout le temps !',
+              emotion: 'happy',
+            },
+            {
+              characterId: 'sidimuadh',
+              text: 'Quand tu es reconnaissant, Allah te donne encore plus ! C\'est Sa promesse ! 🎁💚',
+              emotion: 'wise',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c4s7',
+          background: 'garden',
+        },
+
+        // --- wt1c4s7: La fleur dorée ---
+        {
+          id: 'wt1c4s7',
+          chapterId: 'wt1c4',
+          title: 'La fleur dorée — Al-Ikhlas',
+          narration: `Sidi Mu'adh touche la fleur DORÉE. 🌻 Une lumière dorée éblouissante l'entoure ! ✨💛
+
+— Le quatrième trésor s'appelle AL-IKHLAS ! 🌻 La SINCÉRITÉ !
+
+— La sincérité ? C'est quoi ? demande Wassim en plissant les yeux. 🤔
+
+— C'est faire les bonnes choses UNIQUEMENT pour Allah ! 💎 Pas pour que les gens disent « bravo ». Pas pour avoir des cadeaux. Mais parce que tu AIME faire le bien pour Allah ! 🌟
+
+Wassim réfléchit... 🤔
+
+— C'est comme quand j\'aide le chat... je ne le fais pas pour qu\'on me dise merci. Je le fais parce que j\'aime le chat et qu\'Allah veut qu\'on soit gentil ! 🐱💛
+
+— PARFAIT, Wassim ! 🎉 Tu as compris ! Quand tu fais quelque chose de bien uniquement pour Allah, c\'est le plus beau cadeau que tu puisses Lui faire ! 🎁✨
+
+La fleur dorée brille comme un petit soleil ! ☀️ Wassim ferme les yeux et sent la chaleur dans son cœur. 💛`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'Al-Ikhlas ! Faire le bien juste pour Allah ! 💎 Pas pour les compliments !',
+              emotion: 'determined',
+            },
+            {
+              characterId: 'sidimuadh',
+              text: 'C\'est le trésor le plus pur, Wassim ! Quand ton cœur est sincère, Allah le voit ! 💛🌟',
+              emotion: 'wise',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c4s8',
+          background: 'garden',
+        },
+
+        // --- wt1c4s8: La fleur blanche ---
+        {
+          id: 'wt1c4s8',
+          chapterId: 'wt1c4',
+          title: 'La fleur blanche — At-Tawakkul',
+          narration: `Enfin, Sidi Mu'adh touche la dernière fleur. La fleur BLANCHE. 🤍 Une lumière blanche pure et douce l'entoure. ✨🤍
+
+— Et le dernier trésor... le plus important... s'appelle AT-TAWAKKUL ! 🤍 La CONFIANCE EN ALLAH !
+
+— La confiance en Allah ? 🤲 demande Wassim tout doucement.
+
+— OUI ! C\'est savoir que Allah s\'occupe de toi. TOUJOURS. 💚 Quand tu es triste, Allah est là. Quand tu as peur, Allah est là. Quand tu ne sais pas quoi faire, Allah a déjà la réponse ! 🌟
+
+Wassim sent quelque chose de spécial. Une PAIX immense. Comme un gros câlin venu du ciel. 🤲☁️
+
+— Tu te souviens du petit oiseau tombé ? Tu avais peur pour lui. Mais tu as FAIT CONFIANCE. Tu as cherché de l\'aide. Et Allah a tout arrangé ! 🐦💛
+
+— C\'est vrai ! dit Wassim avec des yeux brillants. Allah s\'est occupé de l\'oiseau ! 🐦✨
+
+— AT-TAWAKKUL, c\'est être comme un petit oiseau qui quitte son nid pour la première fois. Il a peur... mais il sait qu\'Allah tiendra ses ailes ! 🕊️💚`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'At-Tawakkul ! Confiance en Allah ! 🤲 Même quand j\'ai peur, Allah est là ! 🤍',
+              emotion: 'happy',
+            },
+            {
+              characterId: 'sidimuadh',
+              text: 'C\'est le plus beau trésor, Wassim ! Confie-toi à Allah et Il te guidera ! 🕊️💚🌟',
+              emotion: 'wise',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c4s9',
+          background: 'garden',
+          lesson: {
+            title: 'At-Tawakkul — La Confiance en Allah',
+            content:
+              'At-Tawakkul, c\'est confier tout à Allah ! 🤲 Quand tu es triste, peur, ou perdu, Allah est TOUJOURS avec toi ! 🌟 Le Prophète ﷺ a dit : « Si vous vous fiez à Allah comme il se doit, Il vous donnera votre nourriture comme Il la donne aux oiseaux : ils partent le ventre vide et reviennent le ventre plein ! » 🕊️💚',
+            quote: 'وَمَنْ يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ',
+            source: 'Coran, Sourate At-Talaq (65:3)',
+          },
+        },
+
+        // --- wt1c4s9: Le jardin en fête ---
+        {
+          id: 'wt1c4s9',
+          chapterId: 'wt1c4',
+          title: 'Le jardin en fête',
+          narration: `Quand Sidi Mu'adh a fini de parler, quelque chose de MAGNIFIQUE arrive ! ✨🌸
+
+Les CINQ FLEURS commencent à briller ENSEMBLE ! 🌹💙🌿🌻🤍 Elles éclairent tout le jardin ! Les lumières dorées volent partout ! Les papillons dansent ! 🦋 Les oiseaux chantent ! 🐦 La terre tremble doucement ! ✨
+
+Et puis... un ARC-EN-CIEL apparaît au-dessus de l'arbre doré ! 🌈 Non pas un arc-en-ciel normal... un arc-en-ciel de LUMIÈRE ! Avec les 5 couleurs des 5 trésors ! 🌹💙🌿🌻🤍
+
+Le petit chat fait le plus beau « Miiiaou ! » de sa vie ! 🐱✨
+
+Wassim est bouche bée. 😮 Il n'a jamais rien vu d'aussi beau ! Ses yeux brillent de larmes de joie ! 😢💛
+
+— Sidi Mu'adh... c'est le plus beau moment de ma vie ! chuchote-t-il.
+
+— Non, Wassim. Le plus beau moment, c\'est celui qui vient. 🌟 Ce n\'est que le début de ton aventure ! 💚
+
+Wassim sourit. Son cœur est plein. VRAIMENT plein. Comme une jarre de miel qui déborde ! 🍯💛`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'C\'est MAGIQUE ! ✨🌈 Les cinq fleurs brillent ! 🌹💙🌿🌻🤍',
+              emotion: 'happy',
+            },
+            {
+              characterId: 'sidimuadh',
+              text: 'Ton cœur est un jardin, Wassim ! 🌸 Cultive ces cinq trésors et il fleurira pour toujours ! 💚',
+              emotion: 'wise',
+            },
+          ],
+          choices: [],
+          nextSceneId: 'wt1c4s10',
+          background: 'garden',
+        },
+
+        // --- wt1c4s10: Le serment de Wassim ---
+        {
+          id: 'wt1c4s10',
+          chapterId: 'wt1c4',
+          title: 'Le serment de Wassim',
+          narration: `Le soir tombe doucement. 🌅 Le soleil est orange et rose. Le jardin devient calme. Les petites lumières dorées s'endorment une à une. ✨💤
+
+Sidi Mu'adh prend les mains de Wassim dans les siennes. 🤲💚
+
+— Wassim, veux-tu faire une promesse ? demande-t-il doucement.
+
+— Oui, Sidi Mu'adh ! Je veux ! 💛
+
+— Promets-moi de garder ces cinq trésors dans ton cœur :
+
+🌹 Al-Rahma — être gentil avec tout le monde 💝
+💙 As-Sabr — être patient quand c'est difficile ⏳
+🌿 Al-Shukr — dire Alhamdulillah pour tout 🌟
+🌻 Al-Ikhlas — faire le bien seulement pour Allah 💎
+🤍 At-Tawakkul — faire confiance en Allah toujours 🤲
+
+Wassim serre les mains de Sidi Mu'adh très fort. 💪
+
+— JE TE LE PROMETS, Sidi Mu'adh ! 🌟 Je garderai ces cinq trésors dans mon cœur pour TOUJOURS ! 💛
+
+Sidi Mu'adh sourit. Ses yeux verts brillent de fierté. 💚
+
+— Je sais que tu le feras, petit héros. 🌟 Maintenant, rentre chez toi. Ta maman t'attend.
+
+Wassim court vers la maison, le cœur débordant de joie ! 🏃💛 Le petit chat court à côté de lui. 🐱✨
+
+Il a les cinq trésors du cœur ! Il est le plus riche des enfants ! 🎉💎
+
+FIN DU TOME 1 ! 🌟
+Bravo, Wassim ! Tu as appris les plus beaux secrets du cœur ! 💛🤲✨
+
+Mais attention... ton aventure ne fait que COMMENCER ! 📖🌈`,
+          dialogues: [
+            {
+              characterId: 'wassim',
+              text: 'Je le promets ! Al-Rahma ! As-Sabr ! Al-Shukr ! Al-Ikhlas ! At-Tawakkul ! 🌹💙🌿🌻🤲',
+              emotion: 'determined',
+            },
+            {
+              characterId: 'sidimuadh',
+              text: 'Mashallah, Wassim ! Tu es un enfant extraordinaire ! 🌟 Que Allah te protège toujours ! 💚🤲',
+              emotion: 'wise',
+            },
+          ],
+          choices: [],
+          background: 'garden',
+          isEnding: true,
+          earnedBadgeId: 'tawakkul',
+          lesson: {
+            title: 'Les Cinq Trésors du Cœur 💎',
+            content:
+              'Wassim a découvert les 5 trésors les plus précieux du monde ! 💎\n\n🌹 Al-Rahma — La Miséricorde : être gentil 💝\n💙 As-Sabr — La Patience : attendre calmement ⏳\n🌿 Al-Shukr — La Gratitude : dire Alhamdulillah 🌟\n🌻 Al-Ikhlas — La Sincérité : faire le bien pour Allah 💎\n🤍 At-Tawakkul — La Confiance : se confier à Allah 🤲\n\nCes 5 trésors sont dans TON cœur aussi ! Cultive-les chaque jour et tu seras le plus riche des enfants ! 🌟💛',
+            quote: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا',
+            source: 'Coran, Sourate Ash-Sharh (94:6)',
+          },
+        },
+      ],
+      lessons: [],
+    },
   ],
-  monsters: ['Al-Ghafla — L\'oubli', 'Al-Kufr bi al-Ni\'ma — L\'ingratitude'],
-  spiritualLesson: 'Rien n\'est beau sans Allah ! 🌟 Chaque fleur, chaque oiseau, chaque goutte d\'eau est un cadeau d\'Allah. Dis toujours : ALHAMDULILLAH ! 🤲💛',
+  monsters: ['Al-Ghafla — L\'oubli', 'Al-Kufr bi al-Ni\'ma — L\'ingratitude', 'Al-\'Ajl — La précipitation', 'Al-Riyaa — L\'ostentation'],
+  spiritualLesson: 'Ton cœur est un jardin ! 🌸 Cultive les cinq trésors : Al-Rahma (la gentillesse), As-Sabr (la patience), Al-Shukr (la gratitude), Al-Ikhlas (la sincérité), et At-Tawakkul (la confiance en Allah) ! 💎🌹💙🌿🌻🤲',
 };
