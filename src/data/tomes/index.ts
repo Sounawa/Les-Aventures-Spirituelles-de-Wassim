@@ -1,7 +1,8 @@
 import type { Tome } from '@/types/story';
 import { tome1_wassim } from './tome1_wassim';
+import { tome2_wassim } from './tome2_wassim';
 
-export const tomes: Tome[] = [tome1_wassim];
+export const tomes: Tome[] = [tome1_wassim, tome2_wassim];
 
 export function getTome(id: string): Tome | undefined {
   return tomes.find(t => t.id === id);
